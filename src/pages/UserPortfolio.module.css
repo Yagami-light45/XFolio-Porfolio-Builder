@@ -1,0 +1,549 @@
+/* UserPortfolio.module.css */
+
+
+.html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('../../public/bgblur.png');
+    background-color: #f4f4f4;
+    background-attachment: fixed;
+    scroll-behavior: smooth;
+    color: #333;
+    transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
+
+.container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+#about, #skills, #experience, #projects, #contact, #education {
+    scroll-margin-top: 7rem; 
+}
+
+.educationItem { 
+    padding: 2rem ;
+    margin-bottom: 1.5rem;
+}
+
+#education h2 {
+    padding-top: 1.5rem;
+}
+
+.educationItem h3 { 
+    margin: 0 0 0.3rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0056b3;
+}
+
+/* Navbar Styles */
+.glassNavbar { 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 0.8rem 0;
+  transition: background-color 0.8s ease, border-color 0.8s ease;
+}
+
+.navbarContainer { 
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  transition: color 0.8s ease;
+  flex-shrink: 0;
+}
+
+.navLinks { 
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.5vw;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.navLinks li a { 
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navLinks li a:hover { 
+  color: #007BFF;
+}
+
+.navbarButtons { 
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; 
+  flex-shrink: 0;
+}
+
+/* Download Options Button and Menu */
+.downloadOptions { 
+  position: relative;
+}
+
+.downloadBtn { 
+  background-color: #e0e0e0;
+  border: 2px solid #333;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.downloadBtn:hover { 
+  background-color: #d0d0d0;
+}
+
+.downloadMenu { 
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  min-width: 200px;
+}
+
+.downloadMenu a { 
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.downloadMenu a:hover { 
+  background-color: #f0f0f0;
+}
+
+.downloadOptions.active .downloadMenu { 
+  display: block;
+}
+
+/* Dark Mode Toggle Button */
+.darkModeToggle { 
+    position: relative;
+    background-color: #e0e0e0;
+    border: 2px solid #333;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+.darkModeToggle:hover { 
+    background-color: #d0d0d0;
+}
+
+.darkModeToggle .sunIcon, 
+.darkModeToggle .moonIcon { 
+    font-size: 1.5rem;
+    position: absolute;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.sunIcon { 
+    color: #f39c12; 
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.moonIcon { 
+    color: #8e44ad; 
+    transform: translateY(150%); 
+    opacity: 0;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: color 0.8s ease;
+}
+
+/* Profile Section */
+.profile {
+    text-align: center;
+    margin-top: 6rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;;
+}
+
+.profile img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: border-color 0.8s ease;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 1.2rem;
+    transition: color 0.8s ease;
+}
+
+/* Section Styles */
+section {
+    margin-bottom: 2rem;
+    padding: 0.75rem 2rem 2rem 2rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: background-color 0.8s ease, border-color 0.8s ease;
+}
+
+section h2 {
+    border-bottom: 2px solid #007BFF;
+    transition: border-color 0.8s ease;
+}
+
+/* Skills Section */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0;
+}
+
+.skills li {
+    list-style: none;
+    background: #0070f3;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: background-color 0.8s ease;
+}
+
+/* Experience, Project, and Education Items */
+.experienceItem h3, .projectItem h3 , .educationItem h3 { 
+    transition: color 0.8s ease;
+}
+.educationItem, .projectItem, .experienceItem { 
+    margin-bottom: 1.5rem;
+}
+
+.duration {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 0.5rem;
+    transition: color 0.8s ease;
+}
+
+.projectItem a { 
+    color: #007BFF;
+    transition: color 0.8s ease;
+}
+
+.techStack { 
+    color: #555;
+    transition: color 0.8s ease;
+}
+
+/* Footer */
+.footer {
+  margin-top : 5rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    transition: background-color 0.8s ease, border-color 0.8s ease, color 0.8s ease;
+}
+
+.footerContent { 
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.footerLinks { 
+    margin: 0.5rem 0;
+}
+
+.footerLinks a { 
+    margin: 0 1rem;
+    font-size: 1.4rem;
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footerLinks a:hover { 
+    color: #007BFF;
+    transform: scale(1.1);
+}
+
+.footerNote { 
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+    transition: color 0.8s ease;
+}
+
+/* Dark Mode Styles */
+.darkMode { 
+    background-color: #0f1624;
+    background-image: url('../../public/bgblur.png');
+    color: #ffffff;
+}
+
+.darkMode .glassNavbar { 
+    background-color: rgba(10, 20, 40, 0.6);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.darkMode .logo, 
+.darkMode .navLinks li a, 
+.darkMode .hamburger, 
+.darkMode .footerLinks a { 
+    color: #ffffff;
+}
+
+.darkMode .navLinks li a:hover, 
+.darkMode .footerLinks a:hover { 
+    color: #1e90ff;
+}
+
+.darkMode .darkModeToggle { 
+    background-color: #2c3e50;
+    border-color: #ffffff;
+}
+
+.darkMode .darkModeToggle:hover { 
+    background-color: #34495e;
+}
+
+.darkMode .downloadBtn { 
+  background-color: #2c3e50;
+  border-color: #ffffff;
+}
+
+.darkMode .downloadBtn:hover { 
+  background-color: #384c5f;
+}
+
+.darkMode .downloadMenu {
+  background-color: #1a1a1a;
+  border-color: #444;
+}
+
+.darkMode .downloadMenu a { 
+  color: #ffffff;
+}
+
+.darkMode .downloadMenu a:hover { 
+  background-color: #2a2a2a;
+}
+
+.darkMode .sunIcon {
+    transform: translateY(-150%);
+    opacity: 0;
+}
+
+.darkMode .moonIcon { 
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.darkMode .profile img {
+    border-color: #333;
+}
+
+.darkMode .subtitle {
+    color: #cccccc;
+}
+
+.darkMode section {
+    background-color: rgba(20, 30, 50, 0.5);
+    border: 1px solid #2c3e50;
+}
+
+.darkMode section h2 {
+    border-color: #1e90ff;
+}
+
+.darkMode .skills li {
+    background: #1e90ff;
+}
+
+.darkMode .experienceItem h3, 
+.darkMode .projectItem h3,  
+.darkMode .projectItem a,  
+.darkMode .educationItem h3 { 
+    color: #1e90ff;
+}
+
+.darkMode .duration,
+.darkMode .techStack, 
+.darkMode .footerNote { 
+    color: #aaaaaa;
+}
+
+.darkMode .footer {
+    background: rgba(10, 20, 40, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 2rem;
+}
+/* Responsive Styles */
+@media(max-width: 854px) {
+    .navbarContainer { 
+        padding: 0 0.75rem;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .navLinks { 
+        gap: 1rem;
+    }
+
+    .navLinks li a { 
+        font-size: 0.9rem;
+    }
+
+    .navbarButtons { 
+        gap: 1rem;
+    }
+
+    .downloadBtn, .darkModeToggle { 
+        width: 40px;
+        height: 40px;
+    }
+
+    .downloadBtn svg, .darkModeToggle svg { /* Targeting FontAwesomeIcon */
+        font-size: 1.2rem;
+    }
+    .footer{
+        margin-top: 1rem;
+
+    }
+
+}
+
+@media(max-width: 768px) {
+    .navLinks { 
+        display: none;
+        
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.95);
+        position: absolute;
+        top: 68px;
+        left: 0;
+        padding: 0.75rem 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: background-color 0.8s ease;
+    }
+
+    
+    
+    .navLinks.active { 
+        display: flex;
+    }
+
+    .navLinks li { 
+        text-align: center;
+        padding: 0.5rem 0;
+    }
+
+    .hamburger {
+        display: block;
+        position: static;
+        transform: none;
+    }
+
+    .darkMode .navLinks { 
+        background-color: rgba(10, 20, 40, 0.95);
+    }
+    .footer{
+        margin-top: 0.5rem;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .profile h1 { font-size: 1.8rem; } 
+    .subtitle { font-size: 1rem; } 
+    .container { padding: 0.75rem; }
+    section { padding: 1rem; }
+    .profile img {
+        width: 100px;
+        height: 100px;
+        margin-top: 1rem;
+    }
+
+    .navButton { 
+        font-size: 1.2rem;
+    }
+    .glassNavbar{ 
+        height : 80px;
+    }
+    .footer{
+        margin-top: 0rem;
+
+    }
+    .navbarContainer{
+        margin-top: 1rem;
+    }
+    section h2 {
+        font-size: 1.5rem; 
+        margin-bottom: 15px;
+    }
+
+}
