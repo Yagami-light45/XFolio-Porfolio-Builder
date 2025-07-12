@@ -1,0 +1,128 @@
+/* PortfolioFooter.module.css */
+
+.footer {
+    padding: 1.7rem;
+    margin-top: 2rem; /* Adjusted margin-top to match original intent */
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    transition: background-color 0.8s ease, border-color 0.8s ease, color 0.8s ease;
+    color: #333; /* Ensure default text color */
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.footerLinks {
+    margin: 1rem 0;
+}
+
+.footerLinks a {
+    margin: 0rem 1.5rem;
+    font-size: 1.4rem;
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footerLinks a:hover {
+    color: #007BFF;
+    transform: scale(1.1);
+}
+
+.footerNote {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+    transition: color 0.8s ease;
+}
+
+.aboutLink {
+  color: #007BFF; /* Specific color for the About link */
+  text-decoration: none;
+  font-weight: 500; /* Slightly lighter weight */
+  padding: 0.25rem 0.5rem; /* Add some padding */
+  border-radius: 0.25rem; /* Rounded corners */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+.aboutLink:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Subtle background on hover */
+  color: #0056b3; /* Slightly darker blue on hover */
+  transform: translateY(-1px); /* Subtle lift effect */
+}
+
+/* Dark Mode Styles for Footer */
+.footer.darkMode {
+    background: rgba(15, 23, 42, 0.85); /* Darker, more sophisticated background */
+    border-top: 1px solid rgba(148, 163, 184, 0.2); /* Subtle border */
+    color: #e2e8f0; /* Softer white for better readability */
+    transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
+
+.footer.darkMode .footerLinks a {
+    color: #cbd5e1; /* Muted light color for icons */
+    transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
+
+.footer.darkMode .footerLinks a:hover {
+    color: #60a5fa; /* Modern blue for hover */
+    transform: scale(1.15); /* Slightly more pronounced hover effect */
+    transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
+
+.footer.darkMode .footerNote {
+    color: #94a3b8; /* Balanced gray for secondary text */
+}
+
+.footer.darkMode .aboutLink {
+    color: #60a5fa; /* Consistent blue for about link */
+    background-color: transparent; /* Ensure transparent background */
+}
+
+.footer.darkMode .aboutLink:hover {
+    color: #3b82f6; /* Deeper blue on hover */
+    background-color: rgba(96, 165, 250, 0.15); /* Subtle blue background on hover */
+    transform: translateY(-1px); /* Maintain lift effect */
+}
+
+/* Alternative dark mode with gradient background */
+.footer.darkMode::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: -1;
+}
+
+.footer {
+    position: relative;
+}
+
+/* Responsive Styles for Footer */
+@media(max-width: 854px) {
+    .footer{
+        margin-top: 1rem;
+    }
+}
+
+@media(max-width: 768px) {
+    .footer{
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer{
+        margin-top: 0rem;
+    }
+}

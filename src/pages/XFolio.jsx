@@ -23,8 +23,8 @@ const XFolio = () => {
           <nav className={`${styles.navbarNav} ${isMenuOpen ? styles.show : ''}`}>
             <a href="#features" className={styles.navA}>Features</a>
             <a href="#how" className={styles.navA}>How It Works</a>
-            <a href="#contact" className={styles.navA}>About us</a>
-            <a href="https://github.com/Yagami-light45/Instant-Portfolio-Builder-Web-App" target="_blank" rel="noopener noreferrer" className={styles.navA}>GitHub</a>
+            <Link to="/about" className={styles.navA}>About us</Link>
+            <a href="https://github.com/Yagami-light45/XFolio-Porfolio-Builder" target="_blank" rel="noopener noreferrer" className={styles.navA}>GitHub</a>
             <Link to="/builder" className={styles.startBtn}>Start Building</Link>
           </nav>
         </div>
@@ -77,12 +77,12 @@ const XFolio = () => {
       <footer className={styles.footer}>
         <div className={styles.footerLinks}>
           <a href="#how" className={styles.footerA}>How It Works</a>
-          <a href="https://github.com/Yagami-light45/Instant-Portfolio-Builder-Web-App" target="_blank" rel="noopener noreferrer" className={styles.footerA}>GitHub</a>
-          <a href="#contact" className={styles.footerA}>About us</a>
+          <a href="https://github.com/Yagami-light45/XFolio-Porfolio-Builder" target="_blank" rel="noopener noreferrer" className={styles.footerA}>GitHub</a>
+          <Link to="/about" className={styles.footerA}>About us</Link>
         </div>
         <p className={styles.footerP}>
           © 2025 Instant Portfolio Builder. Built by{' '}
-          <a href="https://github.com/Yagami-light45/Instant-Portfolio-Builder-Web-App" target="_blank" rel="noopener noreferrer" className={styles.footerA}>
+          <a href="https://github.com/Yagami-light45/XFolio-Porfolio-Builder" target="_blank" rel="noopener noreferrer" className={styles.footerA}>
             Team ⚡XFolio
           </a>.
         </p>

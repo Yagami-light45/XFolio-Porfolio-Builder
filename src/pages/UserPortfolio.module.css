@@ -16,6 +16,9 @@ body {
     color: #333;
     transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
 }
+.root {
+  transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
 
 .container {
     padding: 2rem;
@@ -32,13 +35,20 @@ p {
     scroll-margin-top: 7rem; 
 }
 
+.contact p{
+    margin-top: 1rem;
+}
+.about p{
+    margin-top: 1rem;
+}
+
 .educationItem { 
-    padding: 2rem ;
+    
     margin-bottom: 1.5rem;
 }
 
 #education h2 {
-    padding-top: 1.5rem;
+    padding-top: 1rem;
 }
 
 .educationItem h3 { 
@@ -61,6 +71,7 @@ p {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding: 0.8rem 0;
   transition: background-color 0.8s ease, border-color 0.8s ease;
+  
 }
 
 .navbarContainer { 
@@ -69,7 +80,7 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0.5rem 2rem;
 }
 
 .logo {
@@ -257,6 +268,7 @@ section h2 {
     flex-wrap: wrap;
     gap: 0.75rem;
     padding: 0;
+    margin-top: 0.9rem;
 }
 
 .skills li {
@@ -269,12 +281,13 @@ section h2 {
     transition: background-color 0.8s ease;
 }
 
-/* Experience, Project, and Education Items */
+
 .experienceItem h3, .projectItem h3 , .educationItem h3 { 
     transition: color 0.8s ease;
 }
 .educationItem, .projectItem, .experienceItem { 
     margin-bottom: 1.5rem;
+    margin-top : 0.9rem;
 }
 
 .duration {
@@ -296,6 +309,7 @@ section h2 {
 
 /* Footer */
 .footer {
+    padding: 1rem;
   margin-top : 5rem;
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
@@ -312,11 +326,11 @@ section h2 {
 }
 
 .footerLinks { 
-    margin: 0.5rem 0;
+    margin: 1rem 0;
 }
 
 .footerLinks a { 
-    margin: 0 1rem;
+    margin: 0rem 1.5rem;
     font-size: 1.4rem;
     color: #333;
     transition: color 0.3s ease, transform 0.3s ease;
@@ -335,10 +349,11 @@ section h2 {
 }
 
 /* Dark Mode Styles */
-.darkMode { 
-    background-color: #0f1624;
-    background-image: url('../../public/bgblur.png');
-    color: #ffffff;
+.darkMode {
+  background-color: #0f1624;
+  background-image: url('../../public/bgblur.png');
+  color: #ffffff;
+  transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
 }
 
 .darkMode .glassNavbar { 
@@ -436,7 +451,7 @@ section h2 {
 .darkMode .footer {
     background: rgba(10, 20, 40, 0.6);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 /* Responsive Styles */
 @media(max-width: 854px) {
@@ -533,6 +548,7 @@ section h2 {
     }
     .glassNavbar{ 
         height : 80px;
+
     }
     .footer{
         margin-top: 0rem;

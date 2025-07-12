@@ -1,6 +1,9 @@
+// BuilderPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./BuilderPage.module.css";
+import PortfolioFooter from './PortfolioFooter';
+import { useAlert, AlertContainer } from './Alert';
 
 const BuilderPage = () => {
   const [formData, setFormData] = useState({
@@ -37,6 +40,9 @@ const BuilderPage = () => {
   const [navOpen, setNavOpen] = useState(false);
   const navigate = useNavigate();
 
+  // Initialize alert system
+  const { alerts, hideAlert, success, error, warning, info } = useAlert();
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('lightMode') === 'true';
     setIsLightMode(savedTheme);
@@ -72,13 +78,13 @@ const BuilderPage = () => {
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Please select a valid image file.");
+      error("Invalid File", "Please select a valid image file.");
       event.target.value = "";
       return;
     }
 
     if (file.size > 3 * 1024 * 1024) {
-      alert("File size is too large. Please select an image smaller than 3MB.");
+      warning("File Too Large", "Please select an image smaller than 3MB.");
       event.target.value = "";
       return;
     }
@@ -86,9 +92,10 @@ const BuilderPage = () => {
     const reader = new FileReader();
     reader.onload = (e) => {
       setFormData(prev => ({ ...prev, image: e.target.result }));
+      success("Image Uploaded", "Your profile image has been uploaded successfully.");
     };
     reader.onerror = () => {
-      alert("Error reading file. Please try again.");
+      error("Upload Failed", "Error reading file. Please try again.");
     };
     reader.readAsDataURL(file);
   };
@@ -101,7 +108,7 @@ const BuilderPage = () => {
     if (skills.length > 1) {
       setSkills(prev => prev.filter((_, i) => i !== index));
     } else {
-      alert("At least one skill field must remain.");
+      info("Minimum Required", "At least one skill field must remain.");
     }
   };
 
@@ -122,7 +129,7 @@ const BuilderPage = () => {
     if (experiences.length > 1) {
       setExperiences(prev => prev.filter((_, i) => i !== index));
     } else {
-      alert("At least one experience field must remain.");
+      info("Minimum Required", "At least one experience field must remain.");
     }
   };
 
@@ -145,7 +152,7 @@ const BuilderPage = () => {
     if (projects.length > 1) {
       setProjects(prev => prev.filter((_, i) => i !== index));
     } else {
-      alert("At least one project field must remain.");
+      info("Minimum Required", "At least one project field must remain.");
     }
   };
 
@@ -168,7 +175,7 @@ const BuilderPage = () => {
     if (education.length > 1) {
       setEducation(prev => prev.filter((_, i) => i !== index));
     } else {
-      alert("At least one education field must remain.");
+      info("Minimum Required", "At least one education field must remain.");
     }
   };
 
@@ -185,7 +192,10 @@ const BuilderPage = () => {
   };
 
   const resetForm = () => {
-    if (!window.confirm("Are you sure you want to reset all data? This action cannot be undone.")) {
+    // Create a custom confirmation dialog
+    const confirmReset = window.confirm("Are you sure you want to reset all data? This action cannot be undone.");
+    
+    if (!confirmReset) {
       return;
     }
 
@@ -217,13 +227,15 @@ const BuilderPage = () => {
       duration: '',
       description: ''
     }]);
+
+    success("Form Reset", "All data has been cleared successfully.");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (!formData.name.trim()) {
-      alert("Please enter your name.");
+      error("Required Field", "Please enter your name to continue.");
       return;
     }
 
@@ -259,7 +271,12 @@ const BuilderPage = () => {
     console.log('Portfolio data:', userData);
     localStorage.setItem('portfolioData', JSON.stringify(userData));
     
-    navigate('/portfolio');
+    success("Portfolio Generated", "Your portfolio has been created successfully!");
+    
+    // Navigate after a short delay to show the success message
+    setTimeout(() => {
+      navigate('/portfolio');
+    }, 1500);
   };
 
   return (
@@ -675,7 +692,12 @@ const BuilderPage = () => {
             </div>
           </div>
         </div>
+        
       </div>
+      <PortfolioFooter isDarkMode={!isLightMode}/> 
+      
+      {/* Alert Container */}
+      <AlertContainer alerts={alerts} onHideAlert={hideAlert} />
     </div>
   );
 };
