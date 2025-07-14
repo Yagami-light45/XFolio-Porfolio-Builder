@@ -307,46 +307,6 @@ section h2 {
     transition: color 0.8s ease;
 }
 
-/* Footer */
-.footer {
-    padding: 1rem;
-  margin-top : 5rem;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    text-align: center;
-    transition: background-color 0.8s ease, border-color 0.8s ease, color 0.8s ease;
-}
-
-.footerContent { 
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0;
-}
-
-.footerLinks { 
-    margin: 1rem 0;
-}
-
-.footerLinks a { 
-    margin: 0rem 1.5rem;
-    font-size: 1.4rem;
-    color: #333;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.footerLinks a:hover { 
-    color: #007BFF;
-    transform: scale(1.1);
-}
-
-.footerNote { 
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: #555;
-    transition: color 0.8s ease;
-}
 
 /* Dark Mode Styles */
 .darkMode {

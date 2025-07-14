@@ -12,7 +12,7 @@ const PortfolioFooter = ({ isDarkMode }) => { // Destructure isDarkMode from pro
         <p>Crafted with ❤️ by the <strong>XFolio</strong> Team</p>
         
         <div className={styles.footerLinks}>
-          <a href="me240003034@iiti.ac.in" aria-label="Email">
+          <a href="mailto:me240003034@iiti.ac.in" aria-label="Email">
             <FontAwesomeIcon icon={faEnvelope} />
           </a>
           <a href="https://github.com/Yagami-light45" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
