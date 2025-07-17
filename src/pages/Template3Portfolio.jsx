@@ -3,7 +3,7 @@ import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
 import { generateStaticBundle } from '../utils/staticBundleGenerator';
 import { faSun, faMoon, faDownload, faBars, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import styles from './Template3Portfolio.module.css'; // Your CSS module
+import styles from './Template3Portfolio.module.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
@@ -127,8 +127,7 @@ const Template3Portfolio = () => {
   }, [username]);
 
   useEffect(() => {
-    // This logic assumes your dark mode class is applied to the root element in the JSX
-    // and the CSS handles the theme switching.
+    
     if (isDarkMode) {
       document.body.classList.add('template3DarkMode');
     } else {
@@ -148,7 +147,7 @@ const Template3Portfolio = () => {
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
       window.scrollTo({
-        top: targetElement.offsetTop - 70, // Adjust for fixed header height
+        top: targetElement.offsetTop - 70, 
         behavior: "smooth"
       });
     }

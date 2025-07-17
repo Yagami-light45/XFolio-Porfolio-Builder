@@ -1,5 +1,5 @@
 /* BuilderPage.module.css */
-/* All styles are scoped to prevent global styling conflicts */
+
 
 /* Main container and layout */
 .builderPageWrapper {
@@ -9,7 +9,6 @@
   color: #E0E0E0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centering the navbar and other content */
   min-height: 100vh;
   max-width: 2000px;
   scroll-behavior: smooth;
@@ -39,7 +38,7 @@
 /* Navigation styles */
 .builderPageNavbar {
   width: 95%;
-  margin-top: 0.75rem;
+  margin: 0.75rem auto 0;
   background: rgba(20, 20, 40, 0.7);
   padding: 1.5rem;
   display: flex;

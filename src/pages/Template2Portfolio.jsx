@@ -17,7 +17,7 @@ const Template2Portfolio = () => {
   const [isMobile, setIsMobile] = useState(false);
   const sidebarRef = useRef(null);
 
-  // Check if device is mobile
+  // device is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -29,19 +29,29 @@ const Template2Portfolio = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Close sidebar when clicking outside on mobile
+  // Close sidebar function
+  const closeSidebar = () => {
+    setIsNavOpen(false);
+  };
+
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isMobile && isNavOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        setIsNavOpen(false);
+        closeSidebar();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   }, [isMobile, isNavOpen]);
 
-  // Prevent body scroll when mobile menu is open
+
   useEffect(() => {
     if (isMobile) {
       document.body.style.overflow = isNavOpen ? 'hidden' : 'unset';
@@ -175,7 +185,7 @@ const Template2Portfolio = () => {
 
   const handleNavClick = (event) => {
     event.preventDefault();
-    setIsNavOpen(false);
+    closeSidebar(); // Close sidebar first
     const targetId = event.currentTarget.getAttribute('href');
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
@@ -200,15 +210,29 @@ const Template2Portfolio = () => {
     } else if (type === 'bundle') {
       generateStaticBundle(portfolioData);
     }
-    // Close mobile menu after download
+ 
     if (isMobile) {
-      setIsNavOpen(false);
+      closeSidebar();
     }
   };
 
   const handleImageError = (e) => {
     console.warn('Image failed to load, using placeholder');
     e.target.src = '/placeholder.png';
+  };
+
+ 
+  const handleCloseButton = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Close button clicked'); 
+    closeSidebar();
+  };
+
+  const handleOverlayClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeSidebar();
   };
 
   if (!portfolioData) {
@@ -224,7 +248,7 @@ const Template2Portfolio = () => {
 
   return (
     <div className={`${styles.template2PortfolioRoot} ${isDarkMode ? styles.template2DarkMode : ''}`}>
-      {/* Mobile Header */}
+      
       {isMobile && (
         <header className={styles.template2MobileHeader}>
           <div className={styles.template2MobileHeaderContent}>
@@ -251,9 +275,13 @@ const Template2Portfolio = () => {
         </header>
       )}
 
-      {/* Mobile Overlay */}
+     
       {isMobile && isNavOpen && (
-        <div className={styles.template2MobileOverlay} onClick={() => setIsNavOpen(false)} />
+        <div 
+          className={styles.template2MobileOverlay} 
+          onClick={handleOverlayClick}
+          onTouchEnd={handleOverlayClick}
+        />
       )}
 
       <div className={styles.contentWrapper}>
@@ -263,12 +291,14 @@ const Template2Portfolio = () => {
             isMobile && isNavOpen ? styles.template2MobileSidebarOpen : ''
           }`}
         >
-          {/* Close button for mobile */}
+          
           {isMobile && (
             <button 
               className={styles.template2MobileCloseButton}
-              onClick={() => setIsNavOpen(false)}
+              onClick={handleCloseButton}
+              onTouchEnd={handleCloseButton}
               aria-label="Close menu"
+              type="button"
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
