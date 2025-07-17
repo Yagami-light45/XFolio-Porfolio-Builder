@@ -1,14 +1,14 @@
 // BuilderPage.jsx
-// build a portfolio with a form and live preview.
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./BuilderPage.module.css";
 import PortfolioFooter from './PortfolioFooter';
 import { useAlert, AlertContainer } from './Alert';
 
+
 // Reusable component for creating labeled inputs or textareas in the form.
 const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = false, required = false, ...props }) => (
-  <div className={styles.formGroup}>
+  <div className={styles.builderPageFormGroup}>
     <label htmlFor={id}>{label}</label>
     {isTextArea ? (
       <textarea
@@ -32,29 +32,29 @@ const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = fal
   </div>
 );
 
-// Component for a single skill input with a remove button.
+// Component for skill input .
 const SkillInput = ({ skill, index, updateSkill, removeSkill }) => (
-  <div className={`${styles.skillItem} ${styles.formGroup}`}>
+  <div className={`${styles.builderPageSkillItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
-      className={styles.skillInput}
+      className={styles.builderPageSkillInput}
       placeholder="e.g. HTML"
       value={skill.value}
       onChange={(e) => updateSkill(index, e.target.value)}
       maxLength="50"
     />
-    <button type="button" className={styles.removeSkillBtn} onClick={() => removeSkill(index)}>
+    <button type="button" className={styles.builderPageRemoveSkillBtn} onClick={() => removeSkill(index)}>
       Remove
     </button>
   </div>
 );
 
-// Component for an experience input with fields for title, company, duration, and description.
+// Component for experience input.
 const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => (
-  <div className={`${styles.experienceItem} ${styles.formGroup}`}>
+  <div className={`${styles.builderPageExperienceItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
-      className={styles.experienceTitle}
+      className={styles.builderPageExperienceTitle}
       placeholder="Job Title"
       value={exp.title}
       onChange={(e) => updateExperience(index, 'title', e.target.value)}
@@ -62,7 +62,7 @@ const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => 
     />
     <input
       type="text"
-      className={styles.experienceCompany}
+      className={styles.builderPageExperienceCompany}
       placeholder="Company"
       value={exp.company}
       onChange={(e) => updateExperience(index, 'company', e.target.value)}
@@ -70,32 +70,32 @@ const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => 
     />
     <input
       type="text"
-      className={styles.experienceDuration}
+      className={styles.builderPageExperienceDuration}
       placeholder="e.g., Jan 2020 - Dec 2022"
       value={exp.duration}
       onChange={(e) => updateExperience(index, 'duration', e.target.value)}
       maxLength="50"
     />
     <textarea
-      className={styles.experienceDescription}
+      className={styles.builderPageExperienceDescription}
       rows="3"
       placeholder="Responsibilities and achievements..."
       value={exp.description}
       onChange={(e) => updateExperience(index, 'description', e.target.value)}
       maxLength="500"
     />
-    <button type="button" className={styles.removeExperienceBtn} onClick={() => removeExperience(index)}>
+    <button type="button" className={styles.builderPageRemoveExperienceBtn} onClick={() => removeExperience(index)}>
       Remove
     </button>
   </div>
 );
 
-// Component for a project input with fields for title, link, tech stack, and description.
+// project input 
 const ProjectInput = ({ proj, index, updateProject, removeProject }) => (
-  <div className={`${styles.projectItem} ${styles.formGroup}`}>
+  <div className={`${styles.builderPageProjectItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
-      className={styles.projectTitle}
+      className={styles.builderPageProjectTitle}
       placeholder="Project Title"
       value={proj.title}
       onChange={(e) => updateProject(index, 'title', e.target.value)}
@@ -103,39 +103,39 @@ const ProjectInput = ({ proj, index, updateProject, removeProject }) => (
     />
     <input
       type="url"
-      className={styles.projectLink}
-      placeholder="Project URL “Include http:// in links”"
+      className={styles.builderPageProjectLink}
+      placeholder="Project URL “Include https://”"
       value={proj.link}
       onChange={(e) => updateProject(index, 'link', e.target.value)}
     />
     <input
       type="text"
-      className={styles.projectTechStack}
+      className={styles.builderPageProjectTechStack}
       placeholder="Tech Stack (e.g., React, Node.js)"
       value={proj.techStack}
       onChange={(e) => updateProject(index, 'techStack', e.target.value)}
       maxLength="200"
     />
     <textarea
-      className={styles.projectDescription}
+      className={styles.builderPageProjectDescription}
       rows="3"
       placeholder="Brief description of the project..."
       value={proj.description}
       onChange={(e) => updateProject(index, 'description', e.target.value)}
       maxLength="500"
     />
-    <button type="button" className={styles.removeProjectBtn} onClick={() => removeProject(index)}>
+    <button type="button" className={styles.builderPageRemoveProjectBtn} onClick={() => removeProject(index)}>
       Remove
     </button>
   </div>
 );
 
-// Component for an education input with fields for institution, degree, duration, and description.
+// education input 
 const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
-  <div className={`${styles.educationItem} ${styles.formGroup}`}>
+  <div className={`${styles.builderPageEducationItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
-      className={styles.educationInstitution}
+      className={styles.builderPageEducationInstitution}
       placeholder="Institution Name"
       value={edu.institution}
       onChange={(e) => updateEducation(index, 'institution', e.target.value)}
@@ -143,7 +143,7 @@ const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
     />
     <input
       type="text"
-      className={styles.educationDegree}
+      className={styles.builderPageEducationDegree}
       placeholder="Degree (e.g. B.Sc Computer Science)"
       value={edu.degree}
       onChange={(e) => updateEducation(index, 'degree', e.target.value)}
@@ -151,28 +151,28 @@ const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
     />
     <input
       type="text"
-      className={styles.educationDuration}
+      className={styles.builderPageEducationDuration}
       placeholder="e.g., 2018 – 2022"
       value={edu.duration}
       onChange={(e) => updateEducation(index, 'duration', e.target.value)}
       maxLength="50"
     />
     <textarea
-      className={styles.educationDescription}
+      className={styles.builderPageEducationDescription}
       rows="2"
       placeholder="Notes, GPA, honors..."
       value={edu.description}
       onChange={(e) => updateEducation(index, 'description', e.target.value)}
       maxLength="300"
     />
-    <button type="button" className={styles.removeEducationBtn} onClick={() => removeEducation(index)}>
+    <button type="button" className={styles.builderPageRemoveEducationBtn} onClick={() => removeEducation(index)}>
       Remove
     </button>
   </div>
 );
 
 const PreviewSkills = ({ skills }) => (
-  <div className={styles.previewSectionContent}>
+  <div className={styles.builderPagePreviewSectionContent}>
     <h4>Skills</h4>
     <ul>
       {skills.some(skill => skill.value.trim()) ? (
@@ -185,23 +185,23 @@ const PreviewSkills = ({ skills }) => (
 );
 
 const PreviewExperiences = ({ experiences }) => (
-  <div className={styles.previewSectionContent}>
+  <div className={styles.builderPagePreviewSectionContent}>
     <h4>Experience</h4>
     <div>
       {experiences.some(exp => exp.title || exp.company || exp.duration || exp.description) ? (
         experiences.map((exp, index) => (
           (exp.title || exp.company || exp.duration || exp.description) && (
-            <div key={index} className={styles.previewExperienceItem}>
+            <div key={index} className={styles.builderPagePreviewExperienceItem}>
               <h5>{exp.title || "Untitled Position"}{exp.company && ` at ${exp.company}`}</h5>
-              <p className={styles.duration}>{exp.duration || "Duration not specified"}</p>
+              <p className={styles.builderPageDuration}>{exp.duration || "Duration not specified"}</p>
               <p>{exp.description || "No description provided."}</p>
             </div>
           )
         ))
       ) : (
-        <div className={styles.previewExperienceItem}>
+        <div className={styles.builderPagePreviewExperienceItem}>
           <h5>No experience added yet</h5>
-          <p className={styles.duration}>Add your work experience above</p>
+          <p className={styles.builderPageDuration}>Add your work experience above</p>
           <p>Your professional experience will appear here.</p>
         </div>
       )}
@@ -210,13 +210,13 @@ const PreviewExperiences = ({ experiences }) => (
 );
 
 const PreviewProjects = ({ projects, isValidURL }) => (
-  <div className={styles.previewSectionContent}>
+  <div className={styles.builderPagePreviewSectionContent}>
     <h4>Projects</h4>
     <div>
       {projects.some(proj => proj.title || proj.link || proj.techStack || proj.description) ? (
         projects.map((proj, index) => (
           (proj.title || proj.link || proj.techStack || proj.description) && (
-            <div key={index} className={styles.previewProjectItem}>
+            <div key={index} className={styles.builderPagePreviewProjectItem}>
               <h5>{proj.title || "Untitled Project"}</h5>
               {proj.link && (
                 isValidURL(proj.link) ? (
@@ -225,15 +225,15 @@ const PreviewProjects = ({ projects, isValidURL }) => (
                   <span style={{ color: '#ff6b6b' }}>Invalid URL: {proj.link}</span>
                 )
               )}
-              {proj.techStack && <p className={styles.techStack}>Tech Stack: {proj.techStack}</p>}
+              {proj.techStack && <p className={styles.builderPageTechStack}>Tech Stack: {proj.techStack}</p>}
               <p>{proj.description || "No description provided."}</p>
             </div>
           )
         ))
       ) : (
-        <div className={styles.previewProjectItem}>
+        <div className={styles.builderPagePreviewProjectItem}>
           <h5>No projects added yet</h5>
-          <p className={styles.techStack}>Add your projects above</p>
+          <p className={styles.builderPageTechStack}>Add your projects above</p>
           <p>Your projects will appear here.</p>
         </div>
       )}
@@ -242,23 +242,23 @@ const PreviewProjects = ({ projects, isValidURL }) => (
 );
 
 const PreviewEducation = ({ education }) => (
-  <div className={styles.previewSectionContent}>
+  <div className={styles.builderPagePreviewSectionContent}>
     <h4>Education</h4>
     <div>
       {education.some(edu => edu.institution || edu.degree || edu.duration || edu.description) ? (
         education.map((edu, index) => (
           (edu.institution || edu.degree || edu.duration || edu.description) && (
-            <div key={index} className={styles.previewEducationItem}>
+            <div key={index} className={styles.builderPagePreviewEducationItem}>
               <h5>{edu.degree || "Degree"}{edu.institution && ` at ${edu.institution}`}</h5>
-              <p className={styles.duration}>{edu.duration || "Duration not specified"}</p>
+              <p className={styles.builderPageDuration}>{edu.duration || "Duration not specified"}</p>
               <p>{edu.description || "No additional details."}</p>
             </div>
           )
         ))
       ) : (
-        <div className={styles.previewEducationItem}>
+        <div className={styles.builderPagePreviewEducationItem}>
           <h5>No education added yet</h5>
-          <p className={styles.duration}>Add your education details above</p>
+          <p className={styles.builderPageDuration}>Add your education details above</p>
           <p>Your educational background will appear here.</p>
         </div>
       )}
@@ -266,7 +266,7 @@ const PreviewEducation = ({ education }) => (
   </div>
 );
 
-// Main component managing the portfolio builder state and logic.
+// Main component 
 const BuilderPage = () => {
   // State for user information, skills, experiences, projects, and education.
   const [formData, setFormData] = useState({
@@ -281,22 +281,23 @@ const BuilderPage = () => {
   const navigate = useNavigate();
   const { alerts, hideAlert, success, error, warning, info } = useAlert();
 
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('lightMode') === 'true';
     setIsLightMode(savedTheme);
   }, []);
 
-  // Utility function to sanitize input by removing < and > characters.
+  // sanitize input by removing < and > characters.
   const sanitizeInput = (input) => input ? input.trim().replace(/[<>]/g, '') : '';
- const isValidURL = (string) => {
-  if (!string) return false;
-  try {
-    new URL(string);
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
+  const isValidURL = (string) => {
+    if (!string) return false;
+    try {
+      new URL(string);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
   const isValidEmail = (email) => email ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) : false;
 
   const handleFormChange = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
@@ -314,7 +315,7 @@ const BuilderPage = () => {
     reader.onerror = () => error("Upload Failed", "Error reading file. Please try again.");
     reader.readAsDataURL(file);
   };
-
+  //ADD ,REMOVE,UPDATE FNS
   const addSkill = () => setSkills(prev => [...prev, { value: '' }]);
   const removeSkill = (index) => skills.length > 1 ? setSkills(prev => prev.filter((_, i) => i !== index)) : info("Minimum Required", "At least one skill field must remain.");
   const updateSkill = (index, value) => setSkills(prev => prev.map((skill, i) => i === index ? { value } : skill));
@@ -330,6 +331,8 @@ const BuilderPage = () => {
   const addEducation = () => setEducation(prev => [...prev, { institution: '', degree: '', duration: '', description: '' }]);
   const removeEducation = (index) => education.length > 1 ? setEducation(prev => prev.filter((_, i) => i !== index)) : info("Minimum Required", "At least one education field must remain.");
   const updateEducation = (index, field, value) => setEducation(prev => prev.map((edu, i) => i === index ? { ...edu, [field]: value } : edu));
+  
+  //THEME TOGGLE
 
   const toggleTheme = () => {
     const newMode = !isLightMode;
@@ -347,7 +350,7 @@ const BuilderPage = () => {
     success("Form Reset", "All data has been cleared successfully.");
   };
 
-  // Handles form submission by sending sanitized data to the server.
+  //SUBMIT FN
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name.trim()) return error("Required Field", "Please enter your name to continue.");
@@ -387,31 +390,34 @@ const BuilderPage = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        success("Portfolio Generated", "Your portfolio has been created successfully!");
-        localStorage.setItem('lastGeneratedUsername', data.username);
-        setTimeout(() => navigate(`/portfolio/${data.username}`), 900);
+        localStorage.setItem('lastGeneratedUsername', data.username); // Save username
+
+        navigate('/select-template', { state: { username: data.username } });
       } else {
-        error("Submission Failed", data.message || "Failed to save portfolio. Please try again.");
+        
+        console.error('Portfolio generation failed:', data.message);
+       
+        error("Portfolio Generation Failed", "Error generating portfolio. Please try again.");
       }
     } catch (err) {
       error("Network Error", "Could not connect to the server. Please try again.");
     }
   };
 
-  // JSX structure for the form and live preview sections.
+  // JSX structure
   return (
-    <div className={`${styles.builderBody} ${isLightMode ? styles.lightMode : ''}`}>
-      <div className={styles.container}>
-        <nav className={styles.navbar}>
-          <div className={styles.brand}>⚡XFolio</div>
-          <ul className={`${styles.navLinks} ${navOpen ? styles.active : ''}`} id="nav-links">
-            <li><button onClick={resetForm}>♻️ Reset</button></li>
-            <li><button onClick={toggleTheme}>{isLightMode ? '🌙 Dark Mode' : '☀ Light Mode'}</button></li>
-          </ul>
-          <div className={styles.hamburger} onClick={() => setNavOpen(!navOpen)}>☰</div>
-        </nav>
+    <div className={`${styles.builderPageWrapper} ${isLightMode ? styles.lightMode : ''}`}>
+      <nav className={styles.builderPageNavbar}>
+        <div className={styles.builderPageBrand}>⚡XFolio</div>
+        <ul className={`${styles.builderPageNavLinks} ${navOpen ? styles.active : ''}`} id="nav-links">
+          <li><button onClick={resetForm}>♻️ Reset</button></li>
+          <li><button onClick={toggleTheme}>{isLightMode ? '🌙 Dark Mode' : '☀ Light Mode'}</button></li>
+        </ul>
+        <div className={styles.builderPageHamburger} onClick={() => setNavOpen(!navOpen)}>☰</div>
+      </nav>
 
-        <div className={styles.inputSection}>
+      <div className={styles.builderPageContainer}>
+        <div className={styles.builderPageInputSection}>
           <h2>Enter Your Details</h2>
           <form onSubmit={handleSubmit}>
             <FormGroup label="Your Name:" id="userName" value={formData.name} onChange={(value) => handleFormChange('name', value)} required placeholder="Enter your Name.." />
@@ -456,21 +462,21 @@ const BuilderPage = () => {
             <FormGroup label="LinkedIn URL:" id="userLinkedIn" type="url" value={formData.linkedin} onChange={(value) => handleFormChange('linkedin', value)} placeholder="https://linkedin.com/in/yourprofile" />
             <FormGroup label="GitHub URL:" id="userGithub" type="url" value={formData.github} onChange={(value) => handleFormChange('github', value)} placeholder="https://github.com/yourusername" />
 
-            <button type="submit" className={styles.generatePortfolioBtn}>
+            <button type="submit" className={styles.builderPageGeneratePortfolioBtn}>
               Generate Portfolio <span role="img" aria-label="rocket">🚀</span>
             </button>
           </form>
         </div>
 
-        <div className={styles.previewSection}>
+        <div className={styles.builderPagePreviewSection}>
           <h2>Live Preview</h2>
-          <div className={styles.portfolioCard}>
-            <div className={styles.previewHeader}>
-              <img src={formData.image || "/placeholder.png"} alt="Profile pic here" className={styles.profileImage} />
+          <div className={styles.builderPagePortfolioCard}>
+            <div className={styles.builderPagePreviewHeader}>
+              <img src={formData.image || "/placeholder.png"} alt="Profile pic here" className={styles.builderPageProfileImage} />
               <h3>{formData.name || "Your Name"}</h3>
               <p>{formData.profession || "Your Profession"}</p>
             </div>
-            <div className={styles.previewSectionContent}>
+            <div className={styles.builderPagePreviewSectionContent}>
               <h4>About Me</h4>
               <p id="previewBio">{formData.bio || "A brief description about yourself will appear here."}</p>
             </div>
@@ -478,7 +484,7 @@ const BuilderPage = () => {
             <PreviewExperiences experiences={experiences} />
             <PreviewProjects projects={projects} isValidURL={isValidURL} />
             <PreviewEducation education={education} />
-            <div className={styles.previewSectionContent}>
+            <div className={styles.builderPagePreviewSectionContent}>
               <h4>Contact</h4>
               <p>Email: <span style={{ color: !formData.email ? '' : !isValidEmail(formData.email) ? '#ff6b6b' : '' }}>
                 {formData.email || "your.email@example.com"}

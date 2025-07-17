@@ -1,25 +1,28 @@
 /* BuilderPage.module.css */
+/* All styles are scoped to prevent global styling conflicts */
 
-.builderBody {
+/* Main container and layout */
+.builderPageWrapper {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   background: linear-gradient(135deg, #0A0A2A 0%, #1A0A3A 100%);
   color: #E0E0E0;
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centering the navbar and other content */
   min-height: 100vh;
+  max-width: 2000px;
   scroll-behavior: smooth;
   box-sizing: border-box;
-  /* Add smooth transitions for theme changes */
   transition: background 0.5s ease, color 0.5s ease;
 }
 
-.lightMode {
+.builderPageWrapper.lightMode {
   background: linear-gradient(135deg, #f0e6f7, #8a8dc7);
   color: #222;
 }
 
-.container {
+.builderPageContainer {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -27,12 +30,15 @@
   gap: 2.5rem;
   flex-wrap: wrap;
   justify-content: center;
-  flex: 1; /* This makes the container take up available space */
+  flex: 1;
+ 
   margin: 0 auto;
+  margin-top:2rem;
 }
 
-.navbar {
-  width: 100%;
+/* Navigation styles */
+.builderPageNavbar {
+  width: 95%;
   margin-top: 0.75rem;
   background: rgba(20, 20, 40, 0.7);
   padding: 1.5rem;
@@ -49,13 +55,13 @@
   transition: background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
 }
 
-.lightMode .navbar {
+.lightMode .builderPageNavbar {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 255, 0.95));
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 123, 255, 0.2);
 }
 
-.brand {
+.builderPageBrand {
   font-size: 1.75rem;
   color: #F9F6FF;
   font-weight: 700;
@@ -63,20 +69,20 @@
   transition: color 0.5s ease, transform 0.3s ease;
 }
 
-.lightMode .brand {
+.lightMode .builderPageBrand {
   color: #007BFF;
 }
 
-.brand:hover {
+.builderPageBrand:hover {
   color: #00BFFF;
   transform: scale(1.05);
 }
 
-.lightMode .brand:hover {
+.lightMode .builderPageBrand:hover {
   color: #8C52FF;
 }
 
-.navLinks {
+.builderPageNavLinks {
   list-style: none;
   display: flex;
   gap: 2rem;
@@ -85,7 +91,7 @@
   padding: 0;
 }
 
-.navLinks li button {
+.builderPageNavLinks li button {
   color: #E0E0E0;
   text-decoration: none;
   font-size: 1.1rem;
@@ -98,22 +104,22 @@
   transition: color 0.5s ease, background 0.5s ease, transform 0.3s ease, border 0.5s ease, box-shadow 0.5s ease;
 }
 
-.lightMode .navLinks li button {
+.lightMode .builderPageNavLinks li button {
   color: #222;
 }
 
-.navLinks li button:hover {
+.builderPageNavLinks li button:hover {
   color: #00BFFF;
   background: rgba(140, 82, 255, 0.2);
   transform: translateY(-2px);
 }
 
-.lightMode .navLinks li button:hover {
+.lightMode .builderPageNavLinks li button:hover {
   color: #007BFF;
   background: rgba(0, 123, 255, 0.1);
 }
 
-.hamburger {
+.builderPageHamburger {
   display: none;
   font-size: 1.75rem;
   color: #E0E0E0;
@@ -121,26 +127,27 @@
   transition: color 0.5s ease, transform 0.3s ease;
 }
 
-.lightMode .hamburger {
+.lightMode .builderPageHamburger {
   color: #222;
 }
 
-.hamburger:hover {
+.builderPageHamburger:hover {
   color: #00BFFF;
 }
 
-.lightMode .hamburger:hover {
+.lightMode .builderPageHamburger:hover {
   color: #007BFF;
 }
 
-.inputSection h1,
-.inputSection h2,
-.inputSection h3,
-.inputSection h4,
-.previewSection h1,
-.previewSection h2,
-.previewSection h3,
-.previewSection h4 {
+/* Section headings */
+.builderPageInputSection h1,
+.builderPageInputSection h2,
+.builderPageInputSection h3,
+.builderPageInputSection h4,
+.builderPagePreviewSection h1,
+.builderPagePreviewSection h2,
+.builderPagePreviewSection h3,
+.builderPagePreviewSection h4 {
   color: #6756E8;
   margin-top: 0;
   margin-bottom: 1.5625rem;
@@ -148,33 +155,34 @@
   transition: color 0.5s ease, text-shadow 0.5s ease;
 }
 
-.lightMode .inputSection h1,
-.lightMode .inputSection h2,
-.lightMode .inputSection h3,
-.lightMode .inputSection h4,
-.lightMode .previewSection h1,
-.lightMode .previewSection h2,
-.lightMode .previewSection h3,
-.lightMode .previewSection h4 {
+.lightMode .builderPageInputSection h1,
+.lightMode .builderPageInputSection h2,
+.lightMode .builderPageInputSection h3,
+.lightMode .builderPageInputSection h4,
+.lightMode .builderPagePreviewSection h1,
+.lightMode .builderPagePreviewSection h2,
+.lightMode .builderPagePreviewSection h3,
+.lightMode .builderPagePreviewSection h4 {
   color: #007BFF;
   text-shadow: none;
 }
 
-.inputSection h2,
-.previewSection h2 {
+.builderPageInputSection h2,
+.builderPagePreviewSection h2 {
   border-bottom: 2px solid rgba(140, 82, 255, 0.3);
   padding-bottom: 0.75rem;
   margin-top: 2.5rem;
   transition: border-bottom 0.5s ease;
 }
 
-.lightMode .inputSection h2,
-.lightMode .previewSection h2 {
+.lightMode .builderPageInputSection h2,
+.lightMode .builderPagePreviewSection h2 {
   border-bottom: 2px solid rgba(0, 123, 255, 0.3);
 }
 
-.inputSection,
-.previewSection {
+/* Main sections */
+.builderPageInputSection,
+.builderPagePreviewSection {
   flex: 1;
   margin-top: -1.4rem;
   min-width: 28.125rem;
@@ -188,24 +196,25 @@
   transition: background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
 }
 
-.lightMode .inputSection,
-.lightMode .previewSection {
+.lightMode .builderPageInputSection,
+.lightMode .builderPagePreviewSection {
   background: rgba(255, 255, 255, 0.9);
   color: #222;
   border: 1px solid rgba(0, 123, 255, 0.2);
 }
 
-.previewSection {
+.builderPagePreviewSection {
   position: sticky;
   top: 1.875rem;
   align-self: flex-start;
 }
 
-.formGroup {
+/* Form styles */
+.builderPageFormGroup {
   margin-bottom: 1.25rem;
 }
 
-.formGroup label {
+.builderPageFormGroup label {
   display: block;
   margin-bottom: 0.625rem;
   font-weight: bold;
@@ -214,14 +223,14 @@
   transition: color 0.5s ease;
 }
 
-.lightMode .formGroup label {
+.lightMode .builderPageFormGroup label {
   color: #555;
 }
 
-.formGroup input[type="text"],
-.formGroup input[type="email"],
-.formGroup input[type="url"],
-.formGroup textarea {
+.builderPageFormGroup input[type="text"],
+.builderPageFormGroup input[type="email"],
+.builderPageFormGroup input[type="url"],
+.builderPageFormGroup textarea {
   width: calc(100% - 1.5rem);
   padding: 0.75rem;
   border: 1px solid #444466;
@@ -234,49 +243,50 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.5s ease, color 0.5s ease;
 }
 
-.lightMode .formGroup input[type="text"],
-.lightMode .formGroup input[type="email"],
-.lightMode .formGroup input[type="url"],
-.lightMode .formGroup textarea {
+.lightMode .builderPageFormGroup input[type="text"],
+.lightMode .builderPageFormGroup input[type="email"],
+.lightMode .builderPageFormGroup input[type="url"],
+.lightMode .builderPageFormGroup textarea {
   background: #FFF;
   color: #222;
   border: 1px solid #CCC;
 }
 
-.formGroup input[type="text"]:focus,
-.formGroup input[type="email"]:focus,
-.formGroup input[type="url"]:focus,
-.formGroup textarea:focus {
+.builderPageFormGroup input[type="text"]:focus,
+.builderPageFormGroup input[type="email"]:focus,
+.builderPageFormGroup input[type="url"]:focus,
+.builderPageFormGroup textarea:focus {
   outline: none;
   border-color: #8C52FF;
   box-shadow: 0 0 0 0.1875rem rgba(140, 82, 255, 0.3);
 }
 
-.lightMode .formGroup input[type="text"]:focus,
-.lightMode .formGroup input[type="email"]:focus,
-.lightMode .formGroup input[type="url"]:focus,
-.lightMode .formGroup textarea:focus {
+.lightMode .builderPageFormGroup input[type="text"]:focus,
+.lightMode .builderPageFormGroup input[type="email"]:focus,
+.lightMode .builderPageFormGroup input[type="url"]:focus,
+.lightMode .builderPageFormGroup textarea:focus {
   border-color: #007BFF;
   box-shadow: 0 0 0 0.1875rem rgba(0, 123, 255, 0.3);
 }
 
-.formGroup textarea {
+.builderPageFormGroup textarea {
   resize: vertical;
 }
 
-.formGroup input[type="file"] {
+.builderPageFormGroup input[type="file"] {
   display: block;
   margin-top: 1rem;
   color: #b0b0b0;
   transition: color 0.5s ease;
 }
 
-.lightMode .formGroup input[type="file"] {
+.lightMode .builderPageFormGroup input[type="file"] {
   color: #555;
 }
 
-.inputSection button,
-.previewSection button {
+/* Button styles */
+.builderPageInputSection button,
+.builderPagePreviewSection button {
   background: linear-gradient(45deg, #007BFF, #8C52FF);
   color: white;
   padding: 0.75rem 1.25rem;
@@ -289,18 +299,18 @@
   box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
 }
 
-.inputSection button:hover,
-.previewSection button:hover {
+.builderPageInputSection button:hover,
+.builderPagePreviewSection button:hover {
   transform: translateY(-0.125rem);
   box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.3);
   background: linear-gradient(45deg, #8C52FF, #007BFF);
 }
 
-.removeSkillBtn,
-.removeExperienceBtn,
-.removeProjectBtn,
-.removeEducationBtn {
-  background: linear-gradient(45deg, #DC3545, #FF6F61);
+.builderPageRemoveSkillBtn,
+.builderPageRemoveExperienceBtn,
+.builderPageRemoveProjectBtn,
+.builderPageRemoveEducationBtn {
+  background: linear-gradient(45deg, #DC3545, #FF6F61) !important;
   color: white;
   margin-left: 0.9375rem;
   padding: 0.5rem 0.9375rem;
@@ -312,375 +322,15 @@
   transition: all 0.3s ease;
 }
 
-.removeSkillBtn:hover,
-.removeExperienceBtn:hover,
-.removeProjectBtn:hover,
-.removeEducationBtn:hover {
-  background: linear-gradient(45deg, #FF6F61, #DC3545);
+.builderPageRemoveSkillBtn:hover,
+.builderPageRemoveExperienceBtn:hover,
+.builderPageRemoveProjectBtn:hover,
+.builderPageRemoveEducationBtn:hover {
+  background: linear-gradient(45deg, #FF6F61, #DC3545) !important;
   transform: translateY(-0.0625rem);
 }
 
-.skillItem {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
-  gap: 0.75rem;
-}
-
-.skillInput {
-  flex: 1;
-  width: auto;
-  margin-right: 0;
-}
-
-.experienceItem {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(30, 30, 50, 0.5);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(50, 50, 100, 0.3);
-  transition: background 0.5s ease, border 0.5s ease;
-}
-
-.lightMode .experienceItem {
-  background: rgba(240, 240, 255, 0.5);
-  border: 1px solid rgba(0, 123, 255, 0.2);
-}
-
-.experienceTitle {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  margin-right: 0;
-}
-
-.experienceCompany {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  margin-right: 0;
-}
-
-.experienceDuration {
-  grid-column: 1 / 3;
-  grid-row: 2 / 3;
-  margin-right: 0;
-}
-
-.experienceDescription {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-  margin-right: 0;
-}
-
-.removeExperienceBtn {
-  grid-column: 2 / 3;
-  grid-row: 3 / 4;
-  align-self: start;
-  justify-self: end;
-  margin-left: 0;
-  margin-top: 0;
-}
-
-.projectItem {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(30, 30, 50, 0.5);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(50, 50, 100, 0.3);
-  transition: background 0.5s ease, border 0.5s ease;
-}
-
-.lightMode .projectItem {
-  background: rgba(240, 240, 255, 0.5);
-  border: 1px solid rgba(0, 123, 255, 0.2);
-}
-
-.projectTitle {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  margin-right: 0;
-}
-
-.projectLink {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  margin-right: 0;
-}
-
-.projectTechStack {
-  grid-column: 1 / 3;
-  grid-row: 2 / 3;
-  margin-right: 0;
-}
-
-.projectDescription {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-  margin-right: 0;
-}
-
-.removeProjectBtn {
-  grid-column: 2 / 3;
-  grid-row: 3 / 4;
-  align-self: start;
-  justify-self: end;
-  margin-left: 0;
-  margin-top: 0;
-}
-
-.educationItem {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: rgba(30, 30, 50, 0.5);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(50, 50, 100, 0.3);
-  transition: background 0.5s ease, border 0.5s ease;
-}
-
-.lightMode .educationItem {
-  background: rgba(240, 240, 255, 0.5);
-  border: 1px solid rgba(0, 123, 255, 0.2);
-}
-
-.educationInstitution {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  margin-right: 0;
-}
-
-.educationDegree {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  margin-right: 0;
-}
-
-.educationDuration {
-  grid-column: 1 / 3;
-  grid-row: 2 / 3;
-  margin-right: 0;
-}
-
-.educationDescription {
-  grid-column: 1 / 2;
-  grid-row: 3 / 4;
-  margin-right: 0;
-}
-
-.removeEducationBtn {
-  grid-column: 2 / 3;
-  grid-row: 3 / 4;
-  align-self: start;
-  justify-self: end;
-  margin-left: 0;
-  margin-top: 0;
-}
-
-.portfolioCard {
-  background: rgba(20, 20, 40, 0.7);
-  border-radius: 0.75rem;
-  padding: 1.875rem;
-  box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(50, 50, 100, 0.5);
-  transition: background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
-}
-
-.lightMode .portfolioCard {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 123, 255, 0.2);
-}
-
-.previewHeader {
-  text-align: center;
-  margin-bottom: 1.875rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(140, 82, 255, 0.2);
-  transition: border-bottom 0.5s ease;
-}
-
-.lightMode .previewHeader {
-  border-bottom: 1px solid rgba(0, 123, 255, 0.2);
-}
-
-.profileImage {
-  width: 8.75rem;
-  height: 8.75rem;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1.25rem;
-  border: 0.25rem solid #007BFF;
-  box-shadow: 0 0 0.9375rem rgba(0, 123, 255, 0.6), 0 0 1.5625rem rgba(0, 123, 255, 0.4);
-  transition: box-shadow 0.5s ease;
-}
-
-.lightMode .profileImage {
-  box-shadow: 0 0 0.9375rem rgba(0, 123, 255, 0.4), 0 0 1.5625rem rgba(0, 123, 255, 0.2);
-}
-
-.previewHeader h3 {
-  margin: 0.625rem 0 0.5rem;
-  color: #E0E0E0;
-  font-size: 2.25rem;
-  transition: color 0.5s ease;
-}
-
-.lightMode .previewHeader h3 {
-  color: #222;
-}
-
-.previewHeader p {
-  color: #B0B0B0;
-  font-size: 1.25rem;
-  transition: color 0.5s ease;
-}
-
-.lightMode .previewHeader p {
-  color: #666;
-}
-
-.previewSectionContent h4 {
-  color: #007BFF;
-  margin-bottom: 0.9375rem;
-  border-bottom: 1px dashed rgba(0, 123, 255, 0.3);
-  padding-bottom: 0.5rem;
-  font-size: 1.3rem;
-  overflow: auto;
-  overflow-wrap: break-word;
-  transition: border-bottom 0.5s ease;
-}
-
-.previewSectionContent ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.625rem;
-}
-
-.previewSectionContent ul li {
-  background: rgba(0, 55, 255, 0.2);
-  color: #E0E0E0;
-  padding: 0.4375rem 0.9375rem;
-  border-radius: 1.5625rem;
-  font-size: 0.95rem;
-  border: 1px solid rgba(0, 123, 255, 0.4);
-  transition: background 0.5s ease, color 0.5s ease, border 0.5s ease;
-}
-
-.lightMode .previewSectionContent ul li {
-  background: rgba(0, 123, 255, 0.1);
-  color: #222;
-  border: 1px solid rgba(0, 123, 255, 0.3);
-}
-
-.previewExperienceItem,
-.previewProjectItem,
-.previewEducationItem {
-  margin-bottom: 1.25rem;
-  padding: 0.9375rem;
-  background: #2A2A40;
-  border-left: 0.3125rem solid #8C52FF;
-  border-radius: 0.375rem;
-  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.2);
-  transition: background 0.5s ease, border-left 0.5s ease, box-shadow 0.5s ease;
-}
-
-.lightMode .previewExperienceItem,
-.lightMode .previewProjectItem,
-.lightMode .previewEducationItem {
-  background: #F0F0F0;
-  border-left: 0.3125rem solid rgb(0, 123, 255);
-}
-
-.previewExperienceItem h5,
-.previewProjectItem h5,
-.previewEducationItem h5 {
-  margin: 0 0 0.5rem;
-  color: #E0E0E0;
-  font-size: 1.2rem;
-  transition: color 0.5s ease;
-}
-
-.lightMode .previewExperienceItem h5,
-.lightMode .previewProjectItem h5,
-.lightMode .previewEducationItem h5 {
-  color: #222;
-}
-
-.duration,
-.techStack {
-  font-size: 0.95rem;
-  color: #B0B0B0;
-  margin: 0.3125rem 0 0.5rem;
-  transition: color 0.5s ease;
-}
-
-.lightMode .duration,
-.lightMode .techStack {
-  color: #666;
-}
-
-.previewProjectItem a {
-  color: #00BFFF;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.5s ease;
-}
-
-.lightMode .previewProjectItem a {
-  color: #007BFF;
-}
-
-.previewProjectItem a:hover {
-  text-decoration: underline;
-  color: #8C52FF;
-}
-
-.lightMode .previewProjectItem a:hover {
-  color: #0056B3;
-}
-
-.previewSectionContent p {
-  line-height: 1.7;
-  color: #C0C0C0;
-  transition: color 0.5s ease;
-}
-
-.lightMode .previewSectionContent p {
-  color: #222;
-}
-
-.previewSectionContent p a {
-  color: #00BFFF;
-  text-decoration: none;
-  transition: color 0.5s ease;
-}
-
-.lightMode .previewSectionContent p a {
-  color: #007BFF;
-}
-
-.previewSectionContent p a:hover {
-  text-decoration: underline;
-  color: #8C52FF;
-}
-
-.lightMode .previewSectionContent p a:hover {
-  color: #0056B3;
-}
-
-.generatePortfolioBtn {
+.builderPageGeneratePortfolioBtn {
   background: linear-gradient(45deg, #007BFF, #8C52FF);
   color: white;
   padding: 0.75rem 1.25rem;
@@ -693,45 +343,410 @@
   box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2);
 }
 
-.generatePortfolioBtn:hover {
+.builderPageGeneratePortfolioBtn:hover {
   transform: translateY(-0.125rem);
   box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.3);
   background: linear-gradient(45deg, #8C52FF, #007BFF);
+}
+
+/* Skills section */
+.builderPageSkillItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 0.75rem;
+}
+
+.builderPageSkillInput {
+  flex: 1;
+  width: auto;
+  margin-right: 0;
+}
+
+/* Experience section */
+.builderPageExperienceItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(30, 30, 50, 0.5);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(50, 50, 100, 0.3);
+  transition: background 0.5s ease, border 0.5s ease;
+}
+
+.lightMode .builderPageExperienceItem {
+  background: rgba(240, 240, 255, 0.5);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.builderPageExperienceTitle {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  margin-right: 0;
+}
+
+.builderPageExperienceCompany {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  margin-right: 0;
+}
+
+.builderPageExperienceDuration {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  margin-right: 0;
+}
+
+.builderPageExperienceDescription {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  margin-right: 0;
+}
+
+.builderPageRemoveExperienceBtn {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  align-self: start;
+  justify-self: end;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+/* Project section */
+.builderPageProjectItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(30, 30, 50, 0.5);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(50, 50, 100, 0.3);
+  transition: background 0.5s ease, border 0.5s ease;
+}
+
+.lightMode .builderPageProjectItem {
+  background: rgba(240, 240, 255, 0.5);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.builderPageProjectTitle {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  margin-right: 0;
+}
+
+.builderPageProjectLink {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  margin-right: 0;
+}
+
+.builderPageProjectTechStack {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  margin-right: 0;
+}
+
+.builderPageProjectDescription {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  margin-right: 0;
+}
+
+.builderPageRemoveProjectBtn {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  align-self: start;
+  justify-self: end;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+/* Education section */
+.builderPageEducationItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(30, 30, 50, 0.5);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(50, 50, 100, 0.3);
+  transition: background 0.5s ease, border 0.5s ease;
+}
+
+.lightMode .builderPageEducationItem {
+  background: rgba(240, 240, 255, 0.5);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.builderPageEducationInstitution {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  margin-right: 0;
+}
+
+.builderPageEducationDegree {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  margin-right: 0;
+}
+
+.builderPageEducationDuration {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  margin-right: 0;
+}
+
+.builderPageEducationDescription {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  margin-right: 0;
+}
+
+.builderPageRemoveEducationBtn {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  align-self: start;
+  justify-self: end;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+/* Preview section */
+.builderPagePortfolioCard {
+  background: rgba(20, 20, 40, 0.7);
+  border-radius: 0.75rem;
+  padding: 1.875rem;
+  box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(50, 50, 100, 0.5);
+  transition: background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+}
+
+.lightMode .builderPagePortfolioCard {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.builderPagePreviewHeader {
+  text-align: center;
+  margin-bottom: 1.875rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(140, 82, 255, 0.2);
+  transition: border-bottom 0.5s ease;
+}
+
+.lightMode .builderPagePreviewHeader {
+  border-bottom: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.builderPageProfileImage {
+  width: 8.75rem;
+  height: 8.75rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.25rem;
+  border: 0.25rem solid #007BFF;
+  box-shadow: 0 0 0.9375rem rgba(0, 123, 255, 0.6), 0 0 1.5625rem rgba(0, 123, 255, 0.4);
+  transition: box-shadow 0.5s ease;
+}
+
+.lightMode .builderPageProfileImage {
+  box-shadow: 0 0 0.9375rem rgba(0, 123, 255, 0.4), 0 0 1.5625rem rgba(0, 123, 255, 0.2);
+}
+
+.builderPagePreviewHeader h3 {
+  margin: 0.625rem 0 0.5rem;
+  color: #E0E0E0;
+  font-size: 2.25rem;
+  transition: color 0.5s ease;
+}
+
+.lightMode .builderPagePreviewHeader h3 {
+  color: #222;
+}
+
+.builderPagePreviewHeader p {
+  color: #B0B0B0;
+  font-size: 1.25rem;
+  transition: color 0.5s ease;
+}
+
+.lightMode .builderPagePreviewHeader p {
+  color: #666;
+}
+
+.builderPagePreviewSectionContent h4 {
+  color: #007BFF;
+  margin-bottom: 0.9375rem;
+  border-bottom: 1px dashed rgba(0, 123, 255, 0.3);
+  padding-bottom: 0.5rem;
+  font-size: 1.3rem;
+  overflow: auto;
+  overflow-wrap: break-word;
+  transition: border-bottom 0.5s ease;
+}
+
+.builderPagePreviewSectionContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.builderPagePreviewSectionContent ul li {
+  background: rgba(0, 55, 255, 0.2);
+  color: #E0E0E0;
+  padding: 0.4375rem 0.9375rem;
+  border-radius: 1.5625rem;
+  font-size: 0.95rem;
+  border: 1px solid rgba(0, 123, 255, 0.4);
+  transition: background 0.5s ease, color 0.5s ease, border 0.5s ease;
+}
+
+.lightMode .builderPagePreviewSectionContent ul li {
+  background: rgba(0, 123, 255, 0.1);
+  color: #222;
+  border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.builderPagePreviewExperienceItem,
+.builderPagePreviewProjectItem,
+.builderPagePreviewEducationItem {
+  margin-bottom: 1.25rem;
+  padding: 0.9375rem;
+  background: #2A2A40;
+  border-left: 0.3125rem solid #8C52FF;
+  border-radius: 0.375rem;
+  box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.2);
+  transition: background 0.5s ease, border-left 0.5s ease, box-shadow 0.5s ease;
+}
+
+.lightMode .builderPagePreviewExperienceItem,
+.lightMode .builderPagePreviewProjectItem,
+.lightMode .builderPagePreviewEducationItem {
+  background: #F0F0F0;
+  border-left: 0.3125rem solid rgb(0, 123, 255);
+}
+
+.builderPagePreviewExperienceItem h5,
+.builderPagePreviewProjectItem h5,
+.builderPagePreviewEducationItem h5 {
+  margin: 0 0 0.5rem;
+  color: #E0E0E0;
+  font-size: 1.2rem;
+  transition: color 0.5s ease;
+}
+
+.lightMode .builderPagePreviewExperienceItem h5,
+.lightMode .builderPagePreviewProjectItem h5,
+.lightMode .builderPagePreviewEducationItem h5 {
+  color: #222;
+}
+
+.builderPageDuration,
+.builderPageTechStack {
+  font-size: 0.95rem;
+  color: #B0B0B0;
+  margin: 0.3125rem 0 0.5rem;
+  transition: color 0.5s ease;
+}
+
+.lightMode .builderPageDuration,
+.lightMode .builderPageTechStack {
+  color: #666;
+}
+
+.builderPagePreviewProjectItem a {
+  color: #00BFFF;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.5s ease;
+}
+
+.lightMode .builderPagePreviewProjectItem a {
+  color: #007BFF;
+}
+
+.builderPagePreviewProjectItem a:hover {
+  text-decoration: underline;
+  color: #8C52FF;
+}
+
+.lightMode .builderPagePreviewProjectItem a:hover {
+  color: #0056B3;
+}
+
+.builderPagePreviewSectionContent p {
+  line-height: 1.7;
+  color: #C0C0C0;
+  transition: color 0.5s ease;
+}
+
+.lightMode .builderPagePreviewSectionContent p {
+  color: #222;
+}
+
+.builderPagePreviewSectionContent p a {
+  color: #00BFFF;
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+.lightMode .builderPagePreviewSectionContent p a {
+  color: #007BFF;
+}
+
+.builderPagePreviewSectionContent p a:hover {
+  text-decoration: underline;
+  color: #8C52FF;
+}
+
+.lightMode .builderPagePreviewSectionContent p a:hover {
+  color: #0056B3;
 }
 
 /* Media Queries */
 
 /* Small Laptops (e.g., up to 1200px) */
 @media (max-width: 1200px) {
-  .container {
+  .builderPageContainer {
     max-width: 95vw;
     gap: 1.5rem;
   }
-  .navbar {
+  .builderPageNavbar {
     margin-bottom: 1rem;
   }
 }
 
 /* Tablets */
 @media (max-width: 992px) {
-  .container {
+  .builderPageContainer {
     flex-direction: column;
     max-width: 100%;
     padding: 0;
     gap: 0;
   }
-  .navbar {
-    width: auto;
+  .builderPageNavbar {
+    
     margin: 0.75rem 1rem 0 1rem;
     min-width: 0;
   }
-  .inputSection {
+  .builderPageInputSection {
     width: auto;
     margin: 1.5rem 1rem 0 1rem;
     min-width: 0;
     margin-top: 1.5rem;
   }
-  .previewSection {
+  .builderPagePreviewSection {
     width: auto;
     margin: 1.5rem 1rem 2rem 1rem;
     min-width: 0;
@@ -742,12 +757,12 @@
 
 /* Mobiles */
 @media (max-width: 768px) {
-  .inputSection,
-  .previewSection {
+  .builderPageInputSection,
+  .builderPagePreviewSection {
     padding: 1.5rem;
   }
 
-  .navLinks {
+  .builderPageNavLinks {
     display: none;
     position: absolute;
     top: calc(100% + 5px);
@@ -766,130 +781,84 @@
     transition: background 0.5s ease;
   }
 
-  .lightMode .navLinks {
+  .lightMode .builderPageNavLinks {
     background: rgba(255, 255, 255, 0.98);
   }
 
-  .navLinks.active {
+  .builderPageNavLinks.active {
     display: flex;
   }
 
-  .navLinks li {
+  .builderPageNavLinks li {
     width: 90%;
     text-align: center;
   }
 
-  .navLinks li:not(:last-child) {
+  .builderPageNavLinks li:not(:last-child) {
     margin-bottom: 0.5rem;
   }
 
-  .navLinks li button {
+  .builderPageNavLinks li button {
     width: 100%;
     box-sizing: border-box;
   }
 
-  .hamburger {
+  .builderPageHamburger {
     display: block;
   }
 
-  .previewHeader h3 {
+  .builderPagePreviewHeader h3 {
     font-size: 1.8rem;
   }
 
-  .previewHeader p {
+  .builderPagePreviewHeader p {
     font-size: 1.1rem;
   }
 
-  .experienceItem,
-  .projectItem,
-  .educationItem {
+  .builderPageExperienceItem,
+  .builderPageProjectItem,
+  .builderPageEducationItem {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto auto;
   }
 
-  .experienceTitle,
-  .projectTitle,
-  .educationInstitution {
+  .builderPageExperienceTitle,
+  .builderPageProjectTitle,
+  .builderPageEducationInstitution {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
   }
 
-  .experienceCompany,
-  .projectLink,
-  .educationDegree {
+  .builderPageExperienceCompany,
+  .builderPageProjectLink,
+  .builderPageEducationDegree {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
   }
 
-  .experienceDuration,
-  .projectTechStack,
-  .educationDuration {
+  .builderPageExperienceDuration,
+  .builderPageProjectTechStack,
+  .builderPageEducationDuration {
     grid-column: 1 / 2;
     grid-row: 3 / 4;
   }
 
-  .experienceDescription,
-  .projectDescription,
-  .educationDescription {
+  .builderPageExperienceDescription,
+  .builderPageProjectDescription,
+  .builderPageEducationDescription {
     grid-column: 1 / 2;
     grid-row: 4 / 5;
+    margin-right: 0;
   }
 
-  .removeExperienceBtn,
-  .removeProjectBtn,
-  .removeEducationBtn {
+  .builderPageRemoveExperienceBtn,
+  .builderPageRemoveProjectBtn,
+  .builderPageRemoveEducationBtn {
     grid-column: 1 / 2;
     grid-row: 5 / 6;
-    justify-self: flex-start;
-    width: auto;
-  }
-
-  .skillItem {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .removeSkillBtn {
-    justify-self: flex-start;
-    width: auto;
-  }
-}
-
-/* Small Mobile Devices */
-@media (max-width: 480px) {
-  .brand {
-    font-size: 1.5rem;
-  }
-
-  .navbar {
-    padding: 0.75rem 1rem;
-  }
-
-  .inputSection h1,
-  .inputSection h2,
-  .previewSection h1,
-  .previewSection h2 {
-    font-size: 1.6rem;
-  }
-
-  .inputSection h4,
-  .previewSection h4 {
-    font-size: 1.15rem;
-  }
-
-  .inputSection,
-  .previewSection {
-    padding: 1.25rem;
-  }
-
-  .profileImage {
-    width: 7rem;
-    height: 7rem;
-  }
-
-  .inputSection button,
-  .previewSection button {
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
+    align-self: center;
+    justify-self: end;
+    margin-left: 0;
+    margin-top: 0;
   }
 }

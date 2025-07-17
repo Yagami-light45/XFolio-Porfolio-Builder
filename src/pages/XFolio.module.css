@@ -1,72 +1,108 @@
 /* XFolio.module.css */
 
+/* Scoped reset for XFolio component only */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+.xfolioContainer * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-.body { 
-  font-family: 'Segoe UI', sans-serif;
+/* Remove any default body margins/padding */
+.xfolioContainer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Animation keyframes */
+@keyframes xfolioFallFromTop {
+  0% { 
+    opacity: 0; 
+    transform: translateY(-100px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Animation classes with staggered delays */
+.xfolioFallFromTopAnimated { 
+  animation: xfolioFallFromTop 1s ease forwards;
+}
+
+.xfolioH1Animated { animation-delay: 0.1s; }
+.xfolioH2Animated { animation-delay: 0.2s; }
+.xfolioH3Animated { animation-delay: 0.3s; }
+.xfolioPAnimated { animation-delay: 0.4s; }
+.xfolioStepAnimated { animation-delay: 0.5s; }
+.xfolioFeatureAnimated { animation-delay: 0.8s; }
+.xfolioHeroImgAnimated { animation-delay: 0.8s; }
+
+/* Base container styles */
+.xfolioBody {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   line-height: 1.6;
-  color: #f5f5f5;
-  background-color: #000110;
-  overflow-x: hidden;
+  color: #333;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes fallFromTop {
-  0% { opacity: 0; transform: translateY(-100px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.fallFromTopAnimated { 
-  animation: fallFromTop 1s ease forwards;
-}
-
-.h1Animated { animation-delay: 0.1s; }
-.h2Animated { animation-delay: 0.2s; }
-.h3Animated { animation-delay: 0.3s; }
-.pAnimated  { animation-delay: 0.4s; }
-.stepAnimated { animation-delay: 0.5s; }
-.featureAnimated { animation-delay: 0.8s; }
-.heroImgAnimated { animation-delay: 0.8s; }
-
-
-.header {
+/* Header section */
+.xfolioHeader {
   background: linear-gradient(to bottom, #292b60, #000000);
   color: #e0e0e0;
-  padding: 1rem;
+  padding: 1rem 0;
+  position: relative;
+  width: 100%;
 }
 
-.nav {
+.xfolioNav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
 }
 
-.navH1 { 
-  margin-left: 1.25rem;
+.xfolioNavH1 { 
   font-size: 1.5rem;
+  font-weight: bold;
+  color: #e0e0e0;
+  margin: 0;
 }
 
-.navbarNav { 
+.xfolioNavbarNav { 
   display: flex;
   gap: 1.25rem;
   align-items: center;
 }
 
-.navA { 
+.xfolioNavA { 
   color: #bdbdbd;
   text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  padding: 0.5rem 0;
 }
 
-.navA:hover {
+.xfolioNavA:hover {
   color: #fff;
   text-shadow: 1px 1px 2px #bdbdbd;
 }
 
-.startBtn {
+.xfolioStartBtn {
   padding: 0.625rem 1rem;
   background: #0704b7;
   border: 1px solid #f4f7fa;
@@ -76,124 +112,229 @@
   font-weight: bold;
   text-decoration: none;
   min-width: 10rem;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
-.startBtn:hover {
+.xfolioStartBtn:hover {
   background: #4497db;
 }
 
-.hero {
+/* Mobile menu toggle */
+.xfolioMenuToggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+  padding: 0.5rem;
+  z-index: 1001;
+}
+
+.xfolioMenuToggle:hover {
+  color: #ccc;
+}
+
+/* Hero section */
+.xfolioHero {
   text-align: center;
   padding: 80px 20px;
-  background-color: #3c096c;
-  background-image: url('../../public/ocean.png'); 
-  background-repeat: no-repeat;
-  background-position: center ;
-  background-size:cover;
+  background: #3c096c url('../../public/ocean.png') center/cover no-repeat;
   color: #f5f5f5;
-  height : 83vh;
-   border: none;
-  background-color: transparent;
-  backdrop-filter: blur(0px);
-  box-shadow: none
+  min-height: 83vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 }
 
-.top {
+.xfolioTop {
   margin-top: 2rem;
+  max-width: 1000px;
+  width: 100%;
 }
 
-.heroH1, .heroH2 { 
+.xfolioHeroH1, .xfolioHeroH2 { 
   color: #f5f5f5;
   font-size: 3rem;
   margin-bottom: 1rem;
-  border: none;;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 
-.heroP { 
+.xfolioHeroP {
   font-size: 1.125rem;
   margin-bottom: 1.5rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.bottom {
+.xfolioBottom {
   display: flex;
   justify-content: center;
   margin-top: 5rem;
 }
-.both {
+
+/* Main content sections */
+.xfolioBoth {
   background: linear-gradient(to bottom, #000110 0%, #001a40 25%, #003891 50%, #001a40 75%, #000000 100%);
   color: #f5f5f5;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.howItWorks, .featuresSection { 
+.xfolioHowItWorks, .xfolioFeaturesSection {
   padding: 3.75rem 1.25rem;
-  max-width: 62.5rem;
-  margin: auto;
+  max-width: 1200px;
+  margin: 0 auto;
   text-align: center;
-  border: none;
-  background-color: transparent;
-  backdrop-filter: blur(0px);
-  box-shadow: none;
-
+  width: 100%;
 }
 
-.steps, .featureList { 
+.xfolioSectionTitle {
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+  color: #c7c7c7;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+/* Steps section */
+.xfolioSteps {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
   justify-content: center;
-  margin-top: 1.25rem;
+  align-items: stretch;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  padding: 0 1rem;
 }
 
-.step, .feature {
-  background: #003891;
-  padding: 1.25rem;
+.xfolioStep {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.75rem;
-  box-shadow: 3px 3px 5px rgb(254, 254, 254);
-  color: #ddd;
-  flex: 1 1 15rem;
-  max-width: 20rem;
+  padding: 1.875rem;
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
   text-align: center;
+  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
-.footer {
-  background-color: #000000;
-  color: #ddd;
-  text-align: center;
-  padding: 1.25rem;
+.xfolioStep:hover {
+  transform: translateY(-0.3125rem);
+  box-shadow: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.4);
 }
 
-.footerA { 
-  color: #ccc;
-  margin: 0 0.625rem;
+.xfolioStepTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.9375rem;
+  color: #87CEEB;
+  font-weight: bold;
+}
+
+.xfolioStep p {
+  font-size: 1rem;
+  color: #e0e0e0;
+  line-height: 1.5;
+}
+
+/* Features section */
+.xfolioFeatureList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding: 0 1rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.xfolioFeature {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.3);
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #87CEEB;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  line-height: 1.4;
+  backdrop-filter: blur(10px);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xfolioFeature:hover {
+  transform: translateY(-0.3125rem);
+  box-shadow: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.4);
+}
+
+/* Footer section */
+.xfolioFooter {
+  text-align: center;
+  padding: 2.5rem 1.25rem;
+  background: linear-gradient(to top, #292b60, #000000);
+  color: #e0e0e0;
+  width: 100%;
+}
+
+.xfolioFooterLinks {
+  margin-bottom: 1.25rem;
+}
+
+.xfolioFooterA {
+  color: #bdbdbd;
   text-decoration: none;
+  margin: 0 0.9375rem;
+  font-weight: 500;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  padding: 0.5rem 0;
 }
 
-.footerA:hover {
-  color: white;
+.xfolioFooterA:hover {
+  color: #fff;
+  text-shadow: 1px 1px 2px #bdbdbd;
 }
 
-.menuToggle {
-  display: none;
+.xfolioFooterP {
+  font-size: 0.9rem;
+  color: #bdbdbd;
+  line-height: 1.5;
 }
 
-@media (max-width: 750px) {
-  .menuToggle {
+/* Responsive Design */
+@media (max-width: 768px) {
+  .xfolioMenuToggle {
     display: block;
-    font-size: 2rem;
-    cursor: pointer;
-    color: white;
-    margin-right: 1rem;
   }
 
-  .nav {
+  .xfolioNav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
   }
 
-  .navbarNav {
+  .xfolioNavH1 {
+    margin: 0;
+  }
+
+  .xfolioNavbarNav {
     display: none;
     flex-direction: column;
     width: 100%;
@@ -202,70 +343,94 @@
     border-radius: 0.5rem;
     gap: 1rem;
     margin-top: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
-  .navbarNav.show { /* For conditional class, handled with template literals in JSX */
+  .xfolioNavbarNav.xfolioShow {
     display: flex;
   }
 
-  .navA,
-  .navButton {
-    text-align: left;
+  .xfolioNavA,
+  .xfolioStartBtn {
     width: 100%;
+    text-align: center;
+    padding: 0.75rem;
   }
 
-  .hero {
+  .xfolioHero {
     padding: 3rem 1rem;
-    background-position: top center;
+    background-position: center;
+    min-height: 70vh;
   }
 
-  .top {
+  .xfolioTop {
     margin-top: 1rem;
   }
 
-  .topH1, .topH2 { 
-    font-size: 2rem;
-    line-height: 1.2;
-     border: none;
-  
+  .xfolioHeroH1, .xfolioHeroH2 { 
+    font-size: 2.5rem;
   }
 
-  .topP { 
+  .xfolioHeroP {
     font-size: 1rem;
-    line-height: 1.6;
   }
 
-  .bottom {
-    display: none;
+  .xfolioSectionTitle {
+    font-size: 2rem;
   }
 
-  .step, .feature {
-    width: 100%;
-    max-width: 22rem;
-    padding: 1rem;
-  }
-
-  .startBtn {
-    width: 100%;
-    max-width: 14rem;
-    padding: 0.75rem 1rem;
-    margin: 1rem auto;
-  }
-
-  .footerLinks {
-    display: flex;
+  .xfolioSteps {
     flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .xfolioStep {
+    width: 100%;
+    max-width: 400px;
+    min-width: unset;
+  }
+
+  .xfolioFeatureList {
+    grid-template-columns: 1fr;
     gap: 1rem;
-    margin-bottom: 1rem;
+    padding: 0 0.5rem;
   }
 
-  .footer {
-    padding: 2rem 1rem;
-    font-size: 0.9rem;
-    line-height: 1.4;
+  .xfolioFooter {
+    padding: 1.5rem 1rem;
   }
 
-  .footerP { 
-    margin-top: 1rem;
+  .xfolioFooterA {
+    display: inline-block;
+    margin: 0.25rem 0.5rem;
+  }
+
+  .xfolioHowItWorks, .xfolioFeaturesSection {
+    padding: 2.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .xfolioHeroH1, .xfolioHeroH2 { 
+    font-size: 2rem;
+  }
+
+  .xfolioSectionTitle {
+    font-size: 1.8rem;
+  }
+
+  .xfolioStep {
+    padding: 1.5rem;
+  }
+
+  .xfolioFeature {
+    padding: 1rem;
+    min-height: 100px;
   }
 }

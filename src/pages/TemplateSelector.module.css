@@ -1,0 +1,251 @@
+/* TemplateSelector.module.css */
+
+.templateSelectorRoot {
+    min-height: 100vh;
+    background-color: #f5f7fa;
+    padding: 2rem 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.templateSelectorContainer {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 4rem auto;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border: 1px solid #e1e8ed;
+}
+
+.templateSelectorTitle {
+    color: #1a202c;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.templateSelectorSubtitle {
+    color: #4a5568;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.templateSelectorGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.templateSelectorCard {
+    background-color: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.templateSelectorCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.templateSelectorCard:hover::before {
+    transform: scaleX(1);
+}
+
+.templateSelectorCard:hover {
+    border-color: #667eea;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+    transform: translateY(-4px);
+}
+
+.templateSelectorCardTitle {
+    color: #2d3748;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.templateSelectorCardDescription {
+    color: #4a5568;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.templateSelectorCardImage {
+    max-width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 1rem;
+    border: 1px solid #e2e8f0;
+    transition: border-color 0.3s ease;
+}
+
+.templateSelectorCard:hover .templateSelectorCardImage {
+    border-color: #667eea;
+}
+
+.templateSelectorBackButton {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.templateSelectorBackButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.templateSelectorBackButton:active {
+    transform: translateY(0);
+}
+
+/* Dark Mode Styles */
+.templateSelectorRoot.templateSelectorDarkMode {
+    background-color: #1a202c;
+}
+
+.templateSelectorDarkMode .templateSelectorContainer {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.templateSelectorDarkMode .templateSelectorTitle {
+    color: #f7fafc;
+}
+
+.templateSelectorDarkMode .templateSelectorSubtitle {
+    color: #a0aec0;
+}
+
+.templateSelectorDarkMode .templateSelectorCard {
+    background-color: #2d3748;
+    border-color: #4a5568;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.templateSelectorDarkMode .templateSelectorCard:hover {
+    border-color: #63b3ed;
+    box-shadow: 0 8px 25px rgba(99, 179, 237, 0.2);
+}
+
+.templateSelectorDarkMode .templateSelectorCard::before {
+    background: linear-gradient(90deg, #63b3ed 0%, #3182ce 100%);
+}
+
+.templateSelectorDarkMode .templateSelectorCardTitle {
+    color: #f7fafc;
+}
+
+.templateSelectorDarkMode .templateSelectorCardDescription {
+    color: #a0aec0;
+}
+
+.templateSelectorDarkMode .templateSelectorCardImage {
+    border-color: #4a5568;
+}
+
+.templateSelectorDarkMode .templateSelectorCard:hover .templateSelectorCardImage {
+    border-color: #63b3ed;
+}
+
+.templateSelectorDarkMode .templateSelectorBackButton {
+    background: linear-gradient(135deg, #63b3ed 0%, #3182ce 100%);
+    box-shadow: 0 4px 15px rgba(99, 179, 237, 0.3);
+}
+
+.templateSelectorDarkMode .templateSelectorBackButton:hover {
+    box-shadow: 0 6px 20px rgba(99, 179, 237, 0.4);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .templateSelectorContainer {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+    
+    .templateSelectorTitle {
+        font-size: 2rem;
+    }
+    
+    .templateSelectorSubtitle {
+        font-size: 1rem;
+    }
+    
+    .templateSelectorGrid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .templateSelectorCard {
+        padding: 1.5rem;
+    }
+    
+    .templateSelectorCardTitle {
+        font-size: 1.2rem;
+    }
+    
+    .templateSelectorCardDescription {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .templateSelectorRoot {
+        padding: 1rem 0;
+    }
+    
+    .templateSelectorContainer {
+        margin: 1rem auto;
+        padding: 1rem;
+    }
+    
+    .templateSelectorTitle {
+        font-size: 1.8rem;
+    }
+    
+    .templateSelectorCard {
+        padding: 1rem;
+    }
+    
+    .templateSelectorCardImage {
+        height: 100px;
+    }
+    
+    .templateSelectorBackButton {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
