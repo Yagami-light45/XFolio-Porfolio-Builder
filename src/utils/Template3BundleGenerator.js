@@ -1,5 +1,146 @@
-/* Template3Portfolio.module.css  */
+// staticBundleGenerator.js
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
+// Define all helper functions first
+const generateHTML = (portfolioData) => {
+  const profileImageSrc = portfolioData.image || 'placeholder.png';
+    
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${portfolioData.name} - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="template3PortfolioRoot" id="portfolioRoot">
+        <header class="template3Header">
+            <div class="template3HeaderContent">
+                <div class="template3Logo">My Portfolio</div>
+                <nav class="template3NavLinks" id="navLinks">
+                    <ul>
+                        <li><a href="#about" onclick="handleNavClick(event)">About</a></li>
+                        <li><a href="#skills" onclick="handleNavClick(event)">Skills</a></li>
+                        <li><a href="#experience" onclick="handleNavClick(event)">Experience</a></li>
+                        <li><a href="#projects" onclick="handleNavClick(event)">Projects</a></li>
+                        <li><a href="#education" onclick="handleNavClick(event)">Education</a></li>
+                        <li><a href="#contact" onclick="handleNavClick(event)">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="template3HeaderButtons">
+                    <button class="template3DarkModeToggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+                        <i class="fas fa-sun" id="themeIcon"></i>
+                    </button>
+                    <button class="template3Hamburger" onclick="toggleNav()" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="template3HeroSection">
+            <img src="${profileImageSrc}" alt="Profile" class="template3HeroImage" onerror="this.src='placeholder.png'">
+            <h1>${portfolioData.name}</h1>
+            <p class="template3HeroSubtitle">${portfolioData.profession}</p>
+            <div class="template3HeroActions">
+                <button class="template3ActionButton" onclick="window.print()">
+                    <i class="fas fa-download"></i> Print Resume
+                </button>
+            </div>
+        </div>
+
+        <div class="template3Container">
+            <section id="about" class="template3Section">
+                <h2>About Me</h2>
+                <p>${portfolioData.bio}</p>
+            </section>
+
+            <section id="skills" class="template3Section">
+                <h2>Skills</h2>
+                ${portfolioData.skills && portfolioData.skills.length ? 
+                    `<ul class="template3Skills">
+                        ${portfolioData.skills.map(skill => `<li>${skill}</li>`).join('')}
+                    </ul>` : 
+                    '<p>No skills listed.</p>'
+                }
+            </section>
+
+            <section id="experience" class="template3Section">
+                <h2>Experience</h2>
+                ${portfolioData.experience && portfolioData.experience.length ? 
+                    portfolioData.experience.map(exp => `
+                        <div class="template3ExperienceItem">
+                            <h3>${exp.title} at ${exp.company}</h3>
+                            <p class="template3Duration">${exp.duration}</p>
+                            <p>${exp.description}</p>
+                        </div>
+                    `).join('') : 
+                    '<p>No experience listed.</p>'
+                }
+            </section>
+
+            <section id="projects" class="template3Section">
+                <h2>Projects</h2>
+                ${portfolioData.projects && portfolioData.projects.length ? 
+                    `<div class="template3ProjectsGrid">
+                        ${portfolioData.projects.map(project => `
+                            <div class="template3ProjectCard">
+                                <h3>${project.title}</h3>
+                                <p class="template3TechStack">Tech Stack: ${project.techStack}</p>
+                                <p>${project.description}</p>
+                                <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="template3ProjectLink">View Project</a>
+                            </div>
+                        `).join('')}
+                    </div>` : 
+                    '<p>No projects listed.</p>'
+                }
+            </section>
+
+            <section id="education" class="template3Section">
+                <h2>Education</h2>
+                ${portfolioData.education && portfolioData.education.length ? 
+                    portfolioData.education.map(ed => `
+                        <div class="template3EducationItem">
+                            <h3>${ed.degree} at ${ed.institution}</h3>
+                            <p class="template3Duration">${ed.duration}</p>
+                            <p>${ed.description}</p>
+                        </div>
+                    `).join('') : 
+                    '<p>No education listed.</p>'
+                }
+            </section>
+
+            <section id="contact" class="template3Section">
+                <h2>Contact</h2>
+                <div class="template3ContactInfo">
+                    <p><i class="fas fa-envelope"></i> Email: <span>${portfolioData.email}</span></p>
+                    <p><i class="fab fa-linkedin"></i> LinkedIn: <a href="${portfolioData.linkedin}" target="_blank" rel="noopener noreferrer">Profile</a></p>
+                    <p><i class="fab fa-github"></i> GitHub: <a href="${portfolioData.github}" target="_blank" rel="noopener noreferrer">Repository</a></p>
+                </div>
+            </section>
+        </div>
+
+        <footer style="background: #2d2d2d; color: #b0b0b0; text-align: center; padding: 2rem; margin-top: 4rem;">
+            <p>&copy; 2024 ${portfolioData.name}. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>`;
+};
+
+const generateCSS = () => {
+  return `/* Template3Portfolio Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .template3PortfolioRoot {
   min-height: 100vh;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -8,30 +149,6 @@
   transition: background 0.3s ease, color 0.3s ease;
   position: relative;
   overflow-x: hidden;
-}
-
-/* Loading states */
-.template3LoadingContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
-  color: white;
-}
-
-.template3LoadingContainer h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  font-weight: 700;
-}
-
-.template3LoadingContainer p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  margin: 0;
 }
 
 /* Header Navigation */
@@ -749,6 +866,7 @@
   }
 }
 
+/* Media Query Completion */
 @media (max-width: 480px) {
   .template3HeroImage {
     width: 150px;
@@ -763,25 +881,238 @@
     font-size: 1rem;
   }
   
+  .template3HeroActions {
+    gap: 0.5rem;
+  }
+  
+  .template3ActionButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .template3Container {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  .template3Section {
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+  }
+  
   .template3Section h2 {
     font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .template3Section p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .template3Skills {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+  
+  .template3Skills li {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
   }
   
   .template3ExperienceItem,
   .template3EducationItem {
     padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .template3ExperienceItem h3,
+  .template3EducationItem h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .template3ProjectCard {
+    margin-bottom: 1.5rem;
   }
   
   .template3ProjectCard h3 {
+    font-size: 1.2rem;
     padding: 1rem 1rem 0;
   }
   
-  .template3TechStack,
+  .template3TechStack {
+    font-size: 0.8rem;
+    padding: 0 1rem;
+  }
+  
   .template3ProjectCard p {
+    font-size: 0.9rem;
     padding: 0 1rem;
   }
   
   .template3ProjectLink {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
     margin: 0 1rem 1rem;
   }
+  
+  .template3ContactInfo {
+    gap: 0.8rem;
+  }
+  
+  .template3ContactInfo p {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .template3HeaderContent {
+    height: 60px;
+  }
+  
+  .template3Logo {
+    font-size: 1.5rem;
+  }
+  
+  .template3DarkModeToggle {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .template3Hamburger {
+    font-size: 1.2rem;
+  }
 }
+`;
+};
+
+// **✅ CORRECT LOCATION FOR THIS FUNCTION **
+const generateJS = () => {
+  return `document.addEventListener('DOMContentLoaded', () => {
+    const portfolioRoot = document.getElementById('portfolioRoot');
+    const themeIcon = document.getElementById('themeIcon');
+    const navLinks = document.getElementById('navLinks');
+
+    // Function to toggle dark mode
+    window.toggleDarkMode = () => {
+        portfolioRoot.classList.toggle('template3DarkMode');
+        const isDarkMode = portfolioRoot.classList.contains('template3DarkMode');
+        localStorage.setItem('darkMode', isDarkMode);
+        
+        // Update theme icon
+        if (themeIcon) {
+            if (isDarkMode) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+    };
+
+    // Function to toggle mobile navigation
+    window.toggleNav = () => {
+        if (navLinks) {
+            navLinks.classList.toggle('template3Active');
+        }
+    };
+
+    // Function to handle smooth scrolling for navigation links
+    window.handleNavClick = (event) => {
+        event.preventDefault();
+        if (navLinks) {
+            navLinks.classList.remove('template3Active');
+        }
+
+        const targetId = event.currentTarget.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+            const header = document.querySelector('.template3Header');
+            const headerHeight = header ? header.offsetHeight : 70;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+
+            window.scrollTo({
+                top: Math.max(0, offsetPosition),
+                behavior: "smooth"
+            });
+        }
+    };
+
+    // Apply saved theme from localStorage on initial load
+    if (localStorage.getItem('darkMode') === 'true') {
+        portfolioRoot.classList.add('template3DarkMode');
+        if (themeIcon) {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+    }
+});
+`;
+};
+
+
+export const generateStaticBundle = async (portfolioData) => {
+  const zip = new JSZip();
+  // Create a mutable copy of the data to avoid altering the original object.
+  const bundledData = { ...portfolioData };
+
+  // --- Fetch and include the static placeholder image ---
+  try {
+    const placeholderResponse = await fetch('/placeholder.png');
+    if (placeholderResponse.ok) {
+        const placeholderBlob = await placeholderResponse.blob();
+        zip.file('placeholder.png', placeholderBlob, { binary: true });
+    } else {
+        console.warn('Could not fetch placeholder.png');
+    }
+  } catch(error) {
+    console.error('Error fetching placeholder image:', error);
+  }
+
+  // --- Fetch, process, and bundle the profile image, just like in Template 2 ---
+  if (portfolioData.image && portfolioData.image !== '/placeholder.png') {
+    try {
+      const response = await fetch(portfolioData.image);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image: ${response.statusText}`);
+      }
+      
+      const imageBlob = await response.blob();
+      // Determine the file extension from the blob's MIME type
+      const extension = imageBlob.type.split('/')[1]?.split('+')[0] || 'jpg';
+      const imageName = `profile_image.${extension}`;
+      
+      // Add the image file to the zip archive
+      zip.file(imageName, imageBlob, { binary: true });
+      // ✅ Update the image path in our bundled data to the new local file name
+      bundledData.image = imageName;
+
+    } catch (error) {
+      console.error("Could not fetch or add profile image to bundle. It will be replaced by the placeholder.", error);
+      // If fetching fails, clear the image path so the HTML template uses the default placeholder
+      bundledData.image = 'placeholder.png'; 
+    }
+  } else {
+      // If there's no image or it's the placeholder path, ensure the bundled data points to the local placeholder
+      bundledData.image = 'placeholder.png';
+  }
+
+  // Generate the HTML using the (now modified) bundled data
+  const html = generateHTML(bundledData);
+  const css = generateCSS();
+  const js = generateJS();
+
+  zip.file("index.html", html);
+  zip.file("styles.css", css);
+  zip.file("script.js", js);
+
+  // Generate the zip file and trigger the download
+  const content = await zip.generateAsync({ type: "blob" });
+  saveAs(content, `${portfolioData.name.replace(/\s+/g, '_')}_Portfolio.zip`);
+};

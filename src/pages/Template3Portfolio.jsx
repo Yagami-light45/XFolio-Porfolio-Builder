@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
-import { generateStaticBundle } from '../utils/staticBundleGenerator';
+import { generateStaticBundle } from '../utils/Template3BundleGenerator';
 import { faSun, faMoon, faDownload, faBars, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import styles from './Template3Portfolio.module.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -140,18 +140,52 @@ const Template3Portfolio = () => {
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const toggleNav = () => setIsNavOpen(!isNavOpen);
 
-  const handleNavClick = (event) => {
-    event.preventDefault();
-    setIsNavOpen(false);
-    const targetId = event.currentTarget.getAttribute('href');
-    const targetElement = document.querySelector(targetId);
-    if (targetElement) {
-      window.scrollTo({
-        top: targetElement.offsetTop - 70, 
-        behavior: "smooth"
-      });
-    }
-  };
+const handleNavClick = (event) => {
+  event.preventDefault();
+  setIsNavOpen(false);
+  
+  const targetId = event.currentTarget.getAttribute('href');
+  const targetElement = document.querySelector(targetId);
+  
+  if (targetElement) {
+    // Get the header height dynamically
+    const header = document.querySelector(`.${styles.template3Header}`);
+    const headerHeight = header ? header.offsetHeight : 70;
+    
+    // Calculate the target position
+    const elementPosition = targetElement.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20; // Extra 20px padding
+    
+    window.scrollTo({
+      top: Math.max(0, offsetPosition), // Ensure we don't scroll to negative position
+      behavior: "smooth"
+    });
+  }
+};
+
+// Alternative approach using scrollIntoView (even simpler)
+const handleNavClickAlternative = (event) => {
+  event.preventDefault();
+  setIsNavOpen(false);
+  
+  const targetId = event.currentTarget.getAttribute('href');
+  const targetElement = document.querySelector(targetId);
+  
+  if (targetElement) {
+    // Get the header height dynamically
+    const header = document.querySelector(`.${styles.template3Header}`);
+    const headerHeight = header ? header.offsetHeight : 70;
+    
+    // Scroll to element with offset
+    const yOffset = -(headerHeight + 20); // negative offset to scroll above the element
+    const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    
+    window.scrollTo({
+      top: Math.max(0, y),
+      behavior: 'smooth'
+    });
+  }
+};
 
   const handleDownload = (type) => {
     if (!portfolioData) {

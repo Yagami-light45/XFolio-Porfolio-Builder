@@ -42,7 +42,7 @@ const TemplateSelector = () => {
           </div>
         ))}
       </div>
-      <button onClick={() => navigate('/')} className={styles.templateSelectorBackButton}>Back to Builder</button>
+      <button onClick={() => navigate('/builder')} className={styles.templateSelectorBackButton}>Back to Builder</button>
     </div>
   );
 };

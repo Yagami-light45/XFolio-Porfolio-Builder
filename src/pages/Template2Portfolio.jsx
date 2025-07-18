@@ -1,7 +1,9 @@
+/* PROFESSIONAL SIDEBAR */
+
 import React, { useState, useEffect, useRef } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
-import { generateStaticBundle } from '../utils/staticBundleGenerator';
+import { generateStaticBundle } from '../utils/Template2BundleGenerator';
 import { faSun, faMoon, faDownload, faBars, faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from './Template2Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -200,7 +202,7 @@ const Template2Portfolio = () => {
     }
   };
 
-  const handleDownload = (type) => {
+  const handleDownload = async (type) => { 
     if (!portfolioData) {
       console.warn("Portfolio data not loaded, cannot download.");
       return;
@@ -208,7 +210,7 @@ const Template2Portfolio = () => {
     if (type === 'resume') {
       generateResumePDF(portfolioData);
     } else if (type === 'bundle') {
-      generateStaticBundle(portfolioData);
+      await generateStaticBundle(portfolioData);
     }
  
     if (isMobile) {

@@ -1,6 +1,5 @@
 /* XFolio.module.css */
 
-/* Scoped reset for XFolio component only */
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +11,6 @@
   box-sizing: border-box;
 }
 
-/* Remove any default body margins/padding */
 .xfolioContainer {
   margin: 0;
   padding: 0;
@@ -20,7 +18,6 @@
   min-height: 100vh;
 }
 
-/* Animation keyframes */
 @keyframes xfolioFallFromTop {
   0% { 
     opacity: 0; 
@@ -32,7 +29,6 @@
   }
 }
 
-/* Animation classes with staggered delays */
 .xfolioFallFromTopAnimated { 
   animation: xfolioFallFromTop 1s ease forwards;
 }
