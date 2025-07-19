@@ -1,13 +1,43 @@
-// BuilderPage.jsx
+// BuilderPage.jsx - Enhanced with loading states and better UX
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./BuilderPage.module.css";
 import PortfolioFooter from './PortfolioFooter';
 import { useAlert, AlertContainer } from './Alert';
 
+// Loading Spinner Component
+const LoadingSpinner = () => (
+  <div className={styles.spinner}>
+    <div className={styles.spinnerRing}></div>
+  </div>
+);
+
+// Loading Modal Component
+const LoadingModal = ({ isVisible, progress = 0 }) => (
+  isVisible && (
+    <div className={styles.loadingModal}>
+      <div className={styles.loadingContent}>
+        <LoadingSpinner />
+        <h3>Creating Your Portfolio...</h3>
+        <div className={styles.progressBar}>
+          <div 
+            className={styles.progressFill} 
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+        <p className={styles.loadingText}>
+          {progress < 30 && "Processing your information..."}
+          {progress >= 30 && progress < 60 && "Validating your data..."}
+          {progress >= 60 && progress < 90 && "Generating portfolio structure..."}
+          {progress >= 90 && "Almost ready! Finalizing..."}
+        </p>
+      </div>
+    </div>
+  )
+);
 
 // Reusable component for creating labeled inputs or textareas in the form.
-const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = false, required = false, ...props }) => (
+const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = false, required = false, disabled = false, onKeyDown, ...props }) => (
   <div className={styles.builderPageFormGroup}>
     <label htmlFor={id}>{label}</label>
     {isTextArea ? (
@@ -17,6 +47,8 @@ const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = fal
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
+        disabled={disabled}
+        onKeyDown={onKeyDown}
         {...props}
       />
     ) : (
@@ -26,6 +58,8 @@ const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = fal
         value={type !== "file" ? value : undefined}
         onChange={type === "file" ? onChange : (e) => onChange(e.target.value)}
         required={required}
+        disabled={disabled}
+        onKeyDown={onKeyDown}
         {...props}
       />
     )}
@@ -33,7 +67,7 @@ const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = fal
 );
 
 // Component for skill input .
-const SkillInput = ({ skill, index, updateSkill, removeSkill }) => (
+const SkillInput = ({ skill, index, updateSkill, removeSkill, disabled, onKeyDown }) => (
   <div className={`${styles.builderPageSkillItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
@@ -42,15 +76,22 @@ const SkillInput = ({ skill, index, updateSkill, removeSkill }) => (
       value={skill.value}
       onChange={(e) => updateSkill(index, e.target.value)}
       maxLength="50"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
-    <button type="button" className={styles.builderPageRemoveSkillBtn} onClick={() => removeSkill(index)}>
+    <button 
+      type="button" 
+      className={styles.builderPageRemoveSkillBtn} 
+      onClick={() => removeSkill(index)}
+      disabled={disabled}
+    >
       Remove
     </button>
   </div>
 );
 
 // Component for experience input.
-const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => (
+const ExperienceInput = ({ exp, index, updateExperience, removeExperience, disabled, onKeyDown }) => (
   <div className={`${styles.builderPageExperienceItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
@@ -59,6 +100,8 @@ const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => 
       value={exp.title}
       onChange={(e) => updateExperience(index, 'title', e.target.value)}
       maxLength="100"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <input
       type="text"
@@ -67,6 +110,8 @@ const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => 
       value={exp.company}
       onChange={(e) => updateExperience(index, 'company', e.target.value)}
       maxLength="100"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <input
       type="text"
@@ -75,6 +120,8 @@ const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => 
       value={exp.duration}
       onChange={(e) => updateExperience(index, 'duration', e.target.value)}
       maxLength="50"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <textarea
       className={styles.builderPageExperienceDescription}
@@ -83,15 +130,22 @@ const ExperienceInput = ({ exp, index, updateExperience, removeExperience }) => 
       value={exp.description}
       onChange={(e) => updateExperience(index, 'description', e.target.value)}
       maxLength="500"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
-    <button type="button" className={styles.builderPageRemoveExperienceBtn} onClick={() => removeExperience(index)}>
+    <button 
+      type="button" 
+      className={styles.builderPageRemoveExperienceBtn} 
+      onClick={() => removeExperience(index)}
+      disabled={disabled}
+    >
       Remove
     </button>
   </div>
 );
 
 // project input 
-const ProjectInput = ({ proj, index, updateProject, removeProject }) => (
+const ProjectInput = ({ proj, index, updateProject, removeProject, disabled, onKeyDown }) => (
   <div className={`${styles.builderPageProjectItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
@@ -100,13 +154,17 @@ const ProjectInput = ({ proj, index, updateProject, removeProject }) => (
       value={proj.title}
       onChange={(e) => updateProject(index, 'title', e.target.value)}
       maxLength="100"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <input
       type="url"
       className={styles.builderPageProjectLink}
-      placeholder="Project URL “Include https://”"
+      placeholder="Project URL  Include https://"
       value={proj.link}
       onChange={(e) => updateProject(index, 'link', e.target.value)}
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <input
       type="text"
@@ -115,6 +173,8 @@ const ProjectInput = ({ proj, index, updateProject, removeProject }) => (
       value={proj.techStack}
       onChange={(e) => updateProject(index, 'techStack', e.target.value)}
       maxLength="200"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <textarea
       className={styles.builderPageProjectDescription}
@@ -123,15 +183,22 @@ const ProjectInput = ({ proj, index, updateProject, removeProject }) => (
       value={proj.description}
       onChange={(e) => updateProject(index, 'description', e.target.value)}
       maxLength="500"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
-    <button type="button" className={styles.builderPageRemoveProjectBtn} onClick={() => removeProject(index)}>
+    <button 
+      type="button" 
+      className={styles.builderPageRemoveProjectBtn} 
+      onClick={() => removeProject(index)}
+      disabled={disabled}
+    >
       Remove
     </button>
   </div>
 );
 
 // education input 
-const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
+const EducationInput = ({ edu, index, updateEducation, removeEducation, disabled, onKeyDown }) => (
   <div className={`${styles.builderPageEducationItem} ${styles.builderPageFormGroup}`}>
     <input
       type="text"
@@ -140,6 +207,8 @@ const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
       value={edu.institution}
       onChange={(e) => updateEducation(index, 'institution', e.target.value)}
       maxLength="100"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <input
       type="text"
@@ -148,6 +217,8 @@ const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
       value={edu.degree}
       onChange={(e) => updateEducation(index, 'degree', e.target.value)}
       maxLength="100"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <input
       type="text"
@@ -156,6 +227,8 @@ const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
       value={edu.duration}
       onChange={(e) => updateEducation(index, 'duration', e.target.value)}
       maxLength="50"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
     <textarea
       className={styles.builderPageEducationDescription}
@@ -164,8 +237,15 @@ const EducationInput = ({ edu, index, updateEducation, removeEducation }) => (
       value={edu.description}
       onChange={(e) => updateEducation(index, 'description', e.target.value)}
       maxLength="300"
+      disabled={disabled}
+      onKeyDown={onKeyDown}
     />
-    <button type="button" className={styles.builderPageRemoveEducationBtn} onClick={() => removeEducation(index)}>
+    <button 
+      type="button" 
+      className={styles.builderPageRemoveEducationBtn} 
+      onClick={() => removeEducation(index)}
+      disabled={disabled}
+    >
       Remove
     </button>
   </div>
@@ -278,14 +358,33 @@ const BuilderPage = () => {
   const [education, setEducation] = useState([{ institution: '', degree: '', duration: '', description: '' }]);
   const [isLightMode, setIsLightMode] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [progress, setProgress] = useState(0);
+  
   const navigate = useNavigate();
   const { alerts, hideAlert, success, error, warning, info } = useAlert();
-
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('lightMode') === 'true';
     setIsLightMode(savedTheme);
   }, []);
+
+  // Progress simulation for better UX
+  const simulateProgress = () => {
+    setProgress(0);
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 95) {
+          clearInterval(interval);
+          return 95;
+        }
+        // Simulate realistic progress with some randomness
+        const increment = Math.random() * 15 + 5;
+        return Math.min(prev + increment, 95);
+      });
+    }, 300);
+    return interval;
+  };
 
   // sanitize input by removing < and > characters.
   const sanitizeInput = (input) => input ? input.trim().replace(/[<>]/g, '') : '';
@@ -315,6 +414,7 @@ const BuilderPage = () => {
     reader.onerror = () => error("Upload Failed", "Error reading file. Please try again.");
     reader.readAsDataURL(file);
   };
+  
   //ADD ,REMOVE,UPDATE FNS
   const addSkill = () => setSkills(prev => [...prev, { value: '' }]);
   const removeSkill = (index) => skills.length > 1 ? setSkills(prev => prev.filter((_, i) => i !== index)) : info("Minimum Required", "At least one skill field must remain.");
@@ -333,7 +433,6 @@ const BuilderPage = () => {
   const updateEducation = (index, field, value) => setEducation(prev => prev.map((edu, i) => i === index ? { ...edu, [field]: value } : edu));
   
   //THEME TOGGLE
-
   const toggleTheme = () => {
     const newMode = !isLightMode;
     setIsLightMode(newMode);
@@ -341,6 +440,7 @@ const BuilderPage = () => {
   };
 
   const resetForm = () => {
+    if (isSubmitting) return;
     if (!window.confirm("Are you sure you want to reset all data? This action cannot be undone.")) return;
     setFormData({ name: '', profession: '', bio: '', email: '', linkedin: '', github: '', image: null });
     setSkills([{ value: '' }]);
@@ -350,10 +450,41 @@ const BuilderPage = () => {
     success("Form Reset", "All data has been cleared successfully.");
   };
 
+  // ADDED: Handles Enter key to move to the next field
+  const handleKeyDown = (e) => {
+    // For TEXTAREA elements, we want to allow the default 'Enter' behavior (new line)
+    if (e.key === 'Enter' && e.target.tagName === 'TEXTAREA') {
+      return;
+    }
+
+    // For all other inputs, on 'Enter', we prevent form submission and move to the next field
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const form = e.target.closest('form');
+      if (!form) return;
+
+      // Create an array of all focusable elements in the form
+      const focusable = Array.from(form.querySelectorAll('input, textarea, button:not([disabled])'));
+      const index = focusable.indexOf(e.target);
+
+      // If a next element exists, focus it
+      if (index > -1 && (index + 1) < focusable.length) {
+        const nextElement = focusable[index + 1];
+        nextElement.focus();
+      }
+    }
+  };
+
   //SUBMIT FN
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return; // Prevent double submission
+    
     if (!formData.name.trim()) return error("Required Field", "Please enter your name to continue.");
+    
+    setIsSubmitting(true);
+    const progressInterval = simulateProgress();
+    
     const userData = {
       name: sanitizeInput(formData.name),
       profession: sanitizeInput(formData.profession),
@@ -382,6 +513,7 @@ const BuilderPage = () => {
         description: sanitizeInput(edu.description)
       })).filter(edu => edu.institution || edu.degree || edu.duration || edu.description)
     };
+    
     try {
       const response = await fetch('http://localhost:5000/api/portfolios', {
         method: 'POST',
@@ -389,17 +521,27 @@ const BuilderPage = () => {
         body: JSON.stringify(userData),
       });
       const data = await response.json();
+      
       if (response.ok) {
-        localStorage.setItem('lastGeneratedUsername', data.username); // Save username
-
-        navigate('/select-template', { state: { username: data.username } });
-      } else {
+        clearInterval(progressInterval);
+        setProgress(100);
+        localStorage.setItem('lastGeneratedUsername', data.username);
         
+        // Small delay to show 100% completion
+        setTimeout(() => {
+          navigate('/select-template', { state: { username: data.username } });
+        }, 500);
+      } else {
+        clearInterval(progressInterval);
+        setIsSubmitting(false);
+        setProgress(0);
         console.error('Portfolio generation failed:', data.message);
-       
         error("Portfolio Generation Failed", "Error generating portfolio. Please try again.");
       }
     } catch (err) {
+      clearInterval(progressInterval);
+      setIsSubmitting(false);
+      setProgress(0);
       error("Network Error", "Could not connect to the server. Please try again.");
     }
   };
@@ -407,11 +549,13 @@ const BuilderPage = () => {
   // JSX structure
   return (
     <div className={`${styles.builderPageWrapper} ${isLightMode ? styles.lightMode : ''}`}>
+      <LoadingModal isVisible={isSubmitting} progress={progress} />
+      
       <nav className={styles.builderPageNavbar}>
         <div className={styles.builderPageBrand}>⚡XFolio</div>
         <ul className={`${styles.builderPageNavLinks} ${navOpen ? styles.active : ''}`} id="nav-links">
-          <li><button onClick={resetForm}>♻️ Reset</button></li>
-          <li><button onClick={toggleTheme}>{isLightMode ? '🌙 Dark Mode' : '☀ Light Mode'}</button></li>
+          <li><button onClick={resetForm} disabled={isSubmitting}>♻️ Reset</button></li>
+          <li><button onClick={toggleTheme} disabled={isSubmitting}>{isLightMode ? '🌙 Dark Mode' : '☀ Light Mode'}</button></li>
         </ul>
         <div className={styles.builderPageHamburger} onClick={() => setNavOpen(!navOpen)}>☰</div>
       </nav>
@@ -420,50 +564,156 @@ const BuilderPage = () => {
         <div className={styles.builderPageInputSection}>
           <h2>Enter Your Details</h2>
           <form onSubmit={handleSubmit}>
-            <FormGroup label="Your Name:" id="userName" value={formData.name} onChange={(value) => handleFormChange('name', value)} required placeholder="Enter your Name.." />
-            <FormGroup label="Profession/Title:" id="userProfession" value={formData.profession} onChange={(value) => handleFormChange('profession', value)} placeholder="e.g., Web Developer" />
-            <FormGroup label="Bio/About Me:" id="userBio" value={formData.bio} onChange={(value) => handleFormChange('bio', value)} isTextArea placeholder="Tell us about yourself..." />
-            <FormGroup label="Upload Your Image:" id="userImage" type="file" onChange={handleImageUpload} accept="image/*" />
+            <FormGroup 
+              label="Your Name:" 
+              id="userName" 
+              value={formData.name} 
+              onChange={(value) => handleFormChange('name', value)} 
+              required 
+              placeholder="Enter your Name.." 
+              disabled={isSubmitting}
+              onKeyDown={handleKeyDown}
+            />
+            <FormGroup 
+              label="Profession/Title:" 
+              id="userProfession" 
+              value={formData.profession} 
+              onChange={(value) => handleFormChange('profession', value)} 
+              placeholder="e.g., Web Developer" 
+              disabled={isSubmitting}
+              onKeyDown={handleKeyDown}
+            />
+            <FormGroup 
+              label="Bio/About Me:" 
+              id="userBio" 
+              value={formData.bio} 
+              onChange={(value) => handleFormChange('bio', value)} 
+              isTextArea 
+              placeholder="Tell us about yourself..." 
+              disabled={isSubmitting}
+              onKeyDown={handleKeyDown}
+            />
+            <FormGroup 
+              label="Upload Your Image:" 
+              id="userImage" 
+              type="file" 
+              onChange={handleImageUpload} 
+              accept="image/*" 
+              disabled={isSubmitting}
+              onKeyDown={handleKeyDown}
+            />
 
             <h2>Skills</h2>
             <div id="skillsContainer">
               {skills.map((skill, index) => (
-                <SkillInput key={index} skill={skill} index={index} updateSkill={updateSkill} removeSkill={removeSkill} />
+                <SkillInput 
+                  key={index} 
+                  skill={skill} 
+                  index={index} 
+                  updateSkill={updateSkill} 
+                  removeSkill={removeSkill} 
+                  disabled={isSubmitting}
+                  onKeyDown={handleKeyDown}
+                />
               ))}
             </div>
-            <button type="button" onClick={addSkill}>Add Skill</button>
+            <button type="button" onClick={addSkill} disabled={isSubmitting}>Add Skill</button>
 
             <h2>Experience</h2>
             <div id="experienceContainer">
               {experiences.map((exp, index) => (
-                <ExperienceInput key={index} exp={exp} index={index} updateExperience={updateExperience} removeExperience={removeExperience} />
+                <ExperienceInput 
+                  key={index} 
+                  exp={exp} 
+                  index={index} 
+                  updateExperience={updateExperience} 
+                  removeExperience={removeExperience} 
+                  disabled={isSubmitting}
+                  onKeyDown={handleKeyDown}
+                />
               ))}
             </div>
-            <button type="button" onClick={addExperience}>Add Experience</button>
+            <button type="button" onClick={addExperience} disabled={isSubmitting}>Add Experience</button>
 
             <h2>Projects</h2>
             <div id="projectsContainer">
               {projects.map((proj, index) => (
-                <ProjectInput key={index} proj={proj} index={index} updateProject={updateProject} removeProject={removeProject} />
+                <ProjectInput 
+                  key={index} 
+                  proj={proj} 
+                  index={index} 
+                  updateProject={updateProject} 
+                  removeProject={removeProject} 
+                  disabled={isSubmitting}
+                  onKeyDown={handleKeyDown}
+                />
               ))}
             </div>
-            <button type="button" onClick={addProject}>Add Project</button>
+            <button type="button" onClick={addProject} disabled={isSubmitting}>Add Project</button>
 
             <h2>Education</h2>
             <div id="educationContainer">
               {education.map((edu, index) => (
-                <EducationInput key={index} edu={edu} index={index} updateEducation={updateEducation} removeEducation={removeEducation} />
+                <EducationInput 
+                  key={index} 
+                  edu={edu} 
+                  index={index} 
+                  updateEducation={updateEducation} 
+                  removeEducation={removeEducation} 
+                  disabled={isSubmitting}
+                  onKeyDown={handleKeyDown}
+                />
               ))}
             </div>
-            <button type="button" onClick={addEducation}>Add Education</button>
+            <button type="button" onClick={addEducation} disabled={isSubmitting}>Add Education</button>
 
             <h2>Contact Information</h2>
-            <FormGroup label="Email:" id="userEmail" type="email" value={formData.email} onChange={(value) => handleFormChange('email', value)} placeholder="your.email@example.com" />
-            <FormGroup label="LinkedIn URL:" id="userLinkedIn" type="url" value={formData.linkedin} onChange={(value) => handleFormChange('linkedin', value)} placeholder="https://linkedin.com/in/yourprofile" />
-            <FormGroup label="GitHub URL:" id="userGithub" type="url" value={formData.github} onChange={(value) => handleFormChange('github', value)} placeholder="https://github.com/yourusername" />
+            <FormGroup 
+              label="Email:" 
+              id="userEmail" 
+              type="email" 
+              value={formData.email} 
+              onChange={(value) => handleFormChange('email', value)} 
+              placeholder="your.email@example.com" 
+              disabled={isSubmitting}
+              onKeyDown={handleKeyDown}
+            />
+            <FormGroup 
+              label="LinkedIn URL:" 
+              id="userLinkedIn" 
+              type="url" 
+              value={formData.linkedin} 
+              onChange={(value) => handleFormChange('linkedin', value)} 
+              placeholder="https://linkedin.com/in/yourprofile" 
+              disabled={isSubmitting}
+              onKeyDown={handleKeyDown}
+            />
+            <FormGroup 
+              label="GitHub URL:" 
+              id="userGithub" 
+              type="url" 
+              value={formData.github} 
+              onChange={(value) => handleFormChange('github', value)} 
+              placeholder="https://github.com/yourusername" 
+              disabled={isSubmitting}
+              onKeyDown={handleKeyDown}
+            />
 
-            <button type="submit" className={styles.builderPageGeneratePortfolioBtn}>
-              Generate Portfolio <span role="img" aria-label="rocket">🚀</span>
+            <button 
+              type="submit" 
+              className={`${styles.builderPageGeneratePortfolioBtn} ${isSubmitting ? styles.disabled : ''}`}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <LoadingSpinner />
+                  Creating Portfolio...
+                </>
+              ) : (
+                <>
+                  Generate Portfolio <span role="img" aria-label="rocket">🚀</span>
+                </>
+              )}
             </button>
           </form>
         </div>

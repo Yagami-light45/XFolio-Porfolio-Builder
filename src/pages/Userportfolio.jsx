@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
 import { generateStaticBundle } from '../utils/staticBundleGenerator';
-import { faSun, faMoon, faDownload, faBars, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faDownload, faBars, faEnvelope, faPrint } from '@fortawesome/free-solid-svg-icons';
 import styles from './UserPortfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -193,6 +193,45 @@ const UserPortfolio = () => {
       generateStaticBundle(portfolioData);
     }
   };
+ const handlePrintPortfolio = () => {
+  if (!portfolioData) {
+    console.warn("Portfolio data not loaded, cannot print.");
+    return;
+  }
+  
+  // Hide navbar temporarily for printing
+  const navbar = document.querySelector(`.${styles.userPortfolioGlassNavbar}`);
+  if (navbar) navbar.style.display = 'none';
+  
+  // Add basic print styles
+  const printStyles = document.createElement('style');
+  printStyles.innerHTML = `
+    @media print {
+      @page { margin: 0.5in; }
+      body { font-size: 12pt !important; }
+      .${styles.userPortfolioSection} { 
+        page-break-inside: avoid; 
+        margin-bottom: 20px !important; 
+      }
+      .${styles.userPortfolioSection} h2 { 
+        color: #333 !important; 
+        border-bottom: 1px solid #ccc; 
+      }
+      a { color: #0066cc !important; }
+      * { box-shadow: none !important; }
+    }
+  `;
+  document.head.appendChild(printStyles);
+  
+  // Print
+  window.print();
+  
+  // Restore navbar after printing
+  setTimeout(() => {
+    if (navbar) navbar.style.display = '';
+    document.head.removeChild(printStyles);
+  }, 100);
+};
 
   const handleImageError = (e) => {
     console.warn('Image failed to load, using placeholder');
@@ -205,7 +244,7 @@ const UserPortfolio = () => {
       <div className={`${styles.userPortfolioRoot} ${isDarkMode ? styles.userPortfolioDarkMode : ''}`}>
         <nav className={styles.userPortfolioGlassNavbar}>
           <div className={styles.userPortfolioNavbarContainer}>
-            <div className={styles.userPortfolioLogo}>Welcome..!</div>
+            <div className={styles.userPortfolioLogo}>Portfolio..!</div>
           </div>
         </nav>
         <div className={styles.userPortfolioContainer} style={{ textAlign: 'center', padding: '50px', marginTop: '4rem' }}>
@@ -221,7 +260,7 @@ const UserPortfolio = () => {
     <div className={`${styles.userPortfolioRoot} ${isDarkMode ? styles.userPortfolioDarkMode : ''}`}>
       <nav className={styles.userPortfolioGlassNavbar}>
         <div className={styles.userPortfolioNavbarContainer}>
-          <div className={styles.userPortfolioLogo}>Welcome..!</div>
+          <div className={styles.userPortfolioLogo}>My Portfolio</div>
           <ul className={`${styles.userPortfolioNavLinks} ${isNavOpen ? styles.userPortfolioActive : ''}`}>
             <li><a href="#about" onClick={handleNavClick}>About</a></li>
             <li><a href="#skills" onClick={handleNavClick}>Skills</a></li>
@@ -237,6 +276,9 @@ const UserPortfolio = () => {
               <div className={styles.userPortfolioDownloadMenu} role="menu">
                 <a href="#" onClick={(e) => handleDownload(e, 'resume')}>Download Resume</a>
                 <a href="#" onClick={(e) => handleDownload(e, 'bundle')}>Download Static Bundle</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); setIsDownloadOpen(false); handlePrintPortfolio(); }}>
+                  <FontAwesomeIcon icon={faPrint} /> Print Portfolio
+                </a>
               </div>
             </div>
             <button className={styles.userPortfolioDarkModeToggle} onClick={toggleDarkMode} aria-label="Toggle dark mode">

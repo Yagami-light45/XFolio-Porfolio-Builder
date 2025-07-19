@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
 import { generateStaticBundle } from '../utils/Template4BundleGenerator';
-import { faSun, faMoon, faDownload, faBars, faEnvelope, faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faDownload, faBars, faEnvelope, faMapMarkerAlt, faPhone , faPrint} from '@fortawesome/free-solid-svg-icons';
 import styles from './Template4Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
+import { printPortfolio } from '../utils/printTemplate4'; 
 
 const Template4Portfolio = () => {
   const { username } = useParams();
@@ -178,6 +179,14 @@ const Template4Portfolio = () => {
     }
   };
 
+   const handlePrintPortfolio = () => {
+    if (!portfolioData) {
+      console.warn("Portfolio data not loaded, cannot print.");
+      return;
+    }
+    printPortfolio(styles);
+  };
+
   const handleDownload = (type) => {
     if (!portfolioData) {
       console.warn("Portfolio data not loaded, cannot download.");
@@ -255,6 +264,10 @@ const Template4Portfolio = () => {
                   <button className={styles.template4SecondaryButton} onClick={() => handleDownload('bundle')}>
                     <FontAwesomeIcon icon={faDownload} />
                     Get Bundle
+                  </button>
+                  <button className={styles.template4SecondaryButton} onClick={handlePrintPortfolio}>
+                    <FontAwesomeIcon icon={faPrint} />
+                    Print Portfolio
                   </button>
                 </div>
               </div>

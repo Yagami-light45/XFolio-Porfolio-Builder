@@ -4,11 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
 import { generateStaticBundle } from '../utils/Template2BundleGenerator';
-import { faSun, faMoon, faDownload, faBars, faEnvelope, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faDownload, faBars, faEnvelope, faTimes, faPrint } from '@fortawesome/free-solid-svg-icons';
 import styles from './Template2Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
+import { printPortfolio } from '../utils/printTemplate2'; 
 
 const Template2Portfolio = () => {
   const { username } = useParams();
@@ -52,6 +53,7 @@ const Template2Portfolio = () => {
       document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [isMobile, isNavOpen]);
+
 
 
   useEffect(() => {
@@ -223,6 +225,13 @@ const Template2Portfolio = () => {
     e.target.src = '/placeholder.png';
   };
 
+    const handlePrintPortfolio = () => {
+    if (!portfolioData) {
+      console.warn("Portfolio data not loaded, cannot print.");
+      return;
+    }
+    printPortfolio(styles);
+  };
  
   const handleCloseButton = (e) => {
     e.preventDefault();
@@ -320,17 +329,22 @@ const Template2Portfolio = () => {
           )}
 
           <div className={styles.template2SidebarActions}>
-            <button className={styles.template2DarkModeToggle} onClick={toggleDarkMode} aria-label="Toggle dark mode">
-              <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
-              <span>{isDarkMode ? 'Light' : 'Dark'} Mode</span>
-            </button>
-            <button className={styles.template2DownloadBtn} onClick={() => handleDownload('resume')} aria-label="Download Resume">
-              <FontAwesomeIcon icon={faDownload} /> Resume
-            </button>
-            <button className={styles.template2DownloadBtn} onClick={() => handleDownload('bundle')} aria-label="Download Static Bundle">
-              <FontAwesomeIcon icon={faDownload} /> Bundle
-            </button>
-          </div>
+          <button className={styles.template2DarkModeToggle} onClick={toggleDarkMode} aria-label="Toggle dark mode">
+            <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
+            <span>{isDarkMode ? 'Light' : 'Dark'} Mode</span>
+          </button>
+          <button className={styles.template2DownloadBtn} onClick={() => handleDownload('resume')} aria-label="Download Resume">
+            <FontAwesomeIcon icon={faDownload} /> Resume
+          </button>
+          <button className={styles.template2DownloadBtn} onClick={() => handleDownload('bundle')} aria-label="Download Static Bundle">
+            <FontAwesomeIcon icon={faDownload} /> Bundle
+          </button>
+          
+          {/* Add this new button for printing */}
+          <button className={styles.template2DownloadBtn} onClick={handlePrintPortfolio} aria-label="Print Portfolio">
+            <FontAwesomeIcon icon={faPrint} /> Print
+          </button>
+        </div>
           
           <nav className={styles.template2SidebarNav}>
             <ul>

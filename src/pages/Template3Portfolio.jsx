@@ -7,6 +7,7 @@ import styles from './Template3Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
+import { printPortfolio } from '../utils/printTemplate3';
 
 const Template3Portfolio = () => {
   const { username } = useParams();
@@ -163,6 +164,15 @@ const handleNavClick = (event) => {
   }
 };
 
+  const handlePrintPortfolio = () => {
+    if (!portfolioData) {
+      console.warn("Portfolio data not loaded, cannot print.");
+      return;
+    }
+    // Call the utility function, passing the component's styles
+    printPortfolio(styles);
+  };
+
 // Alternative approach using scrollIntoView (even simpler)
 const handleNavClickAlternative = (event) => {
   event.preventDefault();
@@ -251,13 +261,16 @@ const handleNavClickAlternative = (event) => {
         <h1>{portfolioData.name}</h1>
         <p className={styles.template3HeroSubtitle}>{portfolioData.profession}</p>
         <div className={styles.template3HeroActions}>
-            <button className={styles.template3ActionButton} onClick={() => handleDownload('resume')}>
-                <FontAwesomeIcon icon={faDownload} /> Download Resume
-            </button>
-            <button className={styles.template3ActionButton} onClick={() => handleDownload('bundle')}>
-                <FontAwesomeIcon icon={faDownload} /> Download Bundle
-            </button>
-        </div>
+          <button className={styles.template3ActionButton} onClick={() => handleDownload('resume')}>
+              <FontAwesomeIcon icon={faDownload} /> Download Resume
+          </button>
+          <button className={styles.template3ActionButton} onClick={() => handleDownload('bundle')}>
+              <FontAwesomeIcon icon={faDownload} /> Download Bundle
+          </button>
+          <button className={styles.template3ActionButton} onClick={handlePrintPortfolio}>
+              <FontAwesomeIcon icon={faDownload} /> Print Portfolio
+          </button>
+      </div>
       </div>
 
       <div className={styles.template3Container}>

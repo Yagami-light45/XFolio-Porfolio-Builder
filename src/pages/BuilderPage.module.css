@@ -713,6 +713,312 @@
   color: #0056B3;
 }
 
+/* Loading Spinner Styles */
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.spinnerRing {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Loading Modal Styles */
+.loadingModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+}
+
+.loadingContent {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 320px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Dark mode loading content */
+.lightMode .loadingContent {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.loadingContent h3 {
+  margin: 1rem 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.lightMode .loadingContent h3 {
+  color: #fff;
+}
+
+.loadingContent .spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1rem auto;
+}
+
+.loadingContent .spinnerRing {
+  width: 36px;
+  height: 36px;
+  border-width: 3px;
+  border-top-color: #007bff;
+}
+
+/* Progress Bar Styles */
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.lightMode .progressBar {
+  background-color: #444;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.loadingText {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0.5rem 0 0 0;
+  min-height: 1.2em;
+  transition: opacity 0.3s ease;
+}
+
+.lightMode .loadingText {
+  color: #ccc;
+}
+
+/* Submit Button Loading State */
+.builderPageGeneratePortfolioBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.builderPageGeneratePortfolioBtn.disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.builderPageGeneratePortfolioBtn.disabled::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: buttonShimmer 1.5s infinite;
+}
+
+@keyframes buttonShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Form Elements Disabled State */
+input:disabled,
+textarea:disabled,
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.lightMode input:disabled,
+.lightMode textarea:disabled,
+.lightMode button:disabled {
+  background-color: #2d2d2d;
+  color: #999;
+}
+
+/* Loading State for Individual Components */
+.builderPageSkillItem.loading,
+.builderPageExperienceItem.loading,
+.builderPageProjectItem.loading,
+.builderPageEducationItem.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.builderPageSkillItem.loading::after,
+.builderPageExperienceItem.loading::after,
+.builderPageProjectItem.loading::after,
+.builderPageEducationItem.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 123, 255, 0.1),
+    transparent
+  );
+  animation: componentShimmer 2s infinite;
+}
+
+@keyframes componentShimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Responsive Design for Loading Modal */
+@media (max-width: 480px) {
+  .loadingContent {
+    margin: 1rem;
+    padding: 1.5rem;
+    min-width: auto;
+    width: calc(100% - 2rem);
+  }
+  
+  .loadingContent h3 {
+    font-size: 1.3rem;
+  }
+  
+  .loadingText {
+    font-size: 0.9rem;
+  }
+}
+
+/* Loading States Animation Delays */
+.builderPageSkillItem:nth-child(1).loading::after { animation-delay: 0s; }
+.builderPageSkillItem:nth-child(2).loading::after { animation-delay: 0.1s; }
+.builderPageSkillItem:nth-child(3).loading::after { animation-delay: 0.2s; }
+.builderPageSkillItem:nth-child(4).loading::after { animation-delay: 0.3s; }
+
+.builderPageExperienceItem:nth-child(1).loading::after { animation-delay: 0s; }
+.builderPageExperienceItem:nth-child(2).loading::after { animation-delay: 0.15s; }
+
+.builderPageProjectItem:nth-child(1).loading::after { animation-delay: 0s; }
+.builderPageProjectItem:nth-child(2).loading::after { animation-delay: 0.15s; }
+
+.builderPageEducationItem:nth-child(1).loading::after { animation-delay: 0s; }
+.builderPageEducationItem:nth-child(2).loading::after { animation-delay: 0.15s; }
+
+/* Pulse Animation for Loading States */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Loading State for Preview Section */
+.builderPagePreviewSection.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.builderPagePreviewSection.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 123, 255, 0.05) 10px,
+    rgba(0, 123, 255, 0.05) 20px
+  );
+  animation: diagonalMove 3s linear infinite;
+}
+
+@keyframes diagonalMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
 /* Media Queries */
 
 /* Small Laptops (e.g., up to 1200px) */
