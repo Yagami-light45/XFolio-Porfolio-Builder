@@ -124,8 +124,29 @@ const generateHTML = (portfolioData) => {
             </section>
         </div>
 
-        <footer style="background: #2d2d2d; color: #b0b0b0; text-align: center; padding: 2rem; margin-top: 4rem;">
-            <p>&copy; 2024 ${portfolioData.name}. All rights reserved.</p>
+        <footer class="footer">
+            <div class="container">
+                <p>Crafted with ❤️ by the <strong>XFolio</strong> Team</p>
+                
+                <div class="footerLinks">
+                    <a href="mailto:me240003034@iiti.ac.in" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://github.com/Yagami-light45" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/itx_harshith_p" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                
+                <div class="footerInfo">
+                    <p class="footerNote">
+                        <a href="#" class="aboutLink">About XFolio</a>
+                    </p>
+                    <p class="footerNote">© 2025 XFolio. All rights reserved.</p>
+                </div>
+            </div>
         </footer>
     </div>
 
@@ -638,6 +659,65 @@ const generateCSS = () => {
   font-weight: 500;
 }
 
+/* Footer Styles */
+.footer {
+    width: auto;
+    padding: 1.7rem;
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    transition: background-color 0.8s ease, border-color 0.8s ease, color 0.8s ease;
+    color: #333;
+    position: relative;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.footerLinks {
+    margin: 1rem 0;
+}
+
+.footerLinks a {
+    margin: 0rem 1.5rem;
+    font-size: 1.4rem;
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footerLinks a:hover {
+    color: #007BFF;
+    transform: scale(1.1);
+}
+
+.footerNote {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+    transition: color 0.8s ease;
+}
+
+.aboutLink {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.aboutLink:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #0056b3;
+    transform: translateY(-1px);
+}
+
 /* Dark Mode Styles */
 .template3PortfolioRoot.template3DarkMode {
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
@@ -775,6 +855,53 @@ const generateCSS = () => {
   color: #e0e0e0;
 }
 
+/* Dark Mode Footer Styles */
+.template3PortfolioRoot.template3DarkMode .footer {
+    background: rgba(15, 23, 42, 0.85);
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    color: #e2e8f0;
+    transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
+
+.template3PortfolioRoot.template3DarkMode .footerLinks a {
+    color: #cbd5e1;
+    transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
+
+.template3PortfolioRoot.template3DarkMode .footerLinks a:hover {
+    color: #60a5fa;
+    transform: scale(1.15);
+    transition: background-color 0.8s ease, color 0.8s ease, background-image 0.8s ease;
+}
+
+.template3PortfolioRoot.template3DarkMode .footerNote {
+    color: #94a3b8;
+}
+
+.template3PortfolioRoot.template3DarkMode .aboutLink {
+    color: #60a5fa;
+    background-color: transparent;
+}
+
+.template3PortfolioRoot.template3DarkMode .aboutLink:hover {
+    color: #3b82f6;
+    background-color: rgba(96, 165, 250, 0.15);
+    transform: translateY(-1px);
+}
+
+.template3PortfolioRoot.template3DarkMode .footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: -1;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .template3HeaderContent {
@@ -863,6 +990,10 @@ const generateCSS = () => {
   
   .template3ContactInfo {
     margin: 1rem auto;
+  }
+
+  .footer {
+    margin-top: 0.5rem;
   }
 }
 
@@ -985,11 +1116,22 @@ const generateCSS = () => {
   .template3Hamburger {
     font-size: 1.2rem;
   }
+
+  .footer {
+    margin-top: 0rem;
+  }
+}
+
+/* Responsive Footer Styles */
+@media(max-width: 854px) {
+    .footer {
+        margin-top: 1rem;
+    }
 }
 `;
 };
 
-// **✅ CORRECT LOCATION FOR THIS FUNCTION **
+
 const generateJS = () => {
   return `document.addEventListener('DOMContentLoaded', () => {
     const portfolioRoot = document.getElementById('portfolioRoot');

@@ -106,7 +106,7 @@ export const generateStaticBundle = (data, isDarkMode = false) => {
         </section>
       </div>
     
-      <footer class="footer">
+      <<footer class="footer">
         <div class="container">
           <p>Crafted with ❤️ by the <strong>XFolio</strong> Team.</p>
           <div class="footer-links">
@@ -388,7 +388,7 @@ export const generateStaticBundle = (data, isDarkMode = false) => {
     body.dark-mode .nav-links li a,
     body.dark-mode .hamburger,
     body.dark-mode .footer-links a {
-      color: #ffffff;
+      color: #ffffffff;
     }
     
     body.dark-mode .nav-links li a:hover,
@@ -430,10 +430,55 @@ export const generateStaticBundle = (data, isDarkMode = false) => {
       color: #aaaaaa;
     }
     
+    
+    .footer {
+      margin-top: 5rem;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      text-align: center;
+      padding: 2rem 0;
+      transition: background-color 0.8s ease, border-color 0.8s ease, color 0.8s ease;
+    }
+    
+    .footer-links {
+      margin: 0.5rem 0;
+    }
+    
+    .footer-links a {
+      margin: 0 1rem;
+      font-size: 1.4rem;
+      color: #333;
+      transition: color 0.3s ease, transform 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      color: #007BFF;
+      transform: scale(1.1);
+    }
+    
+    .footer-note {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+      transition: color 0.8s ease;
+    }
+    body.dark-mode .footer-links a {
+      color: #ffffff;
+    }
+    body.dark-mode .footer-links a:hover {
+      color: #1e90ff;
+    }
     body.dark-mode .footer {
       background: rgba(10, 20, 40, 0.6);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
+    body.dark-mode .footer-note {
+      color: #aaaaaa;
+    }
+
     
     /* Responsive Design */
     @media(max-width: 768px) {

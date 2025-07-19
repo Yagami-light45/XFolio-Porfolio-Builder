@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
-import { generateStaticBundle } from '../utils/staticBundleGenerator';
+import { generateStaticBundle } from '../utils/Template4BundleGenerator';
 import { faSun, faMoon, faDownload, faBars, faEnvelope, faMapMarkerAlt, faPhone } from '@fortawesome/free-solid-svg-icons';
 import styles from './Template4Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

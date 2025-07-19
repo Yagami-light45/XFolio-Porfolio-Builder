@@ -310,8 +310,8 @@ const generateCSS = () => {
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  border-radius: 0 30px 30px 0;
-  /* Default visible position for desktop */
+  
+  
   transform: translateX(0);
 }
 

@@ -20,10 +20,10 @@ const TemplateSelector = () => {
   };
 
   const templates = [
-    { id: 'template1', name: 'Modern Minimalist', description: 'Clean, glassmorphic design.' },
-    { id: 'template2', name: 'Professional Sidebar', description: 'Fixed sidebar for navigation.' },
-    { id: 'template3', name: 'Creative & Bold', description: 'Vibrant colors and unique typography.' },
-    { id: 'template4', name: 'Minimalist Professional', description: 'Simple, spacious, and highly readable.' },
+    { id: 'template1', name: 'Modern Minimalist', description: 'Clean, glassmorphic design.' , imageUrl: 'Template1.png' },
+    { id: 'template2', name: 'Professional Sidebar', description: 'Fixed sidebar for navigation.' , imageUrl: '/Template2.png' },
+    { id: 'template3', name: 'Creative & Bold', description: 'Vibrant colors and unique typography.' , imageUrl: '/Template3.png' },
+    { id: 'template4', name: 'Minimalist Professional', description: 'Simple, spacious, and highly readable.' , imageUrl: '/Template4.png' },
   ];
 
   return (
@@ -37,6 +37,11 @@ const TemplateSelector = () => {
             className={styles.templateSelectorCard}
             onClick={() => handleTemplateSelect(template.id)}
           >
+            <img
+              src={template.imageUrl}
+              alt={template.name}
+              className={styles.templateImage} 
+            />
             <h3 className={styles.templateSelectorCardTitle}>{template.name}</h3>
             <p className={styles.templateSelectorCardDescription}>{template.description}</p>
           </div>
