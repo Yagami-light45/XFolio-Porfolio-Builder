@@ -112,7 +112,7 @@
 .userPortfolioNavbarButtons {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-shrink: 0;
 }
 
@@ -566,6 +566,16 @@
     .userPortfolioProfile img {
         width: 120px;
         height: 120px;
+    }
+
+    .userPortfolioDownloadBtn {
+    width: 40px;
+    height: 40px;
+    }
+    .userPortfolioDarkModeToggle {
+  
+    width: 40px;
+    height: 40px;
     }
 
     .userPortfolioProfile h1 {

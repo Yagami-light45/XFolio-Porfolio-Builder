@@ -1,15 +1,16 @@
-//  Minimalist Professional Theme   
+//  Minimalist Professional Theme
 
 import React, { useState, useEffect } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
 import { generateStaticBundle } from '../utils/Template4BundleGenerator';
-import { faSun, faMoon, faDownload, faBars, faEnvelope, faMapMarkerAlt, faPhone , faPrint} from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faDownload, faBars, faEnvelope, faMapMarkerAlt, faPhone, faPrint, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import styles from './Template4Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
-import { printPortfolio } from '../utils/printTemplate4'; 
+import { printPortfolio } from '../utils/printTemplate4';
+import ShareModal from './ShareModal';
 
 const Template4Portfolio = () => {
   const { username } = useParams();
@@ -18,6 +19,7 @@ const Template4Portfolio = () => {
   const [portfolioData, setPortfolioData] = useState(null);
   const [profileImage, setProfileImage] = useState('/placeholder.png');
   const [activeSection, setActiveSection] = useState('about');
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('darkMode') === 'true';
@@ -179,7 +181,7 @@ const Template4Portfolio = () => {
     }
   };
 
-   const handlePrintPortfolio = () => {
+  const handlePrintPortfolio = () => {
     if (!portfolioData) {
       console.warn("Portfolio data not loaded, cannot print.");
       return;
@@ -198,6 +200,10 @@ const Template4Portfolio = () => {
       generateStaticBundle(portfolioData);
     }
   };
+
+  const portfolioUrl = window.location.href;
+  const openShareModal = () => setIsShareModalOpen(true);
+  const closeShareModal = () => setIsShareModalOpen(false);
 
   const handleImageError = (e) => {
     console.warn('Image failed to load, using placeholder');
@@ -268,6 +274,10 @@ const Template4Portfolio = () => {
                   <button className={styles.template4SecondaryButton} onClick={handlePrintPortfolio}>
                     <FontAwesomeIcon icon={faPrint} />
                     Print Portfolio
+                  </button>
+                  <button className={styles.template4SecondaryButton} onClick={openShareModal}>
+                    <FontAwesomeIcon icon={faShareAlt} />
+                    Share
                   </button>
                 </div>
               </div>
@@ -395,7 +405,7 @@ const Template4Portfolio = () => {
               <div className={styles.template4ContactText}>
                 <h3 className={styles.template4ContactHeading}>Let's work together</h3>
                 <p className={styles.template4ContactDescription}>
-                  I'm always interested in new opportunities and collaborations. 
+                  I'm always interested in new opportunities and collaborations.
                   Feel free to reach out if you'd like to discuss a project or just say hello.
                 </p>
               </div>
@@ -419,6 +429,14 @@ const Template4Portfolio = () => {
       </main>
 
       <PortfolioFooter isDarkMode={isDarkMode} />
+      
+      {isShareModalOpen && (
+        <ShareModal
+          portfolioUrl={portfolioUrl}
+          onClose={closeShareModal}
+          isDarkMode={isDarkMode}
+        />
+      )}
     </div>
   );
 };

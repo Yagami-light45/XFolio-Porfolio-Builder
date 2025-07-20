@@ -1,0 +1,128 @@
+/* ShareModal.module.css */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal.darkMode {
+  background: #2d3748;
+  color: #ffffff;
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+}
+
+.modal.darkMode .closeButton {
+  color: #ccc;
+}
+
+.qrContainer {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.modal.darkMode .qrContainer {
+  background: #1a202c;
+}
+
+.instructions {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.modal.darkMode .instructions {
+  color: #a0aec0;
+}
+
+.linkContainer {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal.darkMode .linkContainer {
+  border-color: #4a5568;
+}
+
+.linkContainer input {
+  flex-grow: 1;
+  border: none;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  background: #f7fafc;
+}
+
+.modal.darkMode .linkContainer input {
+  background: #1a202c;
+  color: #ffffff;
+}
+
+.linkContainer button {
+  padding: 0.75rem 1rem;
+  border: none;
+  background: #edf2f7;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.linkContainer button:hover {
+  background: #e2e8f0;
+}
+
+.modal.darkMode .linkContainer button {
+  background: #2d3748;
+  color: #ffffff;
+}
+
+.modal.darkMode .linkContainer button:hover {
+  background: #4a5568;
+}   

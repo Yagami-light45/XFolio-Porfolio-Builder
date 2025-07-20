@@ -4,12 +4,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
 import { generateStaticBundle } from '../utils/Template2BundleGenerator';
-import { faSun, faMoon, faDownload, faBars, faEnvelope, faTimes, faPrint } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faDownload, faBars, faEnvelope, faTimes, faPrint, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import styles from './Template2Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
-import { printPortfolio } from '../utils/printTemplate2'; 
+import { printPortfolio } from '../utils/printTemplate2';
+import ShareModal from './ShareModal';
 
 const Template2Portfolio = () => {
   const { username } = useParams();
@@ -18,6 +19,7 @@ const Template2Portfolio = () => {
   const [portfolioData, setPortfolioData] = useState(null);
   const [profileImage, setProfileImage] = useState('/placeholder.png');
   const [isMobile, setIsMobile] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const sidebarRef = useRef(null);
 
   // device is mobile
@@ -25,10 +27,10 @@ const Template2Portfolio = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -37,7 +39,6 @@ const Template2Portfolio = () => {
     setIsNavOpen(false);
   };
 
-  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isMobile && isNavOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -47,14 +48,12 @@ const Template2Portfolio = () => {
 
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
-    
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [isMobile, isNavOpen]);
-
-
 
   useEffect(() => {
     if (isMobile) {
@@ -62,7 +61,7 @@ const Template2Portfolio = () => {
     } else {
       document.body.style.overflow = 'unset';
     }
-    
+
     return () => {
       document.body.style.overflow = 'unset';
     };
@@ -184,7 +183,7 @@ const Template2Portfolio = () => {
     setIsDarkMode(newMode);
     localStorage.setItem('darkMode', newMode);
   };
-  
+
   const toggleNav = () => setIsNavOpen(!isNavOpen);
 
   const handleNavClick = (event) => {
@@ -196,7 +195,7 @@ const Template2Portfolio = () => {
       const headerOffset = isMobile ? 80 : 20;
       const elementPosition = targetElement.offsetTop;
       const offsetPosition = elementPosition - headerOffset;
-      
+
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth"
@@ -204,7 +203,7 @@ const Template2Portfolio = () => {
     }
   };
 
-  const handleDownload = async (type) => { 
+  const handleDownload = async (type) => {
     if (!portfolioData) {
       console.warn("Portfolio data not loaded, cannot download.");
       return;
@@ -214,29 +213,33 @@ const Template2Portfolio = () => {
     } else if (type === 'bundle') {
       await generateStaticBundle(portfolioData);
     }
- 
+
     if (isMobile) {
       closeSidebar();
     }
   };
+  
+  const portfolioUrl = window.location.href;
+  const openShareModal = () => setIsShareModalOpen(true);
+  const closeShareModal = () => setIsShareModalOpen(false);
 
   const handleImageError = (e) => {
     console.warn('Image failed to load, using placeholder');
     e.target.src = '/placeholder.png';
   };
 
-    const handlePrintPortfolio = () => {
+  const handlePrintPortfolio = () => {
     if (!portfolioData) {
       console.warn("Portfolio data not loaded, cannot print.");
       return;
     }
     printPortfolio(styles);
   };
- 
+
   const handleCloseButton = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('Close button clicked'); 
+    console.log('Close button clicked');
     closeSidebar();
   };
 
@@ -259,7 +262,7 @@ const Template2Portfolio = () => {
 
   return (
     <div className={`${styles.template2PortfolioRoot} ${isDarkMode ? styles.template2DarkMode : ''}`}>
-      
+
       {isMobile && (
         <header className={styles.template2MobileHeader}>
           <div className={styles.template2MobileHeaderContent}>
@@ -275,7 +278,7 @@ const Template2Portfolio = () => {
                 <p>{portfolioData.profession}</p>
               </div>
             </div>
-            <button 
+            <button
               className={styles.template2HamburgerButton}
               onClick={toggleNav}
               aria-label="Toggle navigation menu"
@@ -286,25 +289,24 @@ const Template2Portfolio = () => {
         </header>
       )}
 
-     
       {isMobile && isNavOpen && (
-        <div 
-          className={styles.template2MobileOverlay} 
+        <div
+          className={styles.template2MobileOverlay}
           onClick={handleOverlayClick}
           onTouchEnd={handleOverlayClick}
         />
       )}
 
       <div className={styles.contentWrapper}>
-        <aside 
+        <aside
           ref={sidebarRef}
           className={`${styles.template2Sidebar} ${isMobile ? styles.template2MobileSidebar : ''} ${
             isMobile && isNavOpen ? styles.template2MobileSidebarOpen : ''
-          }`}
+            }`}
         >
-          
+
           {isMobile && (
-            <button 
+            <button
               className={styles.template2MobileCloseButton}
               onClick={handleCloseButton}
               onTouchEnd={handleCloseButton}
@@ -315,7 +317,6 @@ const Template2Portfolio = () => {
             </button>
           )}
 
-          {/* Desktop profile or mobile profile when menu is open */}
           {(!isMobile || isNavOpen) && (
             <div className={styles.template2SidebarProfile}>
               <img
@@ -329,23 +330,25 @@ const Template2Portfolio = () => {
           )}
 
           <div className={styles.template2SidebarActions}>
-          <button className={styles.template2DarkModeToggle} onClick={toggleDarkMode} aria-label="Toggle dark mode">
-            <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
-            <span>{isDarkMode ? 'Light' : 'Dark'} Mode</span>
-          </button>
-          <button className={styles.template2DownloadBtn} onClick={() => handleDownload('resume')} aria-label="Download Resume">
-            <FontAwesomeIcon icon={faDownload} /> Resume
-          </button>
-          <button className={styles.template2DownloadBtn} onClick={() => handleDownload('bundle')} aria-label="Download Static Bundle">
-            <FontAwesomeIcon icon={faDownload} /> Bundle
-          </button>
-          
-          {/* Add this new button for printing */}
-          <button className={styles.template2DownloadBtn} onClick={handlePrintPortfolio} aria-label="Print Portfolio">
-            <FontAwesomeIcon icon={faPrint} /> Print
-          </button>
-        </div>
-          
+            <button className={styles.template2DarkModeToggle} onClick={toggleDarkMode} aria-label="Toggle dark mode">
+              <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} />
+              <span>{isDarkMode ? 'Light' : 'Dark'} Mode</span>
+            </button>
+            <button className={styles.template2DownloadBtn} onClick={() => handleDownload('resume')} aria-label="Download Resume">
+              <FontAwesomeIcon icon={faDownload} /> Resume
+            </button>
+            <button className={styles.template2DownloadBtn} onClick={() => handleDownload('bundle')} aria-label="Download Static Bundle">
+              <FontAwesomeIcon icon={faDownload} /> Bundle
+            </button>
+
+            <button className={styles.template2DownloadBtn} onClick={handlePrintPortfolio} aria-label="Print Portfolio">
+              <FontAwesomeIcon icon={faPrint} /> Print
+            </button>
+            <button className={styles.template2DownloadBtn} onClick={openShareModal} aria-label="Share Portfolio">
+              <FontAwesomeIcon icon={faShareAlt} /> Share
+            </button>
+          </div>
+
           <nav className={styles.template2SidebarNav}>
             <ul>
               <li><a href="#about" onClick={handleNavClick}>About</a></li>
@@ -356,11 +359,11 @@ const Template2Portfolio = () => {
               <li><a href="#contact" onClick={handleNavClick}>Contact</a></li>
             </ul>
           </nav>
-          
+
           <div className={styles.template2SocialLinks}>
-              {portfolioData.linkedin && <a href={portfolioData.linkedin} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /></a>}
-              {portfolioData.github && <a href={portfolioData.github} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faGithub} /></a>}
-              {portfolioData.email && <a href={`mailto:${portfolioData.email}`}><FontAwesomeIcon icon={faEnvelope} /></a>}
+            {portfolioData.linkedin && <a href={portfolioData.linkedin} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /></a>}
+            {portfolioData.github && <a href={portfolioData.github} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faGithub} /></a>}
+            {portfolioData.email && <a href={`mailto:${portfolioData.email}`}><FontAwesomeIcon icon={faEnvelope} /></a>}
           </div>
         </aside>
 
@@ -444,8 +447,16 @@ const Template2Portfolio = () => {
         </main>
       </div>
       <footer className={styles.footerWrapper}>
-        <PortfolioFooter isDarkMode={isDarkMode}/>
+        <PortfolioFooter isDarkMode={isDarkMode} />
       </footer>
+      
+      {isShareModalOpen && (
+        <ShareModal
+          portfolioUrl={portfolioUrl}
+          onClose={closeShareModal}
+          isDarkMode={isDarkMode}
+        />
+      )}
     </div>
   );
 };

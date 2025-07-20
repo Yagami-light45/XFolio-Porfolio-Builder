@@ -9,6 +9,8 @@ import styles from './UserPortfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
+import ShareModal from './ShareModal'; 
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 const UserPortfolio = () => {
@@ -19,6 +21,7 @@ const UserPortfolio = () => {
   const [portfolioData, setPortfolioData] = useState(null); // Initialize as null to show loading state initially
   const [profileImage, setProfileImage] = useState('/placeholder.png');
   const downloadOptionsRef = useRef(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('darkMode') === 'true';
@@ -157,6 +160,11 @@ const UserPortfolio = () => {
     e.stopPropagation();
     setIsDownloadOpen(!isDownloadOpen);
   };
+
+    const portfolioUrl = window.location.href;
+    const openShareModal = () => setIsShareModalOpen(true);
+    const closeShareModal = () => setIsShareModalOpen(false);
+
   const handleNavClick = (event) => {
     event.preventDefault();
     setIsNavOpen(false);
@@ -281,6 +289,11 @@ const UserPortfolio = () => {
                 </a>
               </div>
             </div>
+
+              <button className={styles.userPortfolioDarkModeToggle} onClick={openShareModal} aria-label="Share Portfolio">
+               <FontAwesomeIcon icon={faShareAlt} />
+              </button>
+
             <button className={styles.userPortfolioDarkModeToggle} onClick={toggleDarkMode} aria-label="Toggle dark mode">
               <FontAwesomeIcon icon={isDarkMode ? faMoon : faSun} className={isDarkMode ? styles.userPortfolioMoonIcon : styles.userPortfolioSunIcon} />
             </button>
@@ -383,6 +396,14 @@ const UserPortfolio = () => {
       </div>
 
       <PortfolioFooter isDarkMode={isDarkMode} />
+
+      {isShareModalOpen && (
+        <ShareModal
+          portfolioUrl={portfolioUrl}
+          onClose={closeShareModal}
+          isDarkMode={isDarkMode}
+        />
+      )}
     </div>
   );
 };

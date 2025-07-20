@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { generateResumePDF } from '../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
 import { generateStaticBundle } from '../utils/Template3BundleGenerator';
-import { faSun, faMoon, faDownload, faBars, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import styles from './Template3Portfolio.module.css'; 
+import { faSun, faMoon, faDownload, faBars, faEnvelope, faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import styles from './Template3Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import PortfolioFooter from './PortfolioFooter';
 import { printPortfolio } from '../utils/printTemplate3';
+import ShareModal from './ShareModal';
 
 const Template3Portfolio = () => {
   const { username } = useParams();
@@ -15,6 +16,7 @@ const Template3Portfolio = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [portfolioData, setPortfolioData] = useState(null);
   const [profileImage, setProfileImage] = useState('/placeholder.png');
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('darkMode') === 'true';
@@ -128,7 +130,6 @@ const Template3Portfolio = () => {
   }, [username]);
 
   useEffect(() => {
-    
     if (isDarkMode) {
       document.body.classList.add('template3DarkMode');
     } else {
@@ -137,65 +138,36 @@ const Template3Portfolio = () => {
     localStorage.setItem('darkMode', isDarkMode);
   }, [isDarkMode]);
 
-
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const toggleNav = () => setIsNavOpen(!isNavOpen);
 
-const handleNavClick = (event) => {
-  event.preventDefault();
-  setIsNavOpen(false);
-  
-  const targetId = event.currentTarget.getAttribute('href');
-  const targetElement = document.querySelector(targetId);
-  
-  if (targetElement) {
-    // Get the header height dynamically
-    const header = document.querySelector(`.${styles.template3Header}`);
-    const headerHeight = header ? header.offsetHeight : 70;
-    
-    // Calculate the target position
-    const elementPosition = targetElement.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20; // Extra 20px padding
-    
-    window.scrollTo({
-      top: Math.max(0, offsetPosition), // Ensure we don't scroll to negative position
-      behavior: "smooth"
-    });
-  }
-};
+  const handleNavClick = (event) => {
+    event.preventDefault();
+    setIsNavOpen(false);
+
+    const targetId = event.currentTarget.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+
+    if (targetElement) {
+      const header = document.querySelector(`.${styles.template3Header}`);
+      const headerHeight = header ? header.offsetHeight : 70;
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+
+      window.scrollTo({
+        top: Math.max(0, offsetPosition),
+        behavior: "smooth"
+      });
+    }
+  };
 
   const handlePrintPortfolio = () => {
     if (!portfolioData) {
       console.warn("Portfolio data not loaded, cannot print.");
       return;
     }
-    // Call the utility function, passing the component's styles
     printPortfolio(styles);
   };
-
-// Alternative approach using scrollIntoView (even simpler)
-const handleNavClickAlternative = (event) => {
-  event.preventDefault();
-  setIsNavOpen(false);
-  
-  const targetId = event.currentTarget.getAttribute('href');
-  const targetElement = document.querySelector(targetId);
-  
-  if (targetElement) {
-    // Get the header height dynamically
-    const header = document.querySelector(`.${styles.template3Header}`);
-    const headerHeight = header ? header.offsetHeight : 70;
-    
-    // Scroll to element with offset
-    const yOffset = -(headerHeight + 20); // negative offset to scroll above the element
-    const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-    
-    window.scrollTo({
-      top: Math.max(0, y),
-      behavior: 'smooth'
-    });
-  }
-};
 
   const handleDownload = (type) => {
     if (!portfolioData) {
@@ -208,6 +180,10 @@ const handleNavClickAlternative = (event) => {
       generateStaticBundle(portfolioData);
     }
   };
+
+  const portfolioUrl = window.location.href;
+  const openShareModal = () => setIsShareModalOpen(true);
+  const closeShareModal = () => setIsShareModalOpen(false);
 
   const handleImageError = (e) => {
     console.warn('Image failed to load, using placeholder');
@@ -262,15 +238,18 @@ const handleNavClickAlternative = (event) => {
         <p className={styles.template3HeroSubtitle}>{portfolioData.profession}</p>
         <div className={styles.template3HeroActions}>
           <button className={styles.template3ActionButton} onClick={() => handleDownload('resume')}>
-              <FontAwesomeIcon icon={faDownload} /> Download Resume
+            <FontAwesomeIcon icon={faDownload} /> Download Resume
           </button>
           <button className={styles.template3ActionButton} onClick={() => handleDownload('bundle')}>
-              <FontAwesomeIcon icon={faDownload} /> Download Bundle
+            <FontAwesomeIcon icon={faDownload} /> Download Bundle
           </button>
           <button className={styles.template3ActionButton} onClick={handlePrintPortfolio}>
-              <FontAwesomeIcon icon={faDownload} /> Print Portfolio
+            <FontAwesomeIcon icon={faDownload} /> Print Portfolio
           </button>
-      </div>
+          <button className={styles.template3ActionButton} onClick={openShareModal}>
+            <FontAwesomeIcon icon={faShareAlt} /> Share
+          </button>
+        </div>
       </div>
 
       <div className={styles.template3Container}>
@@ -347,14 +326,22 @@ const handleNavClickAlternative = (event) => {
         <section id="contact" className={styles.template3Section}>
           <h2>Contact</h2>
           <div className={styles.template3ContactInfo}>
-              <p><FontAwesomeIcon icon={faEnvelope} /> Email: <span>{portfolioData.email}</span></p>
-              <p><FontAwesomeIcon icon={faLinkedin} /> LinkedIn: <a href={portfolioData.linkedin} target="_blank" rel="noopener noreferrer">Profile</a></p>
-              <p><FontAwesomeIcon icon={faGithub} /> GitHub: <a href={portfolioData.github} target="_blank" rel="noopener noreferrer">Repository</a></p>
+            <p><FontAwesomeIcon icon={faEnvelope} /> Email: <span>{portfolioData.email}</span></p>
+            <p><FontAwesomeIcon icon={faLinkedin} /> LinkedIn: <a href={portfolioData.linkedin} target="_blank" rel="noopener noreferrer">Profile</a></p>
+            <p><FontAwesomeIcon icon={faGithub} /> GitHub: <a href={portfolioData.github} target="_blank" rel="noopener noreferrer">Repository</a></p>
           </div>
         </section>
       </div>
 
-      <PortfolioFooter isDarkMode={isDarkMode}/>
+      <PortfolioFooter isDarkMode={isDarkMode} />
+
+      {isShareModalOpen && (
+        <ShareModal
+          portfolioUrl={portfolioUrl}
+          onClose={closeShareModal}
+          isDarkMode={isDarkMode}
+        />
+      )}
     </div>
   );
 };
