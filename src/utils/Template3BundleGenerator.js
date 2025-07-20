@@ -2,7 +2,6 @@
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 
-// Define all helper functions first
 const generateHTML = (portfolioData) => {
   const profileImageSrc = portfolioData.image || 'placeholder.png';
     
@@ -1201,10 +1200,8 @@ const generateJS = () => {
 
 export const generateStaticBundle = async (portfolioData) => {
   const zip = new JSZip();
-  // Create a mutable copy of the data to avoid altering the original object.
   const bundledData = { ...portfolioData };
 
-  // --- Fetch and include the static placeholder image ---
   try {
     const placeholderResponse = await fetch('/placeholder.png');
     if (placeholderResponse.ok) {
@@ -1217,7 +1214,7 @@ export const generateStaticBundle = async (portfolioData) => {
     console.error('Error fetching placeholder image:', error);
   }
 
-  // --- Fetch, process, and bundle the profile image, just like in Template 2 ---
+ 
   if (portfolioData.image && portfolioData.image !== '/placeholder.png') {
     try {
       const response = await fetch(portfolioData.image);
@@ -1226,26 +1223,22 @@ export const generateStaticBundle = async (portfolioData) => {
       }
       
       const imageBlob = await response.blob();
-      // Determine the file extension from the blob's MIME type
       const extension = imageBlob.type.split('/')[1]?.split('+')[0] || 'jpg';
       const imageName = `profile_image.${extension}`;
       
-      // Add the image file to the zip archive
       zip.file(imageName, imageBlob, { binary: true });
-      // ✅ Update the image path in our bundled data to the new local file name
       bundledData.image = imageName;
 
     } catch (error) {
       console.error("Could not fetch or add profile image to bundle. It will be replaced by the placeholder.", error);
-      // If fetching fails, clear the image path so the HTML template uses the default placeholder
+      
       bundledData.image = 'placeholder.png'; 
     }
   } else {
-      // If there's no image or it's the placeholder path, ensure the bundled data points to the local placeholder
+     
       bundledData.image = 'placeholder.png';
   }
 
-  // Generate the HTML using the (now modified) bundled data
   const html = generateHTML(bundledData);
   const css = generateCSS();
   const js = generateJS();
@@ -1254,7 +1247,6 @@ export const generateStaticBundle = async (portfolioData) => {
   zip.file("styles.css", css);
   zip.file("script.js", js);
 
-  // Generate the zip file and trigger the download
   const content = await zip.generateAsync({ type: "blob" });
   saveAs(content, `${portfolioData.name.replace(/\s+/g, '_')}_Portfolio.zip`);
 };

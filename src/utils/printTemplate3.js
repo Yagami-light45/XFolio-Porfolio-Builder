@@ -2,7 +2,7 @@
 
 
 export const printPortfolio = (styles) => {
-  // Create a style element with enhanced print-specific CSS
+  
   const printStyles = document.createElement('style');
   printStyles.innerHTML = `
     @media print {
@@ -18,7 +18,6 @@ export const printPortfolio = (styles) => {
         font-size: 11pt;
       }
 
-      /* Hide non-essential elements */
       .${styles.template3Header},
       .${styles.template3HeroActions},
       .${styles.template3Hamburger},
@@ -26,20 +25,17 @@ export const printPortfolio = (styles) => {
         display: none !important;
       }
 
-      /* Ensure root is in light mode for printing */
       .${styles.template3PortfolioRoot} {
         background-color: #ffffff !important;
         color: #000000 !important;
       }
       
-      /* Reset layout for printing */
       .${styles.template3Container} {
         margin-top: 0 !important;
         padding-top: 0 !important;
         box-shadow: none !important;
       }
       
-      /* Style sections for clarity */
       .${styles.template3Section} {
         page-break-inside: avoid;
         padding: 10px 0;

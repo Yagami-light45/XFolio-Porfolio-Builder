@@ -2,7 +2,7 @@
 
 
 export const printPortfolio = (styles) => {
-  // Create a style element with print-specific CSS
+ 
   const printStyles = document.createElement('style');
   printStyles.innerHTML = `
     @media print {
@@ -63,8 +63,6 @@ export const printPortfolio = (styles) => {
       }
     }
   `;
-
-  // Append styles, trigger print, and clean up
   document.head.appendChild(printStyles);
   window.print();
   document.head.removeChild(printStyles);

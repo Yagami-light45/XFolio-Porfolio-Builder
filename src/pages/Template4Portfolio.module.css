@@ -895,6 +895,8 @@
     grid-template-columns: 1fr;
     gap: 2rem;
     text-align: center;
+     display: flex;   
+    flex-direction: column-reverse; 
   }
 
   .template4HeroTitle {
