@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('../../public/bgblur.png');
+    background-image: url('../../../public/bgblur.png');
     background-color: #f4f4f4;
     background-attachment: fixed;
     scroll-behavior: smooth;
@@ -397,7 +397,7 @@
     color: #e0e0e0;
     background-color: #1a1a2e; 
    
-    background-image: url('../../public/bgblur.png');
+    background-image: url('../../../public/bgblur.png');
 }
 
 .userPortfolioDarkMode .userPortfolioGlassNavbar {

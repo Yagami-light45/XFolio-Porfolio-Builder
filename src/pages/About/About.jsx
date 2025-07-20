@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, Github, ExternalLink, Users, Code, Zap, Heart } from 'lucide-react';
 import styles from './About.module.css';
-import PortfolioFooter from './PortfolioFooter';
+import PortfolioFooter from '../../components/PortfolioFooter/PortfolioFooter';
 
 const About = () => {
   const [isAnimated, setIsAnimated] = useState(false);

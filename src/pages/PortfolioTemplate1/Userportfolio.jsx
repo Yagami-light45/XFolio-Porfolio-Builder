@@ -1,15 +1,15 @@
 // Userportfolio.jsx (Modified useEffect and removed localStorage parsing for portfolioData)
 
 import React, { useState, useEffect, useRef } from 'react';
-import { generateResumePDF } from '../utils/pdfGenerator';
+import { generateResumePDF } from '../../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
-import { generateStaticBundle } from '../utils/staticBundleGenerator';
+import { generateStaticBundle } from '../../utils/staticBundleGenerator';
 import { faSun, faMoon, faDownload, faBars, faEnvelope, faPrint } from '@fortawesome/free-solid-svg-icons';
 import styles from './UserPortfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import PortfolioFooter from './PortfolioFooter';
-import ShareModal from './ShareModal'; 
+import PortfolioFooter from '../../components/PortfolioFooter/PortfolioFooter';
+import ShareModal from '../../components/ShareQR/ShareModal'; 
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 
 

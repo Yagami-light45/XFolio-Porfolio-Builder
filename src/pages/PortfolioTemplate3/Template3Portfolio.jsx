@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { generateResumePDF } from '../utils/pdfGenerator';
+import { generateResumePDF } from '../../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
-import { generateStaticBundle } from '../utils/Template3BundleGenerator';
+import { generateStaticBundle } from '../../utils/Template3BundleGenerator';
 import { faSun, faMoon, faDownload, faBars, faEnvelope, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import styles from './Template3Portfolio.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import PortfolioFooter from './PortfolioFooter';
-import { printPortfolio } from '../utils/printTemplate3';
-import ShareModal from './ShareModal';
+import PortfolioFooter from '../../components/PortfolioFooter/PortfolioFooter';
+import { printPortfolio } from '../../utils/printTemplate3';
+import ShareModal from '../../components/ShareQR/ShareModal';
 
 const Template3Portfolio = () => {
   const { username } = useParams();

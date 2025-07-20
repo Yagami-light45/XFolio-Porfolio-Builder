@@ -3,18 +3,18 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
 // Pages
-import XFolio from './pages/XFolio';
-import BuilderPage from './pages/BuilderPage';
-import About from './pages/About';
+import XFolio from './pages/XFolio/XFolio';
+import BuilderPage from './pages/Builder/BuilderPage';
+import About from './pages/About/About';
 
 //portfolio templates
-import UserPortfolio from './pages/Userportfolio'; 
-import Template2Portfolio from './pages/Template2Portfolio';
-import Template3Portfolio from './pages/Template3Portfolio';
-import Template4Portfolio from './pages/Template4Portfolio';
+import UserPortfolio from './pages/PortfolioTemplate1/Userportfolio'; 
+import Template2Portfolio from './pages/PortfolioTemplate2/Template2Portfolio';
+import Template3Portfolio from './pages/PortfolioTemplate3/Template3Portfolio';
+import Template4Portfolio from './pages/PortfolioTemplate4/Template4Portfolio';
 
 // TemplateSelector
-import TemplateSelector from './pages/TemplateSelector';
+import TemplateSelector from './pages/TemplateSelector/TemplateSelector';
 
 //Select Template
 const PortfolioRenderer = () => {

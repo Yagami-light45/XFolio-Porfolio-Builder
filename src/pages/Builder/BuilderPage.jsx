@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./BuilderPage.module.css";
-import PortfolioFooter from './PortfolioFooter';
-import { useAlert, AlertContainer } from './Alert';
+import PortfolioFooter from '../../components/PortfolioFooter/PortfolioFooter';
+import { useAlert, AlertContainer } from '../../components/Alerts/Alert';
 
 // Loading Spinner Component
 const LoadingSpinner = () => (
