@@ -17,36 +17,36 @@ const About = () => {
 
   const faqs = [
     {
-      question: "Is XFolio really free to use?",
-      answer: "Yes! XFolio is completely free and open-source. You can use it to build unlimited portfolios without any cost. We believe everyone should have access to professional portfolio creation tools."
+      question: "What exactly is XFolio?",
+      answer: "XFolio is a full-stack, open-source application that lets you build a professional portfolio website instantly. It uses a React frontend and a Node.js/MongoDB backend to provide a seamless, no-code experience."
     },
     {
-      question: "Do I need coding knowledge to use XFolio?",
-      answer: "Not at all! XFolio is designed for everyone, regardless of technical background. Simply fill out the form with your details, and we'll generate a beautiful portfolio for you automatically."
+      question: "Is this service completely free?",
+      answer: "Yes, 100% free and open-source. There are no hidden costs, premium features, or limits. We believe everyone deserves a great portfolio."
     },
     {
-      question: "Can I customize the design of my portfolio?",
-      answer: "Currently, XFolio offers a professionally designed template with light/dark mode options. We're working on adding more customization options and themes in future updates."
+      question: "Do I need to know how to code?",
+      answer: "Not at all. The interface is a simple form. You provide the information—like your projects, skills, and experience—and XFolio handles all the code generation for you."
     },
     {
-      question: "How do I share my portfolio?",
-      answer: "Once you create your portfolio, you'll get a shareable link that you can send to anyone. You can also download the complete HTML/CSS files to host on your own domain."
+      question: "How can I customize my portfolio's design?",
+      answer: "You can choose from multiple professionally designed templates to find a style that fits you. Your content automatically adapts to the selected layout, and you can toggle between light and dark modes."
     },
     {
-      question: "Is my data secure?",
-      answer: "Yes, we take privacy seriously. Your data is processed locally in your browser when possible, and we don't store personal information unnecessarily. Check our privacy policy for detailed information."
+      question: "How is my data stored and is it secure?",
+      answer: "Your portfolio data is securely stored in a MongoDB database associated with your account. This allows you to return anytime to edit your information. We prioritize data privacy and do not share your information."
     },
     {
-      question: "Can I edit my portfolio after creating it?",
-      answer: "Yes! You can return to the builder anytime to update your information. The live preview feature lets you see changes in real-time as you edit."
+      question: "What are my options for sharing and downloading?",
+      answer: "You have several options: you can download a visual portfolio as a PDF, generate a classic one-page resume, create a QR code for easy mobile sharing, or export the entire site as a static ZIP bundle (HTML/CSS) to host anywhere."
     },
     {
-      question: "What file formats can I download?",
-      answer: "You can download your portfolio as complete HTML/CSS files, ready to host anywhere. We also provide options to download your resume as a PDF."
+      question: "Can I switch templates after I've already entered all my information?",
+      answer: " Yes. Your data is stored separately from the design. You can toggle between different templates at any time, and your information will automatically reformat to fit the new layout, allowing you to choose the best look without re-entering anything."
     },
     {
-      question: "Is XFolio mobile-friendly?",
-      answer: "Absolutely! All portfolios created with XFolio are fully responsive and look great on mobile devices, tablets, and desktops."
+      question: "Will my portfolio work on mobile devices?",
+      answer: "Yes. Every template is fully responsive and designed to look stunning on all devices, from large desktop monitors to tablets and mobile phones."
     }
   ];
 
@@ -102,7 +102,7 @@ const About = () => {
             About XFolio
           </h1>
           <p className={`${styles.heroSubtitle} ${isAnimated ? styles.fadeIn : styles.hidden} ${styles.fadeInDelay}`}>
-            Empowering everyone to build stunning portfolios without the complexity of coding. 
+            Empowering everyone to build stunning portfolios without the complexity of coding.
             Our mission is to democratize professional web presence creation.
           </p>
         </div>
@@ -115,13 +115,13 @@ const About = () => {
             <div className={styles.overviewText}>
               <h2 className={styles.sectionTitle}>What is XFolio?</h2>
               <p className={styles.overviewParagraph}>
-                XFolio is an instant portfolio builder that eliminates the technical barriers between you and your professional online presence. 
-                Whether you're a student showcasing your projects, a developer displaying your skills, or a professional building your brand, 
+                XFolio is an instant portfolio builder that eliminates the technical barriers between you and your professional online presence.
+                Whether you're a student showcasing your projects, a developer displaying your skills, or a professional building your brand,
                 XFolio makes it simple and fast.
               </p>
               <p className={styles.overviewParagraph}>
-                Built with modern web technologies and designed with user experience in mind, XFolio generates responsive, 
-                professional portfolios that look great on any device. No coding required, no complex setup – just your information 
+                Built with modern web technologies and designed with user experience in mind, XFolio generates responsive,
+                professional portfolios that look great on any device. No coding required, no complex setup – just your information
                 and our technology working together.
               </p>
               <div className={styles.overviewButtons}>
@@ -160,6 +160,13 @@ const About = () => {
               </div>
               <h3 className={styles.techTitle}>React</h3>
               <p className={styles.techDescription}>Modern UI library for interactive interfaces</p>
+            </div>
+            <div className={styles.techItem}>
+              <div className={`${styles.techIcon} ${styles.techIconNode}`}>
+                <span className={styles.techIconText}>N</span>
+              </div>
+              <h3 className={styles.techTitle}>Node.js</h3>
+              <p className={styles.techDescription}>Powerful runtime for server-side logic</p>
             </div>
             <div className={styles.techItem}>
               <div className={`${styles.techIcon} ${styles.techIconJS}`}>
@@ -213,7 +220,7 @@ const About = () => {
         <div className={styles.teamContent}>
           <h2 className={styles.teamTitle}>Built by Team XFolio</h2>
           <p className={styles.teamDescription}>
-            XFolio is developed by a passionate team of developers who believe in making web development accessible to everyone. 
+            XFolio is developed by a passionate team of developers who believe in making web development accessible to everyone.
             We're committed to continuous improvement and adding new features based on community feedback.
           </p>
           <div className={styles.teamLinks}>
@@ -243,7 +250,7 @@ const About = () => {
       </section>
 
       {/* Footer */}
-      <PortfolioFooter  isDarkMode={true}/>
+      <PortfolioFooter isDarkMode={true} />
     </div>
   );
 };
