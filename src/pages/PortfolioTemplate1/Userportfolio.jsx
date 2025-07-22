@@ -1,4 +1,4 @@
-// Userportfolio.jsx (Modified useEffect and removed localStorage parsing for portfolioData)
+// Userportfolio.jsx 
 
 import React, { useState, useEffect, useRef } from 'react';
 import { generateResumePDF } from '../../utils/pdfGenerator';
@@ -14,11 +14,11 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 const UserPortfolio = () => {
-  const { username } = useParams(); // Get the username from the URL
+  const { username } = useParams(); 
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
-  const [portfolioData, setPortfolioData] = useState(null); // Initialize as null to show loading state initially
+  const [portfolioData, setPortfolioData] = useState(null); 
   const [profileImage, setProfileImage] = useState('/placeholder.png');
   const downloadOptionsRef = useRef(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -28,7 +28,6 @@ const UserPortfolio = () => {
     setIsDarkMode(savedTheme);
 
     const fetchPortfolioData = async () => {
-      // If a username is provided in the URL, fetch that specific portfolio
       if (username) {
         try {
           const response = await fetch(`http://localhost:5000/api/portfolios/${username}`); // Fetch by username
@@ -41,8 +40,7 @@ const UserPortfolio = () => {
             }
           } else {
             console.error('Failed to fetch portfolio:', data.message || response.statusText);
-            // Handle 404 or other errors by showing a "not found" state or redirecting
-            setPortfolioData({ // Fallback to a "not found" state
+            setPortfolioData({ 
               name: 'Portfolio Not Found',
               profession: 'Please check the URL',
               bio: 'The portfolio you are looking for does not exist or has been removed.',
@@ -58,7 +56,7 @@ const UserPortfolio = () => {
           }
         } catch (error) {
           console.error('Network error fetching portfolio:', error);
-          setPortfolioData({ // Fallback to default on network error
+          setPortfolioData({
             name: 'Network Error',
             profession: 'Please try again later',
             bio: 'Could not load portfolio data due to a network issue.',
@@ -73,9 +71,7 @@ const UserPortfolio = () => {
           });
         }
       } else {
-        // If no username in URL (e.g., direct navigation to /portfolio),
-        // try to load the last generated username from localStorage and fetch it.
-        // This is a fallback/convenience for the /portfolio route.
+      
         const lastUsername = localStorage.getItem('lastGeneratedUsername');
         if (lastUsername) {
           try {
@@ -88,7 +84,7 @@ const UserPortfolio = () => {
               }
             } else {
               console.error('Failed to fetch last generated portfolio:', data.message || response.statusText);
-              setPortfolioData({ // Fallback to default if not found
+              setPortfolioData({ 
                 name: 'Your Name',
                 profession: 'Your Profession',
                 bio: 'Short bio…',
@@ -104,7 +100,7 @@ const UserPortfolio = () => {
             }
           } catch (error) {
             console.error('Network error fetching last generated portfolio:', error);
-            setPortfolioData({ // Fallback to default on network error
+            setPortfolioData({ 
               name: 'Network Error',
               profession: 'Please try again later',
               bio: 'Could not load portfolio data due to a network issue.',
@@ -119,7 +115,7 @@ const UserPortfolio = () => {
             });
           }
         } else {
-          // If no username and no last generated username, show initial placeholder
+          
           setPortfolioData({
             name: 'Your Name',
             profession: 'Your Profession',
@@ -147,7 +143,7 @@ const UserPortfolio = () => {
     };
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, [username]); // Add username to dependency array so it re-fetches if the URL username changes
+  }, [username]);
 
   useEffect(() => {
     document.body.classList.toggle('userPortfolioDarkMode', isDarkMode);
@@ -173,7 +169,6 @@ const UserPortfolio = () => {
     const targetElement = document.querySelector(targetId);
 
     if (targetElement) {
-      // Get the current height of the fixed navbar
       const navbar = document.querySelector(`.${styles.userPortfolioGlassNavbar}`);
       const navbarHeight = 65;
 
@@ -191,7 +186,7 @@ const UserPortfolio = () => {
   const handleDownload = (e, type) => {
     e.preventDefault();
     setIsDownloadOpen(false);
-    if (!portfolioData) { // Prevent download if data isn't loaded yet
+    if (!portfolioData) {
       console.warn("Portfolio data not loaded, cannot download.");
       return;
     }
@@ -207,11 +202,9 @@ const UserPortfolio = () => {
     return;
   }
   
-  // Hide navbar temporarily for printing
   const navbar = document.querySelector(`.${styles.userPortfolioGlassNavbar}`);
   if (navbar) navbar.style.display = 'none';
   
-  // Add basic print styles
   const printStyles = document.createElement('style');
   printStyles.innerHTML = `
     @media print {
@@ -234,7 +227,6 @@ const UserPortfolio = () => {
   // Print
   window.print();
   
-  // Restore navbar after printing
   setTimeout(() => {
     if (navbar) navbar.style.display = '';
     document.head.removeChild(printStyles);
@@ -246,7 +238,6 @@ const UserPortfolio = () => {
     e.target.src = '/placeholder.png';
   };
 
-  // Render a loading state or default content if portfolioData is not yet loaded
   if (!portfolioData) {
     return (
       <div className={`${styles.userPortfolioRoot} ${isDarkMode ? styles.userPortfolioDarkMode : ''}`}>

@@ -1,4 +1,4 @@
-// BuilderPage.jsx - Enhanced with loading states and better UX
+// BuilderPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from "./BuilderPage.module.css";
@@ -36,7 +36,6 @@ const LoadingModal = ({ isVisible, progress = 0 }) => (
   )
 );
 
-// Reusable component for creating labeled inputs or textareas in the form.
 const FormGroup = ({ label, id, value, onChange, type = "text", isTextArea = false, required = false, disabled = false, onKeyDown, ...props }) => (
   <div className={styles.builderPageFormGroup}>
     <label htmlFor={id}>{label}</label>
@@ -369,7 +368,6 @@ const BuilderPage = () => {
     setIsLightMode(savedTheme);
   }, []);
 
-  // Progress simulation for better UX
   const simulateProgress = () => {
     setProgress(0);
     const interval = setInterval(() => {
@@ -378,7 +376,6 @@ const BuilderPage = () => {
           clearInterval(interval);
           return 95;
         }
-        // Simulate realistic progress with some randomness
         const increment = Math.random() * 15 + 5;
         return Math.min(prev + increment, 95);
       });
@@ -450,24 +447,19 @@ const BuilderPage = () => {
     success("Form Reset", "All data has been cleared successfully.");
   };
 
-  // ADDED: Handles Enter key to move to the next field
   const handleKeyDown = (e) => {
-    // For TEXTAREA elements, we want to allow the default 'Enter' behavior (new line)
     if (e.key === 'Enter' && e.target.tagName === 'TEXTAREA') {
       return;
     }
 
-    // For all other inputs, on 'Enter', we prevent form submission and move to the next field
     if (e.key === 'Enter') {
       e.preventDefault();
       const form = e.target.closest('form');
       if (!form) return;
 
-      // Create an array of all focusable elements in the form
       const focusable = Array.from(form.querySelectorAll('input, textarea, button:not([disabled])'));
       const index = focusable.indexOf(e.target);
 
-      // If a next element exists, focus it
       if (index > -1 && (index + 1) < focusable.length) {
         const nextElement = focusable[index + 1];
         nextElement.focus();
@@ -478,7 +470,7 @@ const BuilderPage = () => {
   //SUBMIT FN
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSubmitting) return; // Prevent double submission
+    if (isSubmitting) return; 
     
     if (!formData.name.trim()) return error("Required Field", "Please enter your name to continue.");
     
@@ -527,7 +519,6 @@ const BuilderPage = () => {
         setProgress(100);
         localStorage.setItem('lastGeneratedUsername', data.username);
         
-        // Small delay to show 100% completion
         setTimeout(() => {
           navigate('/select-template', { state: { username: data.username } });
         }, 500);

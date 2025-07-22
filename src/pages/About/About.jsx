@@ -241,7 +241,7 @@ const About = () => {
         <div className={styles.ctaContent}>
           <h2 className={styles.ctaTitle}>Ready to Build Your Portfolio?</h2>
           <p className={styles.ctaDescription}>
-            Join thousands of users who have already created stunning portfolios with XFolio.
+            Join             users who have already created stunning portfolios with XFolio.
           </p>
           <a href="/builder" className={styles.ctaButton}>
             Start Building Now

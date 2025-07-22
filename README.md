@@ -75,14 +75,14 @@ Make sure you have Node.js and npm installed on your machine.
 ### Installation & Setup
 
 1.  *Clone the Repository*
-    bash
+    ```bash
     git clone https://github.com/Yagami-light45/XFolio-Porfolio-Builder.git
 
     cd Instant-Portfolio-Builder-Web-App
     
 
 2.  *Setup the Backend*
-    bash
+    ```bash
     cd backend
 
     npm install
@@ -94,7 +94,7 @@ Make sure you have Node.js and npm installed on your machine.
     
 
 3.  *Setup the Frontend*
-    bash
+    ```bash
     cd ..
 
     npm install
@@ -102,11 +102,11 @@ Make sure you have Node.js and npm installed on your machine.
 
 4.  *Run the Development Servers*
     * To start the *Backend Server* (runs on http://localhost:5000):
-        bash
+        ```bash
         node server.js
         
     * To start the *Frontend Development Server* (runs on http://localhost:3000 or another port):
-        bash
+        ```bash
         npm start
         
 

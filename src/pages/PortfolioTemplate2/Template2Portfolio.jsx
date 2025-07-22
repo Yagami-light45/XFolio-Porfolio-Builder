@@ -22,7 +22,6 @@ const Template2Portfolio = () => {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const sidebarRef = useRef(null);
 
-  // device is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -34,7 +33,6 @@ const Template2Portfolio = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Close sidebar function
   const closeSidebar = () => {
     setIsNavOpen(false);
   };
@@ -188,7 +186,7 @@ const Template2Portfolio = () => {
 
   const handleNavClick = (event) => {
     event.preventDefault();
-    closeSidebar(); // Close sidebar first
+    closeSidebar();
     const targetId = event.currentTarget.getAttribute('href');
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
