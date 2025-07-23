@@ -17,11 +17,12 @@ export const generateStaticBundle = (data, isDarkMode = false) => {
     <body${isDarkMode ? ' class="dark-mode"' : ''}>
       <nav class="glass-navbar">
         <div class="navbar-container">
-          <div class="logo">Welcome..!</div>
+          <div class="logo">My Portfolio</div>
           <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>

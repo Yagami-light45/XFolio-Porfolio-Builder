@@ -34,7 +34,7 @@ const generateHTML = (portfolioData) => {
         <div class="contentWrapper">
             <aside class="template2Sidebar template2MobileSidebar" id="sidebar">
                 <button class="template2MobileCloseButton" id="mobileCloseButton" aria-label="Close menu">
-                    <i class="fas fa-times"></i>
+                    
                 </button>
                 <div class="template2SidebarProfile">
                     <img src="${portfolioData.image || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjUwIiBjeT0iMzciIHI9IjE1IiBmaWxsPSIjOUNBM0FGIi8+CjxwYXRoIGQ9Ik0yMCA3NUMyMCA2NS4wNTg5IDI4LjA1ODkgNTcgMzggNTdIMjJINjJDNzEuOTQxMSA1NyA4MCA2NS4wNTg5IDgwIDc1VjgwSDIwVjc1WiIgZmlsbD0iIzlDQTNBRiIvPgo8L3N2Zz4='}" alt="Profile" id="sidebarProfileImage">
@@ -1507,23 +1507,18 @@ export const generateStaticBundle = async (portfolioData) => {
       }
       
       const imageBlob = await response.blob();
-      // Determine the file extension from the blob's MIME type, defaulting to 'png'
       const extension = imageBlob.type.split('/')[1]?.split('+')[0] || 'png';
       const imageName = `profile_image.${extension}`;
       
-      // Add the image file to the zip archive
       zip.file(imageName, imageBlob, { binary: true });
-      // Update the image path in our bundled data to the local file name
       bundledData.image = imageName;
 
     } catch (error) {
       console.error("Could not fetch or add profile image to bundle. Using placeholder.", error);
-      // If fetching fails, clear the image path so the HTML template uses the default placeholder
       bundledData.image = ''; 
     }
   }
 
-  // Generate the HTML using the (potentially modified) bundled data
   const html = generateHTML(bundledData);
   const css = generateCSS();
   const js = generateJS();
@@ -1532,7 +1527,6 @@ export const generateStaticBundle = async (portfolioData) => {
   zip.file("styles.css", css);
   zip.file("script.js", js);
 
-  // Generate the zip file and trigger the download
   zip.generateAsync({ type: "blob" }).then(function(content) {
     saveAs(content, `${portfolioData.name.replace(/\s+/g, '_')}_Portfolio.zip`);
   });

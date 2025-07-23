@@ -25,7 +25,7 @@ const Template3Portfolio = () => {
     const fetchPortfolioData = async () => {
       if (username) {
         try {
-          const response = await fetch(`http://localhost:5000/api/portfolios/${username}`);
+          const response = await fetch(`/api/portfolios/${username}`);
           const data = await response.json();
 
           if (response.ok) {
@@ -69,7 +69,7 @@ const Template3Portfolio = () => {
         const lastUsername = localStorage.getItem('lastGeneratedUsername');
         if (lastUsername) {
           try {
-            const response = await fetch(`http://localhost:5000/api/portfolios/${lastUsername}`);
+            const response = await fetch(`/api/portfolios/${lastUsername}`);
             const data = await response.json();
             if (response.ok) {
               setPortfolioData(data);

@@ -30,7 +30,7 @@ const UserPortfolio = () => {
     const fetchPortfolioData = async () => {
       if (username) {
         try {
-          const response = await fetch(`http://localhost:5000/api/portfolios/${username}`); // Fetch by username
+          const response = await fetch(`/api/portfolios/${username}`); // Fetch by username
           const data = await response.json();
 
           if (response.ok) {
@@ -75,7 +75,7 @@ const UserPortfolio = () => {
         const lastUsername = localStorage.getItem('lastGeneratedUsername');
         if (lastUsername) {
           try {
-            const response = await fetch(`http://localhost:5000/api/portfolios/${lastUsername}`);
+            const response = await fetch(`/api/portfolios/${lastUsername}`);
             const data = await response.json();
             if (response.ok) {
               setPortfolioData(data);
@@ -265,6 +265,7 @@ const UserPortfolio = () => {
             <li><a href="#skills" onClick={handleNavClick}>Skills</a></li>
             <li><a href="#experience" onClick={handleNavClick}>Experience</a></li>
             <li><a href="#projects" onClick={handleNavClick}>Projects</a></li>
+            <li><a href="#education" onClick={handleNavClick}>Education</a></li>
             <li><a href="#contact" onClick={handleNavClick}>Contact</a></li>
           </ul>
           <div className={styles.userPortfolioNavbarButtons}>

@@ -1185,7 +1185,6 @@ const generateJS = () => {
         }
     };
 
-    // Apply saved theme from localStorage on initial load
     if (localStorage.getItem('darkMode') === 'true') {
         portfolioRoot.classList.add('template3DarkMode');
         if (themeIcon) {
