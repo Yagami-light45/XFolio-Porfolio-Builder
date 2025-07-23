@@ -15,7 +15,7 @@ const Alert = ({ type = 'info', title, message, onClose, duration = 5000 }) => {
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [duration]);
+  }, [duration, handleClose]);
 
   const handleClose = () => {
     setIsClosing(true);
