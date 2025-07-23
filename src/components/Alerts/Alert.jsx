@@ -1,5 +1,5 @@
 // Alert.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { X, AlertCircle, CheckCircle, AlertTriangle, Info } from 'lucide-react';
 import styles from './Alert.module.css';
 
@@ -7,6 +7,14 @@ import styles from './Alert.module.css';
 const Alert = ({ type = 'info', title, message, onClose, duration = 5000 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsVisible(false);
+      onClose?.();
+    }, 300);
+  }, [onClose]);
 
   useEffect(() => {
     if (duration > 0) {
@@ -16,14 +24,6 @@ const Alert = ({ type = 'info', title, message, onClose, duration = 5000 }) => {
       return () => clearTimeout(timer);
     }
   }, [duration, handleClose]);
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsVisible(false);
-      onClose?.();
-    }, 300);
-  };
 
   const getAlertConfig = () => {
     switch (type) {
