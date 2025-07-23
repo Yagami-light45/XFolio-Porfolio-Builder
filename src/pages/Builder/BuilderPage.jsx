@@ -401,9 +401,15 @@ const BuilderPage = () => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
-    if (!file.type.startsWith("image/")) return error("Invalid File", "Please select a valid image file."), event.target.value = "";
-    if (file.size > 3 * 1024 * 1024) return warning("File Too Large", "Please select an image smaller than 3MB."), event.target.value = "";
-    const reader = new FileReader();
+    if (!file.type.startsWith("image/")) {
+      event.target.value = "";
+      return error("Invalid File", "Please select a valid image file.");
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      event.target.value = "";
+      return warning("File Too Large", "Please select an image smaller than 3MB.");
+    }
+ const reader = new FileReader();
     reader.onload = (e) => {
       setFormData(prev => ({ ...prev, image: e.target.result }));
       success("Image Uploaded", "Your profile image has been uploaded successfully.");
