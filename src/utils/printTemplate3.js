@@ -1,4 +1,4 @@
-// src/utils/printUtils.js
+// src/utils/Template3.js
 
 
 export const printPortfolio = (styles) => {
@@ -57,7 +57,6 @@ export const printPortfolio = (styles) => {
     }
   `;
 
-  // Append styles, trigger print, and clean up
   document.head.appendChild(printStyles);
   window.print();
   document.head.removeChild(printStyles);

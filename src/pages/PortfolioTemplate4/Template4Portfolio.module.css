@@ -48,6 +48,19 @@
   background-color: #2d3748;
 }
 
+.template4DarkMode .template4NavActive {
+  background-color: rgba(26, 32, 44, 0.95);
+  border-bottom: 1px solid #2d3748;
+}
+
+.template4DarkMode .template4MobileMenu {
+  color: #a0aec0;
+}
+
+.template4DarkMode .template4MobileMenu:hover {
+  color: #e2e8f0;
+}
+
 .template4DarkMode .template4HeroSection {
   background-color: #1a202c;
 }

@@ -8,7 +8,7 @@ const generateHTML = (portfolioData) => {
         portfolioData.image !== '/placeholder.png' && 
         !portfolioData.image.includes('placeholder') 
         ? `profile.${portfolioData.image.split('.').pop()?.toLowerCase() || 'jpg'}`
-        : 'placeholder.svg'; 
+        : 'placeholder.png'; 
     
   return `<!DOCTYPE html>
 <html lang="en">
@@ -65,7 +65,7 @@ const generateHTML = (portfolioData) => {
                 </div>
                 <div class="template4-hero-right">
                     <div class="template4-image-container">
-                        <img src="${profileImageSrc}" alt="Profile" class="template4-profile-image" onerror="this.src='placeholder.svg'">
+                        <img src="${profileImageSrc}" alt="Profile" class="template4-profile-image" onerror="this.src='placeholder.png'">
                         <div class="template4-image-frame"></div>
                     </div>
                 </div>

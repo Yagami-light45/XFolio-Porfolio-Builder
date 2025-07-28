@@ -1,5 +1,3 @@
-/* PROFESSIONAL SIDEBAR */
-
 import React, { useState, useEffect, useRef } from 'react';
 import { generateResumePDF } from '../../utils/pdfGenerator';
 import { useParams } from 'react-router-dom';
@@ -21,6 +19,7 @@ const Template2Portfolio = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const hamburgerRef = useRef(null); 
 
   useEffect(() => {
     const checkMobile = () => {
@@ -39,18 +38,27 @@ const Template2Portfolio = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isMobile && isNavOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      if (isMobile && isNavOpen &&
+        sidebarRef.current &&
+        hamburgerRef.current &&
+        !sidebarRef.current.contains(event.target) &&
+        !hamburgerRef.current.contains(event.target)) {
         closeSidebar();
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
+    if (isMobile && isNavOpen) {
+      const timeoutId = setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+      }, 100);
 
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
-    };
+      return () => {
+        clearTimeout(timeoutId);
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('touchstart', handleClickOutside);
+      };
+    }
   }, [isMobile, isNavOpen]);
 
   useEffect(() => {
@@ -182,7 +190,11 @@ const Template2Portfolio = () => {
     localStorage.setItem('darkMode', newMode);
   };
 
-  const toggleNav = () => setIsNavOpen(!isNavOpen);
+  const toggleNav = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsNavOpen(!isNavOpen);
+  };
 
   const handleNavClick = (event) => {
     event.preventDefault();
@@ -216,7 +228,7 @@ const Template2Portfolio = () => {
       closeSidebar();
     }
   };
-  
+
   const portfolioUrl = window.location.href;
   const openShareModal = () => setIsShareModalOpen(true);
   const closeShareModal = () => setIsShareModalOpen(false);
@@ -234,17 +246,13 @@ const Template2Portfolio = () => {
     printPortfolio(styles);
   };
 
-  const handleCloseButton = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Close button clicked');
-    closeSidebar();
-  };
 
   const handleOverlayClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    closeSidebar();
+    if (e.target === e.currentTarget) {
+      closeSidebar();
+    }
   };
 
   if (!portfolioData) {
@@ -277,6 +285,7 @@ const Template2Portfolio = () => {
               </div>
             </div>
             <button
+              ref={hamburgerRef}
               className={styles.template2HamburgerButton}
               onClick={toggleNav}
               aria-label="Toggle navigation menu"
@@ -302,18 +311,6 @@ const Template2Portfolio = () => {
             isMobile && isNavOpen ? styles.template2MobileSidebarOpen : ''
             }`}
         >
-
-          {isMobile && (
-            <button
-              className={styles.template2MobileCloseButton}
-              onClick={handleCloseButton}
-              onTouchEnd={handleCloseButton}
-              aria-label="Close menu"
-              type="button"
-            >
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
-          )}
 
           {(!isMobile || isNavOpen) && (
             <div className={styles.template2SidebarProfile}>
