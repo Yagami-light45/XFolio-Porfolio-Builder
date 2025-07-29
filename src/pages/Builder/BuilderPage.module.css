@@ -193,6 +193,9 @@
   border: 1px solid rgba(50, 50, 100, 0.5);
   margin-bottom: 2rem;
   transition: background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .lightMode .builderPageInputSection,
@@ -206,6 +209,28 @@
   position: sticky;
   top: 1.875rem;
   align-self: flex-start;
+}
+
+.lightMode .builderPageInputSection::-webkit-scrollbar-thumb,
+.lightMode .builderPagePreviewSection::-webkit-scrollbar-thumb {
+  background: rgba(0, 123, 255, 0.6);
+}
+
+.lightMode .builderPageInputSection::-webkit-scrollbar-thumb:hover,
+.lightMode .builderPagePreviewSection::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 123, 255, 0.8);
+}
+
+/* Firefox scrollbar styles */
+.builderPageInputSection,
+.builderPagePreviewSection {
+  scrollbar-width:thin;
+  scrollbar-color: rgba(140, 82, 255, 0.6) rgba(40, 40, 60, 0.3);
+}
+
+.lightMode .builderPageInputSection,
+.lightMode .builderPagePreviewSection {
+  scrollbar-color: rgba(0, 123, 255, 0.6) rgba(200, 200, 220, 0.3);
 }
 
 /* Form styles */
@@ -1051,6 +1076,7 @@ button:disabled {
     margin: 1.5rem 1rem 0 1rem;
     min-width: 0;
     margin-top: 1.5rem;
+    max-height: 70vh;
   }
   .builderPagePreviewSection {
     width: auto;
@@ -1058,11 +1084,15 @@ button:disabled {
     min-width: 0;
     position: static;
     align-self: initial;
+    max-height: 70vh;
   }
 }
 
 /* Mobiles */
 @media (max-width: 768px) {
+  .builderPageContainer{
+    margin-top :0rem; 
+  }
   .builderPageInputSection,
   .builderPagePreviewSection {
     padding: 1.5rem;
