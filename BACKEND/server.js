@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' ? 'https://your-production-url.vercel.app' : 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' ? 'https://x-folio-porfolio-builder.vercel.app' : 'http://localhost:3000',
   optionsSuccessStatus: 200
 };
 
