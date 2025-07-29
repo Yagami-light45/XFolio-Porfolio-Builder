@@ -26,6 +26,7 @@
   background-color: #f0f0f0; 
 }
 .templateSelectorTitle {
+    font-family: 'poppins', sans-serif;
     color: #1a202c;
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -83,6 +84,7 @@
 }
 
 .templateSelectorCardTitle {
+    font-family: 'Poppins', 'Helvetica Neue', 'Arial', sans-serif;
     color: #2d3748;
     font-size: 1.3rem;
     font-weight: 600;
