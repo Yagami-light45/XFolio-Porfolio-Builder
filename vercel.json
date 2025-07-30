@@ -10,7 +10,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://xfolio-portfolio-builder-2.onrender.com/api/$1"
+      "destination": "https://xfolio-porfolio-builder-2.onrender.com/api/$1"
     },
     {
       "source": "/(.*)",
