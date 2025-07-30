@@ -10,8 +10,10 @@ const { body, validationResult } = require('express-validator');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const cors = require('cors');
+
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' ? 'https://x-folio-porfolio-builder.vercel.app' : 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' ? 'https://x-folio-porfolio-builder.vercel.app/' : 'http://localhost:3000',
   optionsSuccessStatus: 200
 };
 
@@ -172,7 +174,7 @@ const startServer = async () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
   });
 };
-
+  console.log('NODE_ENV:', process.env.NODE_ENV);
 process.on('SIGINT', async () => {
   console.log('\n🔄 Shutting down server...');
   await mongoose.connection.close();

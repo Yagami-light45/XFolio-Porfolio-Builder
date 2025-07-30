@@ -2,29 +2,19 @@
   "version": 2,
   "builds": [
     {
-      "src": "BACKEND/server.js",
-      "use": "@vercel/node"
-    },
-    {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
+      "config": { "distDir": "build" }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "BACKEND/server.js"
+      "source": "/api/(.*)",
+      "destination": "https://xfolio-portfolio-builder-2.onrender.com/api/$1"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/build/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/build/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
