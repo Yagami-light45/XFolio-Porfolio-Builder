@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <strong>🔗 Live Demo:</strong> <em>Coming Soon...</em>
+  <strong>🔗 Live Demo:</strong> <a href="https://x-folio-porfolio-builder.vercel.app" target="_blank">x-folio-porfolio-builder.vercel.app</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ You can preview your site in real-time, share it with a QR code, and export the 
     * 📄 Download your visual portfolio as a *PDF* (via jsPDF).
     * 📝 *Download Resume:* Generate and download a classic, professional resume.
     * 🗂 Export as a static *ZIP* bundle for hosting anywhere (via jsZip).
-    * 🔗 *QR Code Sharing:* Instantly generate a QR code to share a link to your portfolio (via jsZip).
+    * 🔗 *QR Code Sharing:* Instantly generate a QR code to share a link to your portfolio (via qrcode).
 * *Persistent Storage:* Your data is securely stored in a MongoDB database.
 
 ---
@@ -53,13 +53,14 @@ You can preview your site in real-time, share it with a QR code, and export the 
 
 Our project uses the MERN stack along with other modern libraries to deliver a seamless user experience.
 
-| Purpose | Technology |
-| :--- | :--- |
-| *Frontend* | React.js, HTML5, CSS3 |
-| *Backend* | Node.js, Express |
-| *Database* | MongoDB (with Mongoose) |
-| *PDF & Resume Export* | jsPDF |
-| *ZIP Bundling & QR Sharing*| jsZip |
+| Purpose    | Technology                 |
+| :--------- | :------------------------- |
+| *Frontend* | React.js, HTML5, CSS3      |
+| *Backend* | Node.js, Express.js        |
+| *Database* | MongoDB (with Mongoose)    |
+| *PDF Export*| jsPDF                      |
+| *ZIP Bundling*| jsZip                    |
+| *QR Code* | qrcode                     |
 
 ---
 
@@ -77,27 +78,24 @@ Make sure you have Node.js and npm installed on your machine.
 1.  *Clone the Repository*
     ```bash
     git clone https://github.com/Yagami-light45/XFolio-Porfolio-Builder.git
-
-    cd Instant-Portfolio-Builder-Web-App
+    cd XFolio-Porfolio-Builder
     
 
-2.  *Setup the Backend*
+2.  *Setup the Frontend*
+    ```bash
+    npm install
+    
+
+3.  *Setup the Backend*
     ```bash
     cd backend
-
     npm install
     
-    Create a .env file in the backend directory and add your environment variables:
-    env
-    MONGO_URI=your_mongodb_connection_string
-    PORT=5000
-    
+  * Create a .env file in the backend directory and add your environment variables:
 
-3.  *Setup the Frontend*
-    ```bash
-    cd ..
-
-    npm install
+      ```bash
+      MONGO_URI=your_mongodb_connection_string
+      PORT=5000
     
 
 4.  *Run the Development Servers*
@@ -126,17 +124,3 @@ This project was developed by a passionate team of developers under the guidance
 
 ---
 
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are *greatly appreciated*.
-
-Found a bug or have a feature request? Please *[open an issue](https://github.com/Yagami-light45/Instant-Portfolio-Builder-Web-App/issues)* to discuss it.
-
-If you wish to contribute code:
-1.  *Fork* the Project
-2.  Create your Feature Branch (git checkout -b feature/AmazingFeature)
-3.  Commit your Changes (git commit -m 'Add some AmazingFeature')
-4.  Push to the Branch (git push origin feature/AmazingFeature)
-5.  Open a *Pull Request*
-
-Don't forget to give the project a star! Thanks again!
