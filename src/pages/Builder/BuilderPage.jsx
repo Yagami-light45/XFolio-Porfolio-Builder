@@ -559,7 +559,9 @@ const BuilderPage = () => {
 
       <div className={styles.builderPageContainer}>
         <div className={styles.builderPageInputSection}>
-          <h2>Enter Your Details</h2>
+          <div className={styles.builderPageSectionHeader}>
+            <h2>Enter Your Details</h2>
+          </div>
           <form onSubmit={handleSubmit}>
             <FormGroup 
               label="Your Name:" 
@@ -716,7 +718,9 @@ const BuilderPage = () => {
         </div>
 
         <div className={styles.builderPagePreviewSection}>
-          <h2>Live Preview</h2>
+          <div className={styles.builderPageSectionHeader}>
+            <h2>Live Preview</h2>
+          </div>
           <div className={styles.builderPagePortfolioCard}>
             <div className={styles.builderPagePreviewHeader}>
               <img src={formData.image || "/placeholder.png"} alt="Profile pic here" className={styles.builderPageProfileImage} />
