@@ -1495,10 +1495,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export const generateStaticBundle = async (portfolioData) => {
   const zip = new JSZip();
-  // Create a mutable copy of the portfolio data to avoid altering the original object
   const bundledData = { ...portfolioData };
 
-  // Only attempt to fetch and bundle the image if a URL is provided
   if (portfolioData.image) {
     try {
       const response = await fetch(portfolioData.image);

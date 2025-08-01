@@ -924,7 +924,12 @@ const generateCSS = () => {
   .template3NavLinks.template3Active {
     display: flex;
   }
-  
+  .template3DarkMode .template3NavLinks {
+  background: rgba(45, 45, 45, 0.95);
+  }
+  .template3DarkMode .template3NavLinks li {
+  border-bottom: 1px solid #555;
+  }
   .template3NavLinks ul {
     flex-direction: column;
     gap: 0;

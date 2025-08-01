@@ -22,16 +22,16 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 
-// --- MongoDB Connection ---
+// MongoDB Connection 
 const connectDB = async () => {
   try {
     if (!process.env.MONGODB_URI) {
       throw new Error("MONGODB_URI is not defined in .env file");
     }
     await mongoose.connect(process.env.MONGODB_URI);
-    console.log('✅ Database connected successfully');
+    console.log('Database connected successfully');
   } catch (error) {
-    console.error('❌ Database connection failed:', error.message);
+    console.error(' Database connection failed:', error.message);
     process.exit(1); 
   }
 };
@@ -175,7 +175,7 @@ const startServer = async () => {
 };
   console.log('NODE_ENV:', process.env.NODE_ENV);
 process.on('SIGINT', async () => {
-  console.log('\n🔄 Shutting down server...');
+  console.log('\n Shutting down server...');
   await mongoose.connection.close();
   process.exit(0);
 });
